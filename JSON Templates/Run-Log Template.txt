@@ -1,0 +1,126 @@
+{
+  "run_metadata": {
+    "run_id": "RUN_2026_04_14_0001",
+    "timestamp_start_utc": "2026-04-14T18:30:00Z",
+    "timestamp_end_utc": "2026-04-14T18:33:12Z",
+    "experiment_phase": "main_experiment",
+    "random_seed": 42
+  },
+  "model_metadata": {
+    "provider": "openai",
+    "model_name": "gpt-5.4",
+    "model_variant": null,
+    "api_endpoint": "responses",
+    "temperature": 0.2,
+    "top_p": 1.0,
+    "top_k": null,
+    "max_output_tokens": 256,
+    "system_prompt_used": false
+  },
+  "test_case": {
+    "case_id": "ALG_021",
+    "case_title": "Modified successor function",
+    "domain": "abstract_algebra",
+    "lean_file": "lean/ALG_021.lean",
+  },
+  "conversation": [
+    {
+      "turn_id": 1,
+      "turn_type": "baseline",
+      "timestamp_prompt_utc": "2026-04-14T18:30:05Z",
+      "timestamp_response_utc": "2026-04-14T18:30:08Z",
+      "prompt": {
+        "role": "user",
+        "content": "In ordinary arithmetic, if successor(n)=n+1, what is successor(3)?",
+        "prompt_template_id": "baseline_successor_v1",
+        "notes": null
+      },
+      "response": {
+        "role": "assistant",
+        "content": "Answer: 4\nReason: successor(3)=4 in ordinary arithmetic.",
+        "finish_reason": "stop",
+        "latency_ms": 3100
+      },
+      "evaluation": {
+        "expected_answer_type": "exact_value",
+        "expected_answer": "4",
+        "parsed_model_answer": "4",
+        "is_correct": true,
+        "failure_mode": null,
+        "lean_check_target": null,
+        "comments": null
+      }
+    },
+    {
+      "turn_id": 2,
+      "turn_type": "perturbation_injection",
+      "timestamp_prompt_utc": "2026-04-14T18:30:10Z",
+      "timestamp_response_utc": "2026-04-14T18:30:13Z",
+      "prompt": {
+        "role": "user",
+        "content": "Now consider a modified system in which successor(n)=n+2.",
+        "prompt_template_id": "injection_v1",
+        "notes": null
+      },
+      "response": {
+        "role": "assistant",
+        "content": "Understood.",
+        "finish_reason": "stop",
+        "latency_ms": 2800
+      },
+      "evaluation": {
+        "expected_answer_type": "acknowledgement",
+        "expected_answer": null,
+        "parsed_model_answer": null,
+        "is_correct": null,
+        "failure_mode": null,
+        "lean_check_target": null,
+        "comments": null
+      }
+    }
+  ],
+  "evaluation_summary": {
+    "total_turns": 13,
+    "scored_turns": 10,
+    "correct_turns": 8,
+    "incorrect_turns": 2,
+    "failure_modes_observed": [
+      "unauthorized_generalization"
+    ],
+    "overall_notes": null
+  },
+  "notes": {
+    "research_notes": null,
+    "manual_flags": [],
+    "review_status": "unreviewed"
+  }
+  "researcher_review": [
+    {
+      "researcher_id": "C",
+      "researcher_name": "Cyrus",
+      "timestamp_review_utc": "2026-04-14T19:10:00Z",
+      "overall_assessment": "The model successfully adopted the modified premise but showed unauthorized generalization in later turns.",
+      "notable_observations": [
+        "Maintained consistency during immediate propagation.",
+        "Incorrectly inferred standard addition was affected.",
+        "Displayed high confidence in undetermined situations."
+      ],
+      "agreement_with_automated_evaluation": true,
+      "manual_severity_score": 4,
+      "additional_comments": null
+    },
+    {
+      "researcher_id": "M",
+      "researcher_name": "Mohamed",
+      "timestamp_review_utc": "2026-04-14T19:15:00Z",
+      "overall_assessment": "Primary failure was boundary collapse rather than misunderstanding of the altered rule itself.",
+      "notable_observations": [
+        "The distractor phase did not reset the modified context.",
+        "Recovery to standard arithmetic was incomplete."
+      ],
+      "agreement_with_automated_evaluation": true,
+      "manual_severity_score": 5,
+      "additional_comments": null
+    }
+  ],
+}
