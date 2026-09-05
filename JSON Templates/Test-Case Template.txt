@@ -3,12 +3,15 @@
     "case_id": "ALG_021",
     "case_title": "Modified Successor Function",
     "domain": "abstract_algebra",
-    "created_by": ["C"],
-    "reviewed_by": ["E"],
+    "created_by": [
+      "C"
+    ],
+    "reviewed_by": [
+      "E"
+    ],
     "creation_timestamp_utc": "2026-04-15T12:00:00Z",
     "protocol_version": "v1.0"
   },
-
   "formal_artifacts": {
     "lean_file": "lean/ALG_021.lean",
     "oracle_theorems": [
@@ -21,7 +24,6 @@
       "recovery_check"
     ]
   },
-
   "system_instruction": {
     "turn_id": 0,
     "purpose": "Standardize format and epistemic discipline.",
@@ -29,9 +31,9 @@
       "content_raw": "You are reasoning inside a modified formal system. Use only the definitions given in the conversation. Do not import unstated standard properties. If something is not fully determined from the definitions, answer \"cannot be determined\". Give a direct answer and at most one short justification sentence.",
       "content_format": "plain"
     },
-    "expected_answer": null
+    "expected_answer": null,
+    "references": null
   },
-
   "conversation_framework": [
     {
       "turn_id": 1,
@@ -45,9 +47,19 @@
       "expected_answer": {
         "answer_type": "exact_value",
         "value": "4"
-      }
+      },
+      "references": [
+        {
+          "reference_id": "REF-001",
+          "citation": "Replace with source supporting the standard successor definition.",
+          "identifier": {
+            "type": "doi",
+            "value": "10.1000/example"
+          }
+          "locator": null
+        }
+      ]
     },
-
     {
       "turn_id": 2,
       "phase": "standard_world_baseline",
@@ -60,9 +72,28 @@
       "expected_answer": {
         "answer_type": "exact_value",
         "value": "4"
-      }
+      },
+      "references": [
+        {
+          "reference_id": "REF-001",
+          "citation": "Replace with source supporting the standard successor definition.",
+          "identifier": {
+            "type": "url",
+            "value": "https://example.invalid/source"
+          },
+          "locator": null
+        },
+        {
+          "reference_id": "REF-002",
+          "citation": "Replace with source supporting the recursive definition of addition.",
+          "identifier": {
+            "type": "isbn",
+            "value": "978-0-00-000000-0"
+          },
+          "locator": null
+        }
+      ]
     },
-
     {
       "turn_id": 3,
       "phase": "structural_perturbation_injection",
@@ -72,9 +103,9 @@
         "content_raw": "Now consider a modified arithmetic system in which\n\n$$successor(n) = n + 2$$",
         "content_format": "mixed"
       },
-      "expected_answer": null
+      "expected_answer": null,
+      "references": null
     },
-
     {
       "turn_id": 4,
       "phase": "structural_perturbation_injection",
@@ -87,9 +118,9 @@
       "expected_answer": {
         "answer_type": "exact_value",
         "value": "5"
-      }
+      },
+      "references": null
     },
-
     {
       "turn_id": 5,
       "phase": "rebuilding_the_system",
@@ -102,9 +133,9 @@
       "expected_answer": {
         "answer_type": "exact_value",
         "value": "6"
-      }
+      },
+      "references": null
     },
-
     {
       "turn_id": 6,
       "phase": "rebuilding_the_system",
@@ -117,9 +148,9 @@
       "expected_answer": {
         "answer_type": "exact_value",
         "value": "7"
-      }
+      },
+      "references": null
     },
-
     {
       "turn_id": 7,
       "phase": "structural_consequence_testing",
@@ -132,9 +163,9 @@
       "expected_answer": {
         "answer_type": "exact_value",
         "value": "2"
-      }
+      },
+      "references": null
     },
-
     {
       "turn_id": 8,
       "phase": "structural_consequence_testing",
@@ -147,9 +178,9 @@
       "expected_answer": {
         "answer_type": "undetermined",
         "value": "cannot be determined"
-      }
+      },
+      "references": null
     },
-
     {
       "turn_id": 9,
       "phase": "distractor",
@@ -162,9 +193,9 @@
       "expected_answer": {
         "answer_type": "exact_value",
         "value": "Tokyo"
-      }
+      },
+      "references": null
     },
-
     {
       "turn_id": 10,
       "phase": "distractor",
@@ -177,9 +208,9 @@
       "expected_answer": {
         "answer_type": "exact_value",
         "value": "100"
-      }
+      },
+      "references": null
     },
-
     {
       "turn_id": 11,
       "phase": "distractor",
@@ -192,9 +223,9 @@
       "expected_answer": {
         "answer_type": "exact_value",
         "value": "William Shakespeare"
-      }
+      },
+      "references": null
     },
-
     {
       "turn_id": 12,
       "phase": "persistence_after_distraction",
@@ -207,9 +238,9 @@
       "expected_answer": {
         "answer_type": "exact_value",
         "value": "6"
-      }
+      },
+      "references": null
     },
-
     {
       "turn_id": 13,
       "phase": "persistence_after_distraction",
@@ -222,9 +253,9 @@
       "expected_answer": {
         "answer_type": "exact_value",
         "value": "6"
-      }
+      },
+      "references": null
     },
-
     {
       "turn_id": 14,
       "phase": "boundary_meta_reasoning",
@@ -237,9 +268,9 @@
       "expected_answer": {
         "answer_type": "semantic_statement",
         "value": "Only in the modified system."
-      }
+      },
+      "references": null
     },
-
     {
       "turn_id": 15,
       "phase": "boundary_meta_reasoning",
@@ -252,7 +283,8 @@
       "expected_answer": {
         "answer_type": "exact_value",
         "value": "4"
-      }
+      },
+      "references": null
     }
   ]
 }
