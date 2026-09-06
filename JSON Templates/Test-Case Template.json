@@ -1,34 +1,39 @@
 {
   "case_metadata": {
-    "case_id": "ALG_021",
+    "case_id": "Sample Test-Case",
     "case_title": "Modified Successor Function",
     "domain": "abstract_algebra",
     "created_by": [
-      "C"
+      "Koorosh Nobakhtfar"
     ],
-    "reviewed_by": [
-      "E"
-    ],
-    "creation_timestamp_utc": "2026-04-15T12:00:00Z",
-    "protocol_version": "v1.0"
+    "reviewed_by": [],
+    "creation_timestamp_utc": "2026-04-15T12:00:00Z"
   },
   "formal_artifacts": {
-    "lean_file": "lean/ALG_021.lean",
+    "lean_file": "lean/sample.lean",
     "oracle_theorems": [
       "baseline_successor",
       "baseline_addition",
       "modified_successor",
-      "modified_addition",
-      "persistence_check",
-      "boundary_check",
-      "recovery_check"
+      "modified_successor_nested",
+      "modified_addition_base",
+      "modified_addition_step",
+      "modified_addition_multistep",
+      "predecessor_underdetermined",
+      "modified_successor_increment",
+      "persistence_successor",
+      "persistence_modified_addition",
+      "boundary_world_distinction",
+      "recovery_standard_addition"
     ]
   },
   "system_instruction": {
     "turn_id": 0,
-    "purpose": "Standardize format and epistemic discipline.",
+    "phase": "system_initialization",
+    "turn_type": "system_instruction",
+    "purpose": "Standardize response format, epistemic restraint, and separation between standard and modified formal systems.",
     "prompt": {
-      "content_raw": "You are reasoning inside a modified formal system. Use only the definitions given in the conversation. Do not import unstated standard properties. If something is not fully determined from the definitions, answer \"cannot be determined\". Give a direct answer and at most one short justification sentence.",
+      "content_raw": "You are reasoning inside a modified formal system. Use only the definitions given in the conversation. Do not import unstated standard properties. If something is not fully determined from the definitions, answer 'cannot be determined'. Give a direct answer and at most one short justification sentence. In addition you may be asked to perform operations in standard mathematical formal systems as well. Maintain a clear separation of the modified formal system and the standard mathematical formal system and avoid combining them.",
       "content_format": "plain"
     },
     "expected_answer": null,
@@ -39,10 +44,10 @@
       "turn_id": 1,
       "phase": "standard_world_baseline",
       "turn_type": "standard_rule_baseline",
-      "purpose": "Confirm ordinary competence before perturbation.",
+      "purpose": "Verify baseline correctness before introducing the perturbation.",
       "prompt": {
-        "content_raw": "In ordinary arithmetic, if successor(n) = n + 1, what is successor(3)?",
-        "content_format": "plain"
+        "content_raw": "In ordinary arithmetic, if $$successor(n) = n + 1$$, what is $$successor(3)$$?",
+        "content_format": "mixed"
       },
       "expected_answer": {
         "answer_type": "exact_value",
@@ -51,7 +56,7 @@
       "references": [
         {
           "reference_id": "REF-001",
-          "citation": "Replace with source supporting the standard successor definition.",
+          "citation": "Replace with a source supporting the standard successor relation used in this prompt.",
           "identifier": {
             "type": "doi",
             "value": "10.1000/example"
@@ -64,9 +69,9 @@
       "turn_id": 2,
       "phase": "standard_world_baseline",
       "turn_type": "standard_derived_operation_baseline",
-      "purpose": "Confirm model knows the ordinary consequence chain.",
+      "purpose": "Validate standard chain-of-deduction capability before introducing the perturbation.",
       "prompt": {
-        "content_raw": "In ordinary arithmetic, if addition is defined recursively by\n\n$$a + 0 = a$$\n$$a + successor(b) = successor(a + b)$$\n\nwhat is $$2 + 2$$?",
+        "content_raw": "In ordinary arithmetic, if addition is defined recursively by\n\n$$a + 0 = a$$\n\n$$a + successor(b) = successor(a + b)$$\n\nwhat is $$2 + 2$$?",
         "content_format": "mixed"
       },
       "expected_answer": {
@@ -75,17 +80,8 @@
       },
       "references": [
         {
-          "reference_id": "REF-001",
-          "citation": "Replace with source supporting the standard successor definition.",
-          "identifier": {
-            "type": "url",
-            "value": "https://example.invalid/source"
-          },
-          "locator": null
-        },
-        {
           "reference_id": "REF-002",
-          "citation": "Replace with source supporting the recursive definition of addition.",
+          "citation": "Replace with a source supporting the recursive definition of addition used in this prompt.",
           "identifier": {
             "type": "isbn",
             "value": "978-0-00-000000-0"
@@ -97,22 +93,10 @@
     {
       "turn_id": 3,
       "phase": "structural_perturbation_injection",
-      "turn_type": "new_foundational_rule",
-      "purpose": "Replace core axiom/definition.",
+      "turn_type": "rule_modification_and_application",
+      "purpose": "Introduce the structural perturbation and test immediate adoption of the modified rule.",
       "prompt": {
-        "content_raw": "Now consider a modified arithmetic system in which\n\n$$successor(n) = n + 2$$",
-        "content_format": "mixed"
-      },
-      "expected_answer": null,
-      "references": null
-    },
-    {
-      "turn_id": 4,
-      "phase": "structural_perturbation_injection",
-      "turn_type": "immediate_rule_application",
-      "purpose": "Check adoption of the new world.",
-      "prompt": {
-        "content_raw": "In this modified system, what is $$successor(3)$$?",
+        "content_raw": "Now consider a modified arithmetic system in which\n\n$$successor(n) = n + 2$$\n\nIn this modified system, what is $$successor(3)$$?",
         "content_format": "mixed"
       },
       "expected_answer": {
@@ -122,43 +106,28 @@
       "references": null
     },
     {
+      "turn_id": 4,
+      "phase": "structural_perturbation_injection",
+      "turn_type": "repeated_rule_application",
+      "purpose": "Validate repeated application of the modified rule.",
+      "prompt": {
+        "content_raw": "In this modified system, what is $$successor(successor(10))$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "exact_value",
+        "value": "14"
+      },
+      "references": null
+    },
+    {
       "turn_id": 5,
-      "phase": "rebuilding_the_system",
-      "turn_type": "define_derived_operation",
-      "purpose": "Force the model to use the new foundation instead of importing old addition.",
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "derived_operation_reconstruction_and_base-case_application",
+      "purpose": "Define the derived operation under the modified rule and verify its base-case.",
       "prompt": {
-        "content_raw": "In this modified system, addition is recursively defined by\n\n$$a ⊞ 0 = a$$\n$$a ⊞ successor(b) = successor(a ⊞ b)$$\n\nWhat is $$2 ⊞ 2$$?",
+        "content_raw": "In this modified system, addition $$\\boxplus$$ is defined recursively by\n\n$$a \\boxplus 0 = a$$\n\n$$a \\boxplus successor(b) = successor(a \\boxplus b)$$\n\nWhat is $$2 \\boxplus 0$$?",
         "content_format": "mixed"
-      },
-      "expected_answer": {
-        "answer_type": "exact_value",
-        "value": "6"
-      },
-      "references": null
-    },
-    {
-      "turn_id": 6,
-      "phase": "rebuilding_the_system",
-      "turn_type": "multi_step_propagation",
-      "purpose": "Measure rule-consistent reasoning depth.",
-      "prompt": {
-        "content_raw": "In the same system, what is $$1 ⊞ 3$$?",
-        "content_format": "mixed"
-      },
-      "expected_answer": {
-        "answer_type": "exact_value",
-        "value": "7"
-      },
-      "references": null
-    },
-    {
-      "turn_id": 7,
-      "phase": "structural_consequence_testing",
-      "turn_type": "higher_order_implication",
-      "purpose": "Check whether the model recognizes deeper implications.",
-      "prompt": {
-        "content_raw": "In this modified system, does each application of successor increase a number by 1 or by 2?",
-        "content_format": "plain"
       },
       "expected_answer": {
         "answer_type": "exact_value",
@@ -167,13 +136,43 @@
       "references": null
     },
     {
-      "turn_id": 8,
-      "phase": "structural_consequence_testing",
-      "turn_type": "underdetermination_probe",
-      "purpose": "Detect hallucinated structure.",
+      "turn_id": 6,
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "single-step_derived_rule_application",
+      "purpose": "Validate a single application of a derived rule under the modified axiom.",
       "prompt": {
-        "content_raw": "In this modified system, what is predecessor(7)?",
-        "content_format": "plain"
+        "content_raw": "In this modified system, what is $$2 \\boxplus 2$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "exact_value",
+        "value": "4"
+      },
+      "references": null
+    },
+    {
+      "turn_id": 7,
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "multi-step_derived_rule_application",
+      "purpose": "Validate repeated application of a derived rule under the modified axiom.",
+      "prompt": {
+        "content_raw": "In this modified system, what is $$1 \\boxplus 4$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "exact_value",
+        "value": "5"
+      },
+      "references": null
+    },
+    {
+      "turn_id": 8,
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "derived_rule_underdetermination",
+      "purpose": "Tests whether the model recognizes when the supplied derived rule is insufficient to determine a result.",
+      "prompt": {
+        "content_raw": "In this modified system, what is $$1 \\boxplus 3$$?",
+        "content_format": "mixed"
       },
       "expected_answer": {
         "answer_type": "undetermined",
@@ -183,9 +182,39 @@
     },
     {
       "turn_id": 9,
-      "phase": "distractor",
-      "turn_type": "distraction_1",
-      "purpose": "Interrupt working context.",
+      "phase": "testing_indirect_consequences",
+      "turn_type": "missing_definition_probe",
+      "purpose": "Detect hallucinated completion of a rule that has not been defined.",
+      "prompt": {
+        "content_raw": "In this modified system, what is $$predecessor(7)$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "undetermined",
+        "value": "cannot be determined"
+      },
+      "references": null
+    },
+    {
+      "turn_id": 10,
+      "phase": "testing_indirect_consequences",
+      "turn_type": "higher_level_implication_test",
+      "purpose": "Check whether the model has internalized the structural consequence of the modified successor rule.",
+      "prompt": {
+        "content_raw": "In this modified system, does each application of the successor function increase a number by $$1$$ or by $$2$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "exact_value",
+        "value": "2"
+      },
+      "references": null
+    },
+    {
+      "turn_id": 11,
+      "phase": "content_distraction",
+      "turn_type": "distraction_1_general_knowledge",
+      "purpose": "Interrupt the immediate mathematical context with an unrelated general-knowledge question.",
       "prompt": {
         "content_raw": "What is the capital of Japan?",
         "content_format": "plain"
@@ -197,10 +226,10 @@
       "references": null
     },
     {
-      "turn_id": 10,
-      "phase": "distractor",
-      "turn_type": "distraction_2",
-      "purpose": "Interrupt working context.",
+      "turn_id": 12,
+      "phase": "content_distraction",
+      "turn_type": "distraction_2_scientific_fact",
+      "purpose": "Continue contextual displacement with an unrelated scientific fact.",
       "prompt": {
         "content_raw": "What is the boiling point of water at sea level in degrees Celsius?",
         "content_format": "plain"
@@ -212,10 +241,10 @@
       "references": null
     },
     {
-      "turn_id": 11,
-      "phase": "distractor",
+      "turn_id": 13,
+      "phase": "content_distraction_literary_history",
       "turn_type": "distraction_3",
-      "purpose": "Interrupt working context.",
+      "purpose": "Complete the distraction sequence with an unrelated literary-history question.",
       "prompt": {
         "content_raw": "Who wrote Romeo and Juliet?",
         "content_format": "plain"
@@ -227,12 +256,12 @@
       "references": null
     },
     {
-      "turn_id": 12,
+      "turn_id": 14,
       "phase": "persistence_after_distraction",
       "turn_type": "return_to_altered_structure",
-      "purpose": "Measure persistence of the structural world model.",
+      "purpose": "Measure retention of the modified foundational rule after the distraction sequence.",
       "prompt": {
-        "content_raw": "In the modified system, what is $$successor(4)$$?",
+        "content_raw": "In the modified system mentioned before, what is $$successor(4)$$?",
         "content_format": "mixed"
       },
       "expected_answer": {
@@ -242,28 +271,28 @@
       "references": null
     },
     {
-      "turn_id": 13,
+      "turn_id": 15,
       "phase": "persistence_after_distraction",
-      "turn_type": "delayed_derived_operation",
-      "purpose": "Test whether deeper consequences survive the distractor.",
+      "turn_type": "delayed_derived_rule_test",
+      "purpose": "Tests whether the model's downstream derivation paths survived the distraction phase.",
       "prompt": {
-        "content_raw": "In the modified system, what is $$2 ⊞ 2$$?",
+        "content_raw": "In the modified system, what is $$6 \\boxplus 6$$?",
         "content_format": "mixed"
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "6"
+        "value": "12"
       },
       "references": null
     },
     {
-      "turn_id": 14,
-      "phase": "boundary_meta_reasoning",
+      "turn_id": 16,
+      "phase": "boundary_isolation_and_meta_reasoning",
       "turn_type": "world_distinction_test",
-      "purpose": "Check whether the model distinguishes modified arithmetic from ordinary arithmetic.",
+      "purpose": "Forces a choice between the baseline knowledge and the modified context.",
       "prompt": {
-        "content_raw": "Is the statement \"2 + 2 = 4\" false in ordinary arithmetic, or only false in the modified system?",
-        "content_format": "plain"
+        "content_raw": "Does the statement $$successor(3) = 5$$ hold in ordinary arithmetic, in the modified system, or in both?",
+        "content_format": "mixed"
       },
       "expected_answer": {
         "answer_type": "semantic_statement",
@@ -272,12 +301,12 @@
       "references": null
     },
     {
-      "turn_id": 15,
-      "phase": "boundary_meta_reasoning",
+      "turn_id": 17,
+      "phase": "boundary_isolation_and_meta_reasoning",
       "turn_type": "recovery_test",
-      "purpose": "Check whether the model can re-enter the original world when explicitly asked.",
+      "purpose": "Check whether the model can cleanly return to ordinary arithmetic after reasoning in the modified system.",
       "prompt": {
-        "content_raw": "Return to ordinary arithmetic. What is $$2 + 2$$?",
+        "content_raw": "Return to ordinary arithmetic. What is $$1 + 3$$?",
         "content_format": "mixed"
       },
       "expected_answer": {
