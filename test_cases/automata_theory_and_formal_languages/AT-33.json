@@ -1,0 +1,287 @@
+{
+  "case_metadata": {
+    "case_id": "AT-33",
+    "case_title": "Two distinguishable states declared equivalent",
+    "domain": "automata_theory_and_formal_languages",
+    "created_by": [
+      "Koorosh Nobakhtfar"
+    ],
+    "reviewed_by": [],
+    "creation_timestamp_utc": "2026-09-08T07:31:00Z"
+  },
+  "formal_artifacts": {
+    "lean_file": "lean/AT-33.lean",
+    "oracle_theorems": [
+      "at_33_turn_01_oracle",
+      "at_33_turn_02_oracle",
+      "at_33_turn_03_oracle",
+      "at_33_turn_04_oracle",
+      "at_33_turn_05_oracle",
+      "at_33_turn_06_oracle",
+      "at_33_turn_07_oracle",
+      "at_33_turn_08_oracle",
+      "at_33_turn_09_oracle",
+      "at_33_turn_10_oracle",
+      "at_33_turn_11_oracle",
+      "at_33_turn_12_oracle",
+      "at_33_turn_13_oracle",
+      "at_33_turn_14_oracle",
+      "at_33_turn_15_oracle",
+      "at_33_turn_16_oracle"
+    ]
+  },
+  "system_instruction": {
+    "turn_id": 0,
+    "phase": "system_initialization",
+    "turn_type": "system_instruction",
+    "purpose": "Standardize response format, epistemic restraint, and separation between standard and modified formal systems.",
+    "prompt": {
+      "content_raw": "Use the standard definitions and rules when a question specifies the standard system. In the modified system, use only the definitions, premises, and background operations explicitly supplied for that system; do not import unstated standard properties. Keep the two systems separate, including when the same notation is used in both. Treat each question as a query, not as an additional premise; explicitly stipulated facts persist within their system. Give a direct answer followed by at most one short justification sentence. If the supplied information does not logically determine the requested answer, respond exactly 'cannot be determined', with no justification or other text.",
+      "content_format": "plain"
+    },
+    "expected_answer": null,
+    "references": null
+  },
+  "conversation_framework": [
+    {
+      "turn_id": 1,
+      "phase": "standard_world_baseline",
+      "turn_type": "standard_rule_baseline",
+      "purpose": "Verify competence with the standard foundational rule before modification.",
+      "prompt": {
+        "content_raw": "In an ordinary DFA, are two states equivalent only if no input suffix distinguishes their acceptance behavior?",
+        "content_format": "plain"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 2,
+      "phase": "standard_world_baseline",
+      "turn_type": "standard_derived_rule_baseline",
+      "purpose": "Verify competence with the corresponding standard derived rule before modification.",
+      "prompt": {
+        "content_raw": "In the standard DFA let $$\\delta(q_1,a)=q_f$$ and $$\\delta(q_2,a)=q_r$$, with $$q_f$$ accepting and $$q_r$$ rejecting. Define $$Well(q,r,w)\\iff(q\\sim r\\Rightarrow\\delta^*(q,w)\\sim\\delta^*(r,w))$$ using ordinary behavioral equivalence. Does $$Well(q_1,q_2,a)$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 3,
+      "phase": "structural_perturbation_injection",
+      "turn_type": "rule_modification_and_application",
+      "purpose": "Test adoption of the modified version of the foundational rule established in Turn 1.",
+      "prompt": {
+        "content_raw": "Now retain ordinary transitions and acceptance but use an equivalence relation $$\\sim$$ unrelated to behavior. Stipulate $$q_1\\sim q_2$$, $$q_f\\not\\sim q_r$$, $$\\delta(q_f,b)=u$$, $$\\delta(q_r,b)=v$$, and $$u\\not\\sim v$$. The transitions on $$c$$ are total but unconstrained. Does $$q_1\\sim q_2$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 4,
+      "phase": "structural_perturbation_injection",
+      "turn_type": "standard_rule_rejection_test",
+      "purpose": "Verify rejection of the superseded standard rule within the modified system.",
+      "prompt": {
+        "content_raw": "In the modified system, does the standard distinguishability criterion force $$q_1\\not\\sim q_2$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 5,
+      "phase": "structural_perturbation_injection",
+      "turn_type": "repeated_rule_application",
+      "purpose": "Verify repeated application of the modified foundational rule.",
+      "prompt": {
+        "content_raw": "In the modified system, does $$\\delta^*(q_1,ab)\\sim\\delta^*(q_2,ab)$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 6,
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "derived_rule_reconstruction_and_base_case_application",
+      "purpose": "Reconstruct the derived rule established in Turn 2 under the modified foundational rule and verify its base case.",
+      "prompt": {
+        "content_raw": "In the modified system reconstruct $$Well(q,r,w)\\iff(q\\sim r\\Rightarrow\\delta^*(q,w)\\sim\\delta^*(r,w))$$ with ordinary extended transitions. Does $$Well(q_1,q_2,\\varepsilon)$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 7,
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "single_step_derived_rule_application",
+      "purpose": "Verify single-step propagation through the reconstructed derived rule.",
+      "prompt": {
+        "content_raw": "In the modified system, does $$Well(q_1,q_2,a)$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 8,
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "multi_step_derived_rule_application",
+      "purpose": "Verify multi-step propagation through the reconstructed derived rule.",
+      "prompt": {
+        "content_raw": "In the modified system, does $$Well(q_1,q_2,ab)$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 9,
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "derived_rule_underdetermination",
+      "purpose": "Detect underdetermination within the supplied derived rule.",
+      "prompt": {
+        "content_raw": "In the modified system, does $$Well(q_1,q_2,c)$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "undetermined",
+        "value": "cannot be determined"
+      },
+      "references": null
+    },
+    {
+      "turn_id": 10,
+      "phase": "testing_indirect_consequences",
+      "turn_type": "missing_definition_probe",
+      "purpose": "Detect hallucinated completion of an undefined rule or operation.",
+      "prompt": {
+        "content_raw": "In the modified system, what does $$minimize(\\mathcal A)$$ return?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "undetermined",
+        "value": "cannot be determined"
+      },
+      "references": null
+    },
+    {
+      "turn_id": 11,
+      "phase": "testing_indirect_consequences",
+      "turn_type": "higher_level_implication_test",
+      "purpose": "Verify recognition of higher-level consequences of the modified foundational rule.",
+      "prompt": {
+        "content_raw": "In this modified system, can states with distinguishable behavior nevertheless be declared equivalent?",
+        "content_format": "plain"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 12,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "world_distinction_test",
+      "purpose": "Verify explicit separation between the standard and modified formal systems.",
+      "prompt": {
+        "content_raw": "Does the statement $$q_1\\sim q_2$$ hold under standard DFA equivalence, in the modified system, or in both?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Only in the modified system."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 13,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "parallel_world_evaluation",
+      "purpose": "Verify simultaneous reasoning under distinct standard and modified rule sets.",
+      "prompt": {
+        "content_raw": "Are $$q_1$$ and $$q_2$$ equivalent in the standard DFA, and are they equivalent in the modified system?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No in the standard system and yes in the modified system."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 14,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "standard_rule_recovery",
+      "purpose": "Detect residual contamination of the standard foundational rule after modified-system reasoning.",
+      "prompt": {
+        "content_raw": "Return to standard DFA equivalence. If suffix $$a$$ distinguishes $$q_1$$ and $$q_2$$, are they equivalent?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 15,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "standard_derived_rule_recovery",
+      "purpose": "Verify recovery of the corresponding standard derived rule after modified-system reasoning.",
+      "prompt": {
+        "content_raw": "Still using standard behavioral equivalence, does $$Well(q_1,q_2,ab)$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 16,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "modified_system_re_entry",
+      "purpose": "Verify bidirectional switching by re-entering the modified system after standard recovery.",
+      "prompt": {
+        "content_raw": "Return to the modified system. Does $$q_1\\sim q_2$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    }
+  ]
+}

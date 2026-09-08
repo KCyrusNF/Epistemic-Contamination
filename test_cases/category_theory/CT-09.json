@@ -1,0 +1,287 @@
+{
+  "case_metadata": {
+    "case_id": "CT-09",
+    "case_title": "Composite morphism lands in wrong codomain for one pair",
+    "domain": "category_theory",
+    "created_by": [
+      "Koorosh Nobakhtfar"
+    ],
+    "reviewed_by": [],
+    "creation_timestamp_utc": "2026-09-08T07:31:00Z"
+  },
+  "formal_artifacts": {
+    "lean_file": "lean/CT-09.lean",
+    "oracle_theorems": [
+      "ct_09_turn_01_oracle",
+      "ct_09_turn_02_oracle",
+      "ct_09_turn_03_oracle",
+      "ct_09_turn_04_oracle",
+      "ct_09_turn_05_oracle",
+      "ct_09_turn_06_oracle",
+      "ct_09_turn_07_oracle",
+      "ct_09_turn_08_oracle",
+      "ct_09_turn_09_oracle",
+      "ct_09_turn_10_oracle",
+      "ct_09_turn_11_oracle",
+      "ct_09_turn_12_oracle",
+      "ct_09_turn_13_oracle",
+      "ct_09_turn_14_oracle",
+      "ct_09_turn_15_oracle",
+      "ct_09_turn_16_oracle"
+    ]
+  },
+  "system_instruction": {
+    "turn_id": 0,
+    "phase": "system_initialization",
+    "turn_type": "system_instruction",
+    "purpose": "Standardize response format, epistemic restraint, and separation between standard and modified formal systems.",
+    "prompt": {
+      "content_raw": "Use the standard definitions and rules when a question specifies the standard system. In the modified system, use only the definitions, premises, and background operations explicitly supplied for that system; do not import unstated standard properties. Keep the two systems separate, including when the same notation is used in both. Treat each question as a query, not as an additional premise; explicitly stipulated facts persist within their system. Give a direct answer followed by at most one short justification sentence. If the supplied information does not logically determine the requested answer, respond exactly 'cannot be determined', with no justification or other text.",
+      "content_format": "plain"
+    },
+    "expected_answer": null,
+    "references": null
+  },
+  "conversation_framework": [
+    {
+      "turn_id": 1,
+      "phase": "standard_world_baseline",
+      "turn_type": "standard_rule_baseline",
+      "purpose": "Verify competence with the standard foundational rule before modification.",
+      "prompt": {
+        "content_raw": "In an ordinary category, if $$f:A\\to B$$ and $$g:B\\to C$$, what is the codomain of $$g\\circ f$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "exact_value",
+        "value": "C"
+      },
+      "references": null
+    },
+    {
+      "turn_id": 2,
+      "phase": "standard_world_baseline",
+      "turn_type": "standard_derived_rule_baseline",
+      "purpose": "Verify competence with the corresponding standard derived rule before modification.",
+      "prompt": {
+        "content_raw": "In an ordinary category, let $$h:C\\to D$$. Define $$K([f])=cod(f)$$ and $$K([f,g,\\ldots])=cod(P([f,g,\\ldots]))$$, where $$P$$ successively composes each next arrow on the left. What is $$K([f,g,h])$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "exact_value",
+        "value": "D"
+      },
+      "references": null
+    },
+    {
+      "turn_id": 3,
+      "phase": "structural_perturbation_injection",
+      "turn_type": "rule_modification_and_application",
+      "purpose": "Test adoption of the modified version of the foundational rule established in Turn 1.",
+      "prompt": {
+        "content_raw": "Now use an untyped set of arrow records with source and codomain fields, and a total composition operation on records whose source-target behavior is constrained only by the supplied equations. Keep $$f:A\\to B$$ and $$g:B\\to C$$, but stipulate $$g\\circ f=t:A\\to D$$ with $$D\\neq C$$. Also let $$h:D\\to E$$ and stipulate $$h\\circ t=u:A\\to E$$. What is $$cod(g\\circ f)$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "exact_value",
+        "value": "D"
+      },
+      "references": null
+    },
+    {
+      "turn_id": 4,
+      "phase": "structural_perturbation_injection",
+      "turn_type": "standard_rule_rejection_test",
+      "purpose": "Verify rejection of the superseded standard rule within the modified system.",
+      "prompt": {
+        "content_raw": "In the modified system, does $$g\\circ f$$ have codomain $$C$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 5,
+      "phase": "structural_perturbation_injection",
+      "turn_type": "repeated_rule_application",
+      "purpose": "Verify repeated application of the modified foundational rule.",
+      "prompt": {
+        "content_raw": "In the modified system, suppose $$h:D\\to E$$. What is the codomain of $$h\\circ(g\\circ f)$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "exact_value",
+        "value": "E"
+      },
+      "references": null
+    },
+    {
+      "turn_id": 6,
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "derived_rule_reconstruction_and_base_case_application",
+      "purpose": "Reconstruct the derived rule established in Turn 2 under the modified foundational rule and verify its base case.",
+      "prompt": {
+        "content_raw": "In the modified system, reconstruct $$K(w)=cod(P(w))$$ for nonempty paths, with $$P([f])=f$$ and successive composition of each next arrow on the left. What is $$K([f])$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "exact_value",
+        "value": "B"
+      },
+      "references": null
+    },
+    {
+      "turn_id": 7,
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "single_step_derived_rule_application",
+      "purpose": "Verify single-step propagation through the reconstructed derived rule.",
+      "prompt": {
+        "content_raw": "In this modified system, what is $$K([f,g])$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "exact_value",
+        "value": "D"
+      },
+      "references": null
+    },
+    {
+      "turn_id": 8,
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "multi_step_derived_rule_application",
+      "purpose": "Verify multi-step propagation through the reconstructed derived rule.",
+      "prompt": {
+        "content_raw": "In this modified system, what is $$K([f,g,h])$$ given $$h:D\\to E$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "exact_value",
+        "value": "E"
+      },
+      "references": null
+    },
+    {
+      "turn_id": 9,
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "derived_rule_underdetermination",
+      "purpose": "Detect underdetermination within the supplied derived rule.",
+      "prompt": {
+        "content_raw": "In the modified system, what is $$K([f,r])$$ for another arrow $$r:B\\to X$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "undetermined",
+        "value": "cannot be determined"
+      },
+      "references": null
+    },
+    {
+      "turn_id": 10,
+      "phase": "testing_indirect_consequences",
+      "turn_type": "missing_definition_probe",
+      "purpose": "Detect hallucinated completion of an undefined rule or operation.",
+      "prompt": {
+        "content_raw": "In this modified system, what is $$kernel(f)$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "undetermined",
+        "value": "cannot be determined"
+      },
+      "references": null
+    },
+    {
+      "turn_id": 11,
+      "phase": "testing_indirect_consequences",
+      "turn_type": "higher_level_implication_test",
+      "purpose": "Verify recognition of higher-level consequences of the modified foundational rule.",
+      "prompt": {
+        "content_raw": "In this modified system, can the codomain of a composite differ from the codomain of the second morphism?",
+        "content_format": "plain"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 12,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "world_distinction_test",
+      "purpose": "Verify explicit separation between the standard and modified formal systems.",
+      "prompt": {
+        "content_raw": "Does the statement $$cod(g\\circ f)=C$$ hold in ordinary category theory, in the modified system, or in both?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Only in the standard system."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 13,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "parallel_world_evaluation",
+      "purpose": "Verify simultaneous reasoning under distinct standard and modified rule sets.",
+      "prompt": {
+        "content_raw": "What is $$cod(g\\circ f)$$ in ordinary category theory, and what is it in the modified system?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "C in the standard system and D in the modified system."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 14,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "standard_rule_recovery",
+      "purpose": "Detect residual contamination of the standard foundational rule after modified-system reasoning.",
+      "prompt": {
+        "content_raw": "Return to ordinary category theory. What is $$cod(g\\circ f)$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "exact_value",
+        "value": "C"
+      },
+      "references": null
+    },
+    {
+      "turn_id": 15,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "standard_derived_rule_recovery",
+      "purpose": "Verify recovery of the corresponding standard derived rule after modified-system reasoning.",
+      "prompt": {
+        "content_raw": "Still using the standard category and its arrow $$h:C\\to D$$, what is $$K([f,g,h])$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "exact_value",
+        "value": "D"
+      },
+      "references": null
+    },
+    {
+      "turn_id": 16,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "modified_system_re_entry",
+      "purpose": "Verify bidirectional switching by re-entering the modified system after standard recovery.",
+      "prompt": {
+        "content_raw": "Return to the modified system. What is $$cod(g\\circ f)$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "exact_value",
+        "value": "D"
+      },
+      "references": null
+    }
+  ]
+}

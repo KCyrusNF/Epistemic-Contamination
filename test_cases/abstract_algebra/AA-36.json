@@ -1,0 +1,287 @@
+{
+  "case_metadata": {
+    "case_id": "AA-36",
+    "case_title": "Left distributive only",
+    "domain": "abstract_algebra",
+    "created_by": [
+      "Koorosh Nobakhtfar"
+    ],
+    "reviewed_by": [],
+    "creation_timestamp_utc": "2026-09-08T07:31:00Z"
+  },
+  "formal_artifacts": {
+    "lean_file": "lean/AA-36.lean",
+    "oracle_theorems": [
+      "aa_36_turn_01_oracle",
+      "aa_36_turn_02_oracle",
+      "aa_36_turn_03_oracle",
+      "aa_36_turn_04_oracle",
+      "aa_36_turn_05_oracle",
+      "aa_36_turn_06_oracle",
+      "aa_36_turn_07_oracle",
+      "aa_36_turn_08_oracle",
+      "aa_36_turn_09_oracle",
+      "aa_36_turn_10_oracle",
+      "aa_36_turn_11_oracle",
+      "aa_36_turn_12_oracle",
+      "aa_36_turn_13_oracle",
+      "aa_36_turn_14_oracle",
+      "aa_36_turn_15_oracle",
+      "aa_36_turn_16_oracle"
+    ]
+  },
+  "system_instruction": {
+    "turn_id": 0,
+    "phase": "system_initialization",
+    "turn_type": "system_instruction",
+    "purpose": "Standardize response format, epistemic restraint, and separation between standard and modified formal systems.",
+    "prompt": {
+      "content_raw": "Use the standard definitions and rules when a question specifies the standard system. In the modified system, use only the definitions, premises, and background operations explicitly supplied for that system; do not import unstated standard properties. Keep the two systems separate, including when the same notation is used in both. Treat each question as a query, not as an additional premise; explicitly stipulated facts persist within their system. Give a direct answer followed by at most one short justification sentence. If the supplied information does not logically determine the requested answer, respond exactly 'cannot be determined', with no justification or other text.",
+      "content_format": "plain"
+    },
+    "expected_answer": null,
+    "references": null
+  },
+  "conversation_framework": [
+    {
+      "turn_id": 1,
+      "phase": "standard_world_baseline",
+      "turn_type": "standard_rule_baseline",
+      "purpose": "Verify competence with the standard foundational rule before modification.",
+      "prompt": {
+        "content_raw": "In a standard ring, does right distributivity give $$(x+y)\\cdot z=x\\cdot z+y\\cdot z$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 2,
+      "phase": "standard_world_baseline",
+      "turn_type": "standard_derived_rule_baseline",
+      "purpose": "Verify competence with the corresponding standard derived rule before modification.",
+      "prompt": {
+        "content_raw": "In a standard ring define $$E(x,y,z)=(x+y)\\cdot z$$. Does $$E(x+y,z,w)=(x\\cdot w+y\\cdot w)+z\\cdot w$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 3,
+      "phase": "structural_perturbation_injection",
+      "turn_type": "rule_modification_and_application",
+      "purpose": "Test adoption of the modified version of the foundational rule established in Turn 1.",
+      "prompt": {
+        "content_raw": "Now use two total operations $$+$$ and $$\\cdot$$ on a carrier containing $$a,b,c,p,q$$. Addition is associative, and left distributivity holds universally. Stipulate $$(a+b)\\cdot c=p$$ and $$a\\cdot c+b\\cdot c=q$$ with $$p\\neq q$$. No right-distributivity law is imposed. Does right distributivity hold for $$(a,b,c)$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 4,
+      "phase": "structural_perturbation_injection",
+      "turn_type": "standard_rule_rejection_test",
+      "purpose": "Verify rejection of the superseded standard rule within the modified system.",
+      "prompt": {
+        "content_raw": "In the modified system, does $$(a+b)\\cdot c=a\\cdot c+b\\cdot c$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 5,
+      "phase": "structural_perturbation_injection",
+      "turn_type": "repeated_rule_application",
+      "purpose": "Verify repeated application of the modified foundational rule.",
+      "prompt": {
+        "content_raw": "In the modified system, does $$a\\cdot((b+c)+a)=(a\\cdot b+a\\cdot c)+a\\cdot a$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 6,
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "derived_rule_reconstruction_and_base_case_application",
+      "purpose": "Reconstruct the derived rule established in Turn 2 under the modified foundational rule and verify its base case.",
+      "prompt": {
+        "content_raw": "In the modified system, reconstruct $$E(x,y,z)=(x+y)\\cdot z$$. Does $$E(a,b,c)=p$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 7,
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "single_step_derived_rule_application",
+      "purpose": "Verify single-step propagation through the reconstructed derived rule.",
+      "prompt": {
+        "content_raw": "In the modified system, does $$E(a,b,c)=a\\cdot c+b\\cdot c$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 8,
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "multi_step_derived_rule_application",
+      "purpose": "Verify multi-step propagation through the reconstructed derived rule.",
+      "prompt": {
+        "content_raw": "In the modified system, does $$E(a,b,c+c)=p+p$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 9,
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "derived_rule_underdetermination",
+      "purpose": "Detect underdetermination within the supplied derived rule.",
+      "prompt": {
+        "content_raw": "In the modified system, does $$E(b,c,a)=b\\cdot a+c\\cdot a$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "undetermined",
+        "value": "cannot be determined"
+      },
+      "references": null
+    },
+    {
+      "turn_id": 10,
+      "phase": "testing_indirect_consequences",
+      "turn_type": "missing_definition_probe",
+      "purpose": "Detect hallucinated completion of an undefined rule or operation.",
+      "prompt": {
+        "content_raw": "In this modified system, what is $$inverse_{\\cdot}(a)$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "undetermined",
+        "value": "cannot be determined"
+      },
+      "references": null
+    },
+    {
+      "turn_id": 11,
+      "phase": "testing_indirect_consequences",
+      "turn_type": "higher_level_implication_test",
+      "purpose": "Verify recognition of higher-level consequences of the modified foundational rule.",
+      "prompt": {
+        "content_raw": "In this modified system, are left and right distributivity both guaranteed?",
+        "content_format": "plain"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 12,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "world_distinction_test",
+      "purpose": "Verify explicit separation between the standard and modified formal systems.",
+      "prompt": {
+        "content_raw": "Does the statement $$(a+b)\\cdot c=a\\cdot c+b\\cdot c$$ hold in the standard system, in the modified system, or in both?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Only in the standard system."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 13,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "parallel_world_evaluation",
+      "purpose": "Verify simultaneous reasoning under distinct standard and modified rule sets.",
+      "prompt": {
+        "content_raw": "Does right distributivity hold for $$(a,b,c)$$ in the standard system, and does it hold in the modified system?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes in the standard system and no in the modified system."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 14,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "standard_rule_recovery",
+      "purpose": "Detect residual contamination of the standard foundational rule after modified-system reasoning.",
+      "prompt": {
+        "content_raw": "Return to the standard system. Does $$(a+b)\\cdot c=a\\cdot c+b\\cdot c$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 15,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "standard_derived_rule_recovery",
+      "purpose": "Verify recovery of the corresponding standard derived rule after modified-system reasoning.",
+      "prompt": {
+        "content_raw": "Still using a standard ring, does $$E(x+y,z,w)=(x\\cdot w+y\\cdot w)+z\\cdot w$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 16,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "modified_system_re_entry",
+      "purpose": "Verify bidirectional switching by re-entering the modified system after standard recovery.",
+      "prompt": {
+        "content_raw": "Return to the modified system. Does $$(a+b)\\cdot c=a\\cdot c+b\\cdot c$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No."
+      },
+      "references": null
+    }
+  ]
+}

@@ -1,0 +1,287 @@
+{
+  "case_metadata": {
+    "case_id": "AT-26",
+    "case_title": "Concatenation construction loses one intermediate accept path",
+    "domain": "automata_theory_and_formal_languages",
+    "created_by": [
+      "Koorosh Nobakhtfar"
+    ],
+    "reviewed_by": [],
+    "creation_timestamp_utc": "2026-09-08T07:31:00Z"
+  },
+  "formal_artifacts": {
+    "lean_file": "lean/AT-26.lean",
+    "oracle_theorems": [
+      "at_26_turn_01_oracle",
+      "at_26_turn_02_oracle",
+      "at_26_turn_03_oracle",
+      "at_26_turn_04_oracle",
+      "at_26_turn_05_oracle",
+      "at_26_turn_06_oracle",
+      "at_26_turn_07_oracle",
+      "at_26_turn_08_oracle",
+      "at_26_turn_09_oracle",
+      "at_26_turn_10_oracle",
+      "at_26_turn_11_oracle",
+      "at_26_turn_12_oracle",
+      "at_26_turn_13_oracle",
+      "at_26_turn_14_oracle",
+      "at_26_turn_15_oracle",
+      "at_26_turn_16_oracle"
+    ]
+  },
+  "system_instruction": {
+    "turn_id": 0,
+    "phase": "system_initialization",
+    "turn_type": "system_instruction",
+    "purpose": "Standardize response format, epistemic restraint, and separation between standard and modified formal systems.",
+    "prompt": {
+      "content_raw": "Use the standard definitions and rules when a question specifies the standard system. In the modified system, use only the definitions, premises, and background operations explicitly supplied for that system; do not import unstated standard properties. Keep the two systems separate, including when the same notation is used in both. Treat each question as a query, not as an additional premise; explicitly stipulated facts persist within their system. Give a direct answer followed by at most one short justification sentence. If the supplied information does not logically determine the requested answer, respond exactly 'cannot be determined', with no justification or other text.",
+      "content_format": "plain"
+    },
+    "expected_answer": null,
+    "references": null
+  },
+  "conversation_framework": [
+    {
+      "turn_id": 1,
+      "phase": "standard_world_baseline",
+      "turn_type": "standard_rule_baseline",
+      "purpose": "Verify competence with the standard foundational rule before modification.",
+      "prompt": {
+        "content_raw": "In the standard NFA construction for language concatenation, is every accepting state of the first automaton connected by an $$\\varepsilon$$-transition to the start state of the second automaton?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 2,
+      "phase": "standard_world_baseline",
+      "turn_type": "standard_derived_rule_baseline",
+      "purpose": "Verify competence with the corresponding standard derived rule before modification.",
+      "prompt": {
+        "content_raw": "In the standard concatenation construction, let $$R(P,w)$$ be the states reachable in the second automaton by taking a bridge from some first-automaton accepting state in $$P$$ and reading $$w$$. Its start is $$s_2$$, with $$s_2\\xrightarrow{a}t\\xrightarrow{b}u$$. For an accepting state $$f_2$$, does $$u\\in R(\\{f_2\\},ab)$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 3,
+      "phase": "structural_perturbation_injection",
+      "turn_type": "rule_modification_and_application",
+      "purpose": "Test adoption of the modified version of the foundational rule established in Turn 1.",
+      "prompt": {
+        "content_raw": "Now retain the second automaton and give the first automaton accepting states $$f_1,f_2,f_3$$. The sole possible cross-automaton edge from each is its epsilon bridge to $$s_2$$. The bridge from $$f_1$$ is present and that from $$f_2$$ absent; bridge status for $$f_3$$ is unconstrained. If a prefix reaches only $$f_2$$, can a bridge enter the second automaton?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 4,
+      "phase": "structural_perturbation_injection",
+      "turn_type": "standard_rule_rejection_test",
+      "purpose": "Verify rejection of the superseded standard rule within the modified system.",
+      "prompt": {
+        "content_raw": "In the modified system, does the standard concatenation link exist from $$f_2$$ to $$s_2$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 5,
+      "phase": "structural_perturbation_injection",
+      "turn_type": "repeated_rule_application",
+      "purpose": "Verify repeated application of the modified foundational rule.",
+      "prompt": {
+        "content_raw": "In the modified system, starting at $$f_1$$, can the bridge followed by the $$a$$- and $$b$$-steps reach $$u$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 6,
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "derived_rule_reconstruction_and_base_case_application",
+      "purpose": "Reconstruct the derived rule established in Turn 2 under the modified foundational rule and verify its base case.",
+      "prompt": {
+        "content_raw": "In the modified system reconstruct $$R(P,\\varepsilon)$$ as the second-start states reached by present bridges from $$P$$, and $$R(P,wx)=\\bigcup_{q\\in R(P,w)}\\delta_2(q,x)$$. Does $$s_2\\in R(\\{f_1\\},\\varepsilon)$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 7,
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "single_step_derived_rule_application",
+      "purpose": "Verify single-step propagation through the reconstructed derived rule.",
+      "prompt": {
+        "content_raw": "In the modified system, does $$s_2\\in R(\\{f_2\\},\\varepsilon)$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 8,
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "multi_step_derived_rule_application",
+      "purpose": "Verify multi-step propagation through the reconstructed derived rule.",
+      "prompt": {
+        "content_raw": "In the modified system, does $$u\\in R(\\{f_2\\},ab)$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 9,
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "derived_rule_underdetermination",
+      "purpose": "Detect underdetermination within the supplied derived rule.",
+      "prompt": {
+        "content_raw": "In the modified system, does $$s_2\\in R(\\{f_3\\},\\varepsilon)$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "undetermined",
+        "value": "cannot be determined"
+      },
+      "references": null
+    },
+    {
+      "turn_id": 10,
+      "phase": "testing_indirect_consequences",
+      "turn_type": "missing_definition_probe",
+      "purpose": "Detect hallucinated completion of an undefined rule or operation.",
+      "prompt": {
+        "content_raw": "In the modified system, what does $$minimize(\\mathcal A)$$ return for the concatenation automaton?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "undetermined",
+        "value": "cannot be determined"
+      },
+      "references": null
+    },
+    {
+      "turn_id": 11,
+      "phase": "testing_indirect_consequences",
+      "turn_type": "higher_level_implication_test",
+      "purpose": "Verify recognition of higher-level consequences of the modified foundational rule.",
+      "prompt": {
+        "content_raw": "In this modified system, can a valid intermediate accepting path be lost during concatenation construction?",
+        "content_format": "plain"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 12,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "world_distinction_test",
+      "purpose": "Verify explicit separation between the standard and modified formal systems.",
+      "prompt": {
+        "content_raw": "Does every first-automaton accept state receive a bridge in the standard concatenation construction, in the modified system, or in both?",
+        "content_format": "plain"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Only in the standard system."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 13,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "parallel_world_evaluation",
+      "purpose": "Verify simultaneous reasoning under distinct standard and modified rule sets.",
+      "prompt": {
+        "content_raw": "Is a path through $$f_2$$ bridged in the standard construction, and is it bridged in the modified system?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes in the standard system and no in the modified system."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 14,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "standard_rule_recovery",
+      "purpose": "Detect residual contamination of the standard foundational rule after modified-system reasoning.",
+      "prompt": {
+        "content_raw": "Return to the standard concatenation construction. Does $$f_2$$ have an epsilon link to $$s_2$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 15,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "standard_derived_rule_recovery",
+      "purpose": "Verify recovery of the corresponding standard derived rule after modified-system reasoning.",
+      "prompt": {
+        "content_raw": "Still using the standard construction, does $$u\\in R(\\{f_2\\},ab)$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 16,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "modified_system_re_entry",
+      "purpose": "Verify bidirectional switching by re-entering the modified system after standard recovery.",
+      "prompt": {
+        "content_raw": "Return to the modified system. Is the bridge from $$f_2$$ to $$s_2$$ present?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No."
+      },
+      "references": null
+    }
+  ]
+}

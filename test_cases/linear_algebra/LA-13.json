@@ -1,0 +1,287 @@
+{
+  "case_metadata": {
+    "case_id": "LA-13",
+    "case_title": "Scalar multiplication not associative with field multiplication",
+    "domain": "linear_algebra",
+    "created_by": [
+      "Koorosh Nobakhtfar"
+    ],
+    "reviewed_by": [],
+    "creation_timestamp_utc": "2026-09-08T07:31:00Z"
+  },
+  "formal_artifacts": {
+    "lean_file": "lean/LA-13.lean",
+    "oracle_theorems": [
+      "la_13_turn_01_oracle",
+      "la_13_turn_02_oracle",
+      "la_13_turn_03_oracle",
+      "la_13_turn_04_oracle",
+      "la_13_turn_05_oracle",
+      "la_13_turn_06_oracle",
+      "la_13_turn_07_oracle",
+      "la_13_turn_08_oracle",
+      "la_13_turn_09_oracle",
+      "la_13_turn_10_oracle",
+      "la_13_turn_11_oracle",
+      "la_13_turn_12_oracle",
+      "la_13_turn_13_oracle",
+      "la_13_turn_14_oracle",
+      "la_13_turn_15_oracle",
+      "la_13_turn_16_oracle"
+    ]
+  },
+  "system_instruction": {
+    "turn_id": 0,
+    "phase": "system_initialization",
+    "turn_type": "system_instruction",
+    "purpose": "Standardize response format, epistemic restraint, and separation between standard and modified formal systems.",
+    "prompt": {
+      "content_raw": "Use the standard definitions and rules when a question specifies the standard system. In the modified system, use only the definitions, premises, and background operations explicitly supplied for that system; do not import unstated standard properties. Keep the two systems separate, including when the same notation is used in both. Treat each question as a query, not as an additional premise; explicitly stipulated facts persist within their system. Give a direct answer followed by at most one short justification sentence. If the supplied information does not logically determine the requested answer, respond exactly 'cannot be determined', with no justification or other text.",
+      "content_format": "plain"
+    },
+    "expected_answer": null,
+    "references": null
+  },
+  "conversation_framework": [
+    {
+      "turn_id": 1,
+      "phase": "standard_world_baseline",
+      "turn_type": "standard_rule_baseline",
+      "purpose": "Verify competence with the standard foundational rule before modification.",
+      "prompt": {
+        "content_raw": "In an ordinary vector space, does scalar multiplication satisfy $$(ab)v=a(bv)$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 2,
+      "phase": "standard_world_baseline",
+      "turn_type": "standard_derived_rule_baseline",
+      "purpose": "Verify competence with the corresponding standard derived rule before modification.",
+      "prompt": {
+        "content_raw": "In an ordinary vector space define $$E([],x)=x$$ and $$E(L+[a],x)=a\\cdot E(L,x)$$, applying scalars in list order. Does $$E([3,2,4],v)=24\\cdot v$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 3,
+      "phase": "structural_perturbation_injection",
+      "turn_type": "rule_modification_and_application",
+      "purpose": "Test adoption of the modified version of the foundational rule established in Turn 1.",
+      "prompt": {
+        "content_raw": "Now use ordinary rational scalars acting by an otherwise unconstrained total operation on vector labels. Stipulate $$3\\cdot v=t$$, $$2\\cdot t=w$$, $$6\\cdot v=u$$ with $$u\\neq w$$, and $$4\\cdot w=p$$, $$24\\cdot v=q$$ with $$p\\neq q$$. Scalar-scalar multiplication remains ordinary. Does scalar associativity hold for $$(2,3,v)$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 4,
+      "phase": "structural_perturbation_injection",
+      "turn_type": "standard_rule_rejection_test",
+      "purpose": "Verify rejection of the superseded standard rule within the modified system.",
+      "prompt": {
+        "content_raw": "In the modified system, does $$(2\\cdot3)\\cdot v=2\\cdot(3\\cdot v)$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 5,
+      "phase": "structural_perturbation_injection",
+      "turn_type": "repeated_rule_application",
+      "purpose": "Verify repeated application of the modified foundational rule.",
+      "prompt": {
+        "content_raw": "In the modified system, does $$4\\cdot(2\\cdot(3\\cdot v))=24\\cdot v$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 6,
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "derived_rule_reconstruction_and_base_case_application",
+      "purpose": "Reconstruct the derived rule established in Turn 2 under the modified foundational rule and verify its base case.",
+      "prompt": {
+        "content_raw": "In the modified system reconstruct $$E([],x)=x$$ and $$E(L+[a],x)=a\\cdot E(L,x)$$. Does $$E([],v)=v$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 7,
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "single_step_derived_rule_application",
+      "purpose": "Verify single-step propagation through the reconstructed derived rule.",
+      "prompt": {
+        "content_raw": "In the modified system, does $$E([3,2],v)=6\\cdot v$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 8,
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "multi_step_derived_rule_application",
+      "purpose": "Verify multi-step propagation through the reconstructed derived rule.",
+      "prompt": {
+        "content_raw": "In the modified system, does $$E([3,2,4],v)=24\\cdot v$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 9,
+      "phase": "downstream_rule_reconstruction",
+      "turn_type": "derived_rule_underdetermination",
+      "purpose": "Detect underdetermination within the supplied derived rule.",
+      "prompt": {
+        "content_raw": "In the modified system, does $$E([5,4],v)=20\\cdot v$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "undetermined",
+        "value": "cannot be determined"
+      },
+      "references": null
+    },
+    {
+      "turn_id": 10,
+      "phase": "testing_indirect_consequences",
+      "turn_type": "missing_definition_probe",
+      "purpose": "Detect hallucinated completion of an undefined rule or operation.",
+      "prompt": {
+        "content_raw": "In this modified system, what is $$\\|v\\|$$?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "undetermined",
+        "value": "cannot be determined"
+      },
+      "references": null
+    },
+    {
+      "turn_id": 11,
+      "phase": "testing_indirect_consequences",
+      "turn_type": "higher_level_implication_test",
+      "purpose": "Verify recognition of higher-level consequences of the modified foundational rule.",
+      "prompt": {
+        "content_raw": "In this modified system, is scalar multiplication associative with field multiplication for every scalar pair?",
+        "content_format": "plain"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 12,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "world_distinction_test",
+      "purpose": "Verify explicit separation between the standard and modified formal systems.",
+      "prompt": {
+        "content_raw": "Does $$(ab)v=a(bv)$$ hold in an ordinary vector space, in the modified system, or in both?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Only in the standard system."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 13,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "parallel_world_evaluation",
+      "purpose": "Verify simultaneous reasoning under distinct standard and modified rule sets.",
+      "prompt": {
+        "content_raw": "Does scalar associativity hold for $$(2,3,v)$$ in the standard system, and does it hold in the modified system?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes in the standard system and no in the modified system."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 14,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "standard_rule_recovery",
+      "purpose": "Detect residual contamination of the standard foundational rule after modified-system reasoning.",
+      "prompt": {
+        "content_raw": "Return to ordinary linear algebra. Does $$(2\\cdot3)\\cdot v=2\\cdot(3\\cdot v)$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 15,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "standard_derived_rule_recovery",
+      "purpose": "Verify recovery of the corresponding standard derived rule after modified-system reasoning.",
+      "prompt": {
+        "content_raw": "Still using ordinary linear algebra, does $$E([3,2,4],v)=24\\cdot v$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "Yes."
+      },
+      "references": null
+    },
+    {
+      "turn_id": 16,
+      "phase": "boundary_isolation_and_meta_reasoning",
+      "turn_type": "modified_system_re_entry",
+      "purpose": "Verify bidirectional switching by re-entering the modified system after standard recovery.",
+      "prompt": {
+        "content_raw": "Return to the modified system. Does $$6\\cdot v=2\\cdot(3\\cdot v)$$ hold?",
+        "content_format": "mixed"
+      },
+      "expected_answer": {
+        "answer_type": "semantic_statement",
+        "value": "No."
+      },
+      "references": null
+    }
+  ]
+}
