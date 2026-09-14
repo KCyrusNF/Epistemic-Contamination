@@ -36,7 +36,7 @@
     "turn_type": "system_instruction",
     "purpose": "Standardize response format, epistemic restraint, and separation between standard and modified formal systems.",
     "prompt": {
-      "content_raw": "You are reasoning inside a modified formal system. Use only the definitions given in the conversation. Do not import unstated standard properties. If something is not fully determined from the definitions, answer 'cannot be determined'. Give a direct answer and at most one short justification sentence. In addition you may be asked to perform operations in standard mathematical formal systems as well. Maintain a clear separation of the modified formal system and the standard mathematical formal system and avoid combining them.",
+      "content_raw": "Answer each question using the specified formal system. In the standard system, use standard definitions and rules. In the modified system, use only explicitly supplied definitions, rules, premises, and background operations and their logical consequences; do not import unstated standard properties. Keep the systems separate, even when they share notation, and evaluate each independently when both are requested. Retain explicitly supplied definitions and premises within their stated scope throughout the conversation unless revised or withdrawn. Give a direct answer followed by at most one short justification sentence. Enclose all mathematical expressions and symbols in LaTeX using $$...$$; only standalone numbers may omit the delimiters. Preserve conventional notation unless explicitly redefined. If the answer is underdetermined, begin with the exact text 'cannot be determined', followed by one short sentence explaining why.",
       "content_format": "plain"
     },
     "expected_answer": null,
