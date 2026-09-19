@@ -1,0 +1,367 @@
+{
+  "created": "2026-09-18",
+  "author": "Koorosh Nobakhtfar",
+  "case_count": 60,
+  "cases": [
+    {
+      "case_id": "AA-01",
+      "definition": "test_cases/abstract_algebra/AA-01.json",
+      "lean_source": "lean/oracles/abstract_algebra/AA-01.lean",
+      "axiom_audit": "lean/audits/abstract_algebra/AA-01.lean"
+    },
+    {
+      "case_id": "AA-06",
+      "definition": "test_cases/abstract_algebra/AA-06.json",
+      "lean_source": "lean/oracles/abstract_algebra/AA-06.lean",
+      "axiom_audit": "lean/audits/abstract_algebra/AA-06.lean"
+    },
+    {
+      "case_id": "AA-11",
+      "definition": "test_cases/abstract_algebra/AA-11.json",
+      "lean_source": "lean/oracles/abstract_algebra/AA-11.lean",
+      "axiom_audit": "lean/audits/abstract_algebra/AA-11.lean"
+    },
+    {
+      "case_id": "AA-18",
+      "definition": "test_cases/abstract_algebra/AA-18.json",
+      "lean_source": "lean/oracles/abstract_algebra/AA-18.lean",
+      "axiom_audit": "lean/audits/abstract_algebra/AA-18.lean"
+    },
+    {
+      "case_id": "AA-21",
+      "definition": "test_cases/abstract_algebra/AA-21.json",
+      "lean_source": "lean/oracles/abstract_algebra/AA-21.lean",
+      "axiom_audit": "lean/audits/abstract_algebra/AA-21.lean"
+    },
+    {
+      "case_id": "AA-27",
+      "definition": "test_cases/abstract_algebra/AA-27.json",
+      "lean_source": "lean/oracles/abstract_algebra/AA-27.lean",
+      "axiom_audit": "lean/audits/abstract_algebra/AA-27.lean"
+    },
+    {
+      "case_id": "AA-36",
+      "definition": "test_cases/abstract_algebra/AA-36.json",
+      "lean_source": "lean/oracles/abstract_algebra/AA-36.lean",
+      "axiom_audit": "lean/audits/abstract_algebra/AA-36.lean"
+    },
+    {
+      "case_id": "AA-41",
+      "definition": "test_cases/abstract_algebra/AA-41.json",
+      "lean_source": "lean/oracles/abstract_algebra/AA-41.lean",
+      "axiom_audit": "lean/audits/abstract_algebra/AA-41.lean"
+    },
+    {
+      "case_id": "AA-46",
+      "definition": "test_cases/abstract_algebra/AA-46.json",
+      "lean_source": "lean/oracles/abstract_algebra/AA-46.lean",
+      "axiom_audit": "lean/audits/abstract_algebra/AA-46.lean"
+    },
+    {
+      "case_id": "AA-59",
+      "definition": "test_cases/abstract_algebra/AA-59.json",
+      "lean_source": "lean/oracles/abstract_algebra/AA-59.lean",
+      "axiom_audit": "lean/audits/abstract_algebra/AA-59.lean"
+    },
+    {
+      "case_id": "AT-03",
+      "definition": "test_cases/automata_theory_and_formal_languages/AT-03.json",
+      "lean_source": "lean/oracles/automata_theory_and_formal_languages/AT-03.lean",
+      "axiom_audit": "lean/audits/automata_theory_and_formal_languages/AT-03.lean"
+    },
+    {
+      "case_id": "AT-14",
+      "definition": "test_cases/automata_theory_and_formal_languages/AT-14.json",
+      "lean_source": "lean/oracles/automata_theory_and_formal_languages/AT-14.lean",
+      "axiom_audit": "lean/audits/automata_theory_and_formal_languages/AT-14.lean"
+    },
+    {
+      "case_id": "AT-17",
+      "definition": "test_cases/automata_theory_and_formal_languages/AT-17.json",
+      "lean_source": "lean/oracles/automata_theory_and_formal_languages/AT-17.lean",
+      "axiom_audit": "lean/audits/automata_theory_and_formal_languages/AT-17.lean"
+    },
+    {
+      "case_id": "AT-22",
+      "definition": "test_cases/automata_theory_and_formal_languages/AT-22.json",
+      "lean_source": "lean/oracles/automata_theory_and_formal_languages/AT-22.lean",
+      "axiom_audit": "lean/audits/automata_theory_and_formal_languages/AT-22.lean"
+    },
+    {
+      "case_id": "AT-26",
+      "definition": "test_cases/automata_theory_and_formal_languages/AT-26.json",
+      "lean_source": "lean/oracles/automata_theory_and_formal_languages/AT-26.lean",
+      "axiom_audit": "lean/audits/automata_theory_and_formal_languages/AT-26.lean"
+    },
+    {
+      "case_id": "AT-27",
+      "definition": "test_cases/automata_theory_and_formal_languages/AT-27.json",
+      "lean_source": "lean/oracles/automata_theory_and_formal_languages/AT-27.lean",
+      "axiom_audit": "lean/audits/automata_theory_and_formal_languages/AT-27.lean"
+    },
+    {
+      "case_id": "AT-33",
+      "definition": "test_cases/automata_theory_and_formal_languages/AT-33.json",
+      "lean_source": "lean/oracles/automata_theory_and_formal_languages/AT-33.lean",
+      "axiom_audit": "lean/audits/automata_theory_and_formal_languages/AT-33.lean"
+    },
+    {
+      "case_id": "AT-42",
+      "definition": "test_cases/automata_theory_and_formal_languages/AT-42.json",
+      "lean_source": "lean/oracles/automata_theory_and_formal_languages/AT-42.lean",
+      "axiom_audit": "lean/audits/automata_theory_and_formal_languages/AT-42.lean"
+    },
+    {
+      "case_id": "AT-54",
+      "definition": "test_cases/automata_theory_and_formal_languages/AT-54.json",
+      "lean_source": "lean/oracles/automata_theory_and_formal_languages/AT-54.lean",
+      "axiom_audit": "lean/audits/automata_theory_and_formal_languages/AT-54.lean"
+    },
+    {
+      "case_id": "AT-58",
+      "definition": "test_cases/automata_theory_and_formal_languages/AT-58.json",
+      "lean_source": "lean/oracles/automata_theory_and_formal_languages/AT-58.lean",
+      "axiom_audit": "lean/audits/automata_theory_and_formal_languages/AT-58.lean"
+    },
+    {
+      "case_id": "BA-09",
+      "definition": "test_cases/boolean_algebra/BA-09.json",
+      "lean_source": "lean/oracles/boolean_algebra/BA-09.lean",
+      "axiom_audit": "lean/audits/boolean_algebra/BA-09.lean"
+    },
+    {
+      "case_id": "BA-21",
+      "definition": "test_cases/boolean_algebra/BA-21.json",
+      "lean_source": "lean/oracles/boolean_algebra/BA-21.lean",
+      "axiom_audit": "lean/audits/boolean_algebra/BA-21.lean"
+    },
+    {
+      "case_id": "BA-22",
+      "definition": "test_cases/boolean_algebra/BA-22.json",
+      "lean_source": "lean/oracles/boolean_algebra/BA-22.lean",
+      "axiom_audit": "lean/audits/boolean_algebra/BA-22.lean"
+    },
+    {
+      "case_id": "BA-25",
+      "definition": "test_cases/boolean_algebra/BA-25.json",
+      "lean_source": "lean/oracles/boolean_algebra/BA-25.lean",
+      "axiom_audit": "lean/audits/boolean_algebra/BA-25.lean"
+    },
+    {
+      "case_id": "BA-27",
+      "definition": "test_cases/boolean_algebra/BA-27.json",
+      "lean_source": "lean/oracles/boolean_algebra/BA-27.lean",
+      "axiom_audit": "lean/audits/boolean_algebra/BA-27.lean"
+    },
+    {
+      "case_id": "BA-41",
+      "definition": "test_cases/boolean_algebra/BA-41.json",
+      "lean_source": "lean/oracles/boolean_algebra/BA-41.lean",
+      "axiom_audit": "lean/audits/boolean_algebra/BA-41.lean"
+    },
+    {
+      "case_id": "BA-49",
+      "definition": "test_cases/boolean_algebra/BA-49.json",
+      "lean_source": "lean/oracles/boolean_algebra/BA-49.lean",
+      "axiom_audit": "lean/audits/boolean_algebra/BA-49.lean"
+    },
+    {
+      "case_id": "BA-55",
+      "definition": "test_cases/boolean_algebra/BA-55.json",
+      "lean_source": "lean/oracles/boolean_algebra/BA-55.lean",
+      "axiom_audit": "lean/audits/boolean_algebra/BA-55.lean"
+    },
+    {
+      "case_id": "BA-57",
+      "definition": "test_cases/boolean_algebra/BA-57.json",
+      "lean_source": "lean/oracles/boolean_algebra/BA-57.lean",
+      "axiom_audit": "lean/audits/boolean_algebra/BA-57.lean"
+    },
+    {
+      "case_id": "BA-59",
+      "definition": "test_cases/boolean_algebra/BA-59.json",
+      "lean_source": "lean/oracles/boolean_algebra/BA-59.lean",
+      "axiom_audit": "lean/audits/boolean_algebra/BA-59.lean"
+    },
+    {
+      "case_id": "CT-01",
+      "definition": "test_cases/category_theory/CT-01.json",
+      "lean_source": "lean/oracles/category_theory/CT-01.lean",
+      "axiom_audit": "lean/audits/category_theory/CT-01.lean"
+    },
+    {
+      "case_id": "CT-06",
+      "definition": "test_cases/category_theory/CT-06.json",
+      "lean_source": "lean/oracles/category_theory/CT-06.lean",
+      "axiom_audit": "lean/audits/category_theory/CT-06.lean"
+    },
+    {
+      "case_id": "CT-09",
+      "definition": "test_cases/category_theory/CT-09.json",
+      "lean_source": "lean/oracles/category_theory/CT-09.lean",
+      "axiom_audit": "lean/audits/category_theory/CT-09.lean"
+    },
+    {
+      "case_id": "CT-25",
+      "definition": "test_cases/category_theory/CT-25.json",
+      "lean_source": "lean/oracles/category_theory/CT-25.lean",
+      "axiom_audit": "lean/audits/category_theory/CT-25.lean"
+    },
+    {
+      "case_id": "CT-29",
+      "definition": "test_cases/category_theory/CT-29.json",
+      "lean_source": "lean/oracles/category_theory/CT-29.lean",
+      "axiom_audit": "lean/audits/category_theory/CT-29.lean"
+    },
+    {
+      "case_id": "CT-37",
+      "definition": "test_cases/category_theory/CT-37.json",
+      "lean_source": "lean/oracles/category_theory/CT-37.lean",
+      "axiom_audit": "lean/audits/category_theory/CT-37.lean"
+    },
+    {
+      "case_id": "CT-48",
+      "definition": "test_cases/category_theory/CT-48.json",
+      "lean_source": "lean/oracles/category_theory/CT-48.lean",
+      "axiom_audit": "lean/audits/category_theory/CT-48.lean"
+    },
+    {
+      "case_id": "CT-52",
+      "definition": "test_cases/category_theory/CT-52.json",
+      "lean_source": "lean/oracles/category_theory/CT-52.lean",
+      "axiom_audit": "lean/audits/category_theory/CT-52.lean"
+    },
+    {
+      "case_id": "CT-57",
+      "definition": "test_cases/category_theory/CT-57.json",
+      "lean_source": "lean/oracles/category_theory/CT-57.lean",
+      "axiom_audit": "lean/audits/category_theory/CT-57.lean"
+    },
+    {
+      "case_id": "CT-60",
+      "definition": "test_cases/category_theory/CT-60.json",
+      "lean_source": "lean/oracles/category_theory/CT-60.lean",
+      "axiom_audit": "lean/audits/category_theory/CT-60.lean"
+    },
+    {
+      "case_id": "FL-01",
+      "definition": "test_cases/formal_logics_and_proof_systems/FL-01.json",
+      "lean_source": "lean/oracles/formal_logics_and_proof_systems/FL-01.lean",
+      "axiom_audit": "lean/audits/formal_logics_and_proof_systems/FL-01.lean"
+    },
+    {
+      "case_id": "FL-10",
+      "definition": "test_cases/formal_logics_and_proof_systems/FL-10.json",
+      "lean_source": "lean/oracles/formal_logics_and_proof_systems/FL-10.lean",
+      "axiom_audit": "lean/audits/formal_logics_and_proof_systems/FL-10.lean"
+    },
+    {
+      "case_id": "FL-14",
+      "definition": "test_cases/formal_logics_and_proof_systems/FL-14.json",
+      "lean_source": "lean/oracles/formal_logics_and_proof_systems/FL-14.lean",
+      "axiom_audit": "lean/audits/formal_logics_and_proof_systems/FL-14.lean"
+    },
+    {
+      "case_id": "FL-21",
+      "definition": "test_cases/formal_logics_and_proof_systems/FL-21.json",
+      "lean_source": "lean/oracles/formal_logics_and_proof_systems/FL-21.lean",
+      "axiom_audit": "lean/audits/formal_logics_and_proof_systems/FL-21.lean"
+    },
+    {
+      "case_id": "FL-26",
+      "definition": "test_cases/formal_logics_and_proof_systems/FL-26.json",
+      "lean_source": "lean/oracles/formal_logics_and_proof_systems/FL-26.lean",
+      "axiom_audit": "lean/audits/formal_logics_and_proof_systems/FL-26.lean"
+    },
+    {
+      "case_id": "FL-33",
+      "definition": "test_cases/formal_logics_and_proof_systems/FL-33.json",
+      "lean_source": "lean/oracles/formal_logics_and_proof_systems/FL-33.lean",
+      "axiom_audit": "lean/audits/formal_logics_and_proof_systems/FL-33.lean"
+    },
+    {
+      "case_id": "FL-37",
+      "definition": "test_cases/formal_logics_and_proof_systems/FL-37.json",
+      "lean_source": "lean/oracles/formal_logics_and_proof_systems/FL-37.lean",
+      "axiom_audit": "lean/audits/formal_logics_and_proof_systems/FL-37.lean"
+    },
+    {
+      "case_id": "FL-43",
+      "definition": "test_cases/formal_logics_and_proof_systems/FL-43.json",
+      "lean_source": "lean/oracles/formal_logics_and_proof_systems/FL-43.lean",
+      "axiom_audit": "lean/audits/formal_logics_and_proof_systems/FL-43.lean"
+    },
+    {
+      "case_id": "FL-45",
+      "definition": "test_cases/formal_logics_and_proof_systems/FL-45.json",
+      "lean_source": "lean/oracles/formal_logics_and_proof_systems/FL-45.lean",
+      "axiom_audit": "lean/audits/formal_logics_and_proof_systems/FL-45.lean"
+    },
+    {
+      "case_id": "FL-52",
+      "definition": "test_cases/formal_logics_and_proof_systems/FL-52.json",
+      "lean_source": "lean/oracles/formal_logics_and_proof_systems/FL-52.lean",
+      "axiom_audit": "lean/audits/formal_logics_and_proof_systems/FL-52.lean"
+    },
+    {
+      "case_id": "LA-13",
+      "definition": "test_cases/linear_algebra/LA-13.json",
+      "lean_source": "lean/oracles/linear_algebra/LA-13.lean",
+      "axiom_audit": "lean/audits/linear_algebra/LA-13.lean"
+    },
+    {
+      "case_id": "LA-15",
+      "definition": "test_cases/linear_algebra/LA-15.json",
+      "lean_source": "lean/oracles/linear_algebra/LA-15.lean",
+      "axiom_audit": "lean/audits/linear_algebra/LA-15.lean"
+    },
+    {
+      "case_id": "LA-29",
+      "definition": "test_cases/linear_algebra/LA-29.json",
+      "lean_source": "lean/oracles/linear_algebra/LA-29.lean",
+      "axiom_audit": "lean/audits/linear_algebra/LA-29.lean"
+    },
+    {
+      "case_id": "LA-30",
+      "definition": "test_cases/linear_algebra/LA-30.json",
+      "lean_source": "lean/oracles/linear_algebra/LA-30.lean",
+      "axiom_audit": "lean/audits/linear_algebra/LA-30.lean"
+    },
+    {
+      "case_id": "LA-33",
+      "definition": "test_cases/linear_algebra/LA-33.json",
+      "lean_source": "lean/oracles/linear_algebra/LA-33.lean",
+      "axiom_audit": "lean/audits/linear_algebra/LA-33.lean"
+    },
+    {
+      "case_id": "LA-42",
+      "definition": "test_cases/linear_algebra/LA-42.json",
+      "lean_source": "lean/oracles/linear_algebra/LA-42.lean",
+      "axiom_audit": "lean/audits/linear_algebra/LA-42.lean"
+    },
+    {
+      "case_id": "LA-45",
+      "definition": "test_cases/linear_algebra/LA-45.json",
+      "lean_source": "lean/oracles/linear_algebra/LA-45.lean",
+      "axiom_audit": "lean/audits/linear_algebra/LA-45.lean"
+    },
+    {
+      "case_id": "LA-49",
+      "definition": "test_cases/linear_algebra/LA-49.json",
+      "lean_source": "lean/oracles/linear_algebra/LA-49.lean",
+      "axiom_audit": "lean/audits/linear_algebra/LA-49.lean"
+    },
+    {
+      "case_id": "LA-59",
+      "definition": "test_cases/linear_algebra/LA-59.json",
+      "lean_source": "lean/oracles/linear_algebra/LA-59.lean",
+      "axiom_audit": "lean/audits/linear_algebra/LA-59.lean"
+    },
+    {
+      "case_id": "LA-60",
+      "definition": "test_cases/linear_algebra/LA-60.json",
+      "lean_source": "lean/oracles/linear_algebra/LA-60.lean",
+      "axiom_audit": "lean/audits/linear_algebra/LA-60.lean"
+    }
+  ]
+}

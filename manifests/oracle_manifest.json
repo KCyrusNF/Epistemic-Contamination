@@ -13,7 +13,7 @@
     {
       "case_id": "AA-01",
       "case_title": "Operation not associative",
-      "lean_file": "oracles/abstract_algebra/AA-01.lean",
+      "lean_file": "lean/oracles/abstract_algebra/AA-01.lean",
       "oracle_theorems": [
         "aa_01_turn_01_oracle",
         "aa_01_turn_02_oracle",
@@ -119,7 +119,7 @@
     {
       "case_id": "AA-06",
       "case_title": "Identity exists only on left",
-      "lean_file": "oracles/abstract_algebra/AA-06.lean",
+      "lean_file": "lean/oracles/abstract_algebra/AA-06.lean",
       "oracle_theorems": [
         "aa_06_turn_01_oracle",
         "aa_06_turn_02_oracle",
@@ -225,7 +225,7 @@
     {
       "case_id": "AA-11",
       "case_title": "Inverse works only one side",
-      "lean_file": "oracles/abstract_algebra/AA-11.lean",
+      "lean_file": "lean/oracles/abstract_algebra/AA-11.lean",
       "oracle_theorems": [
         "aa_11_turn_01_oracle",
         "aa_11_turn_02_oracle",
@@ -331,7 +331,7 @@
     {
       "case_id": "AA-18",
       "case_title": "Closure fails for a specific pair",
-      "lean_file": "oracles/abstract_algebra/AA-18.lean",
+      "lean_file": "lean/oracles/abstract_algebra/AA-18.lean",
       "oracle_theorems": [
         "aa_18_turn_01_oracle",
         "aa_18_turn_02_oracle",
@@ -437,7 +437,7 @@
     {
       "case_id": "AA-21",
       "case_title": "successor(n) = n + 2",
-      "lean_file": "oracles/abstract_algebra/AA-21.lean",
+      "lean_file": "lean/oracles/abstract_algebra/AA-21.lean",
       "oracle_theorems": [
         "aa_21_turn_01_oracle",
         "aa_21_turn_02_oracle",
@@ -543,7 +543,7 @@
     {
       "case_id": "AA-27",
       "case_title": "a ⊞ successor(b) = successor(a ⊞ b) + 1",
-      "lean_file": "oracles/abstract_algebra/AA-27.lean",
+      "lean_file": "lean/oracles/abstract_algebra/AA-27.lean",
       "oracle_theorems": [
         "aa_27_turn_01_oracle",
         "aa_27_turn_02_oracle",
@@ -649,7 +649,7 @@
     {
       "case_id": "AA-36",
       "case_title": "Left distributive only",
-      "lean_file": "oracles/abstract_algebra/AA-36.lean",
+      "lean_file": "lean/oracles/abstract_algebra/AA-36.lean",
       "oracle_theorems": [
         "aa_36_turn_01_oracle",
         "aa_36_turn_02_oracle",
@@ -755,7 +755,7 @@
     {
       "case_id": "AA-41",
       "case_title": "Zero not absorbing",
-      "lean_file": "oracles/abstract_algebra/AA-41.lean",
+      "lean_file": "lean/oracles/abstract_algebra/AA-41.lean",
       "oracle_theorems": [
         "aa_41_turn_01_oracle",
         "aa_41_turn_02_oracle",
@@ -861,7 +861,7 @@
     {
       "case_id": "AA-46",
       "case_title": "Order not transitive",
-      "lean_file": "oracles/abstract_algebra/AA-46.lean",
+      "lean_file": "lean/oracles/abstract_algebra/AA-46.lean",
       "oracle_theorems": [
         "aa_46_turn_01_oracle",
         "aa_46_turn_02_oracle",
@@ -967,7 +967,7 @@
     {
       "case_id": "AA-59",
       "case_title": "Equality not transitive",
-      "lean_file": "oracles/abstract_algebra/AA-59.lean",
+      "lean_file": "lean/oracles/abstract_algebra/AA-59.lean",
       "oracle_theorems": [
         "aa_59_turn_01_oracle",
         "aa_59_turn_02_oracle",
@@ -1073,7 +1073,7 @@
     {
       "case_id": "AT-03",
       "case_title": "Transition depends on input-position parity",
-      "lean_file": "oracles/automata_theory_and_formal_languages/AT-03.lean",
+      "lean_file": "lean/oracles/automata_theory_and_formal_languages/AT-03.lean",
       "oracle_theorems": [
         "at_03_turn_01_oracle",
         "at_03_turn_02_oracle",
@@ -1179,7 +1179,7 @@
     {
       "case_id": "AT-14",
       "case_title": "Acceptance checked one symbol before end",
-      "lean_file": "oracles/automata_theory_and_formal_languages/AT-14.lean",
+      "lean_file": "lean/oracles/automata_theory_and_formal_languages/AT-14.lean",
       "oracle_theorems": [
         "at_14_turn_01_oracle",
         "at_14_turn_02_oracle",
@@ -1285,7 +1285,7 @@
     {
       "case_id": "AT-17",
       "case_title": "NFA branch disappears after first nondeterministic split",
-      "lean_file": "oracles/automata_theory_and_formal_languages/AT-17.lean",
+      "lean_file": "lean/oracles/automata_theory_and_formal_languages/AT-17.lean",
       "oracle_theorems": [
         "at_17_turn_01_oracle",
         "at_17_turn_02_oracle",
@@ -1391,7 +1391,7 @@
     {
       "case_id": "AT-22",
       "case_title": "ε-closure incomplete for one state",
-      "lean_file": "oracles/automata_theory_and_formal_languages/AT-22.lean",
+      "lean_file": "lean/oracles/automata_theory_and_formal_languages/AT-22.lean",
       "oracle_theorems": [
         "at_22_turn_01_oracle",
         "at_22_turn_02_oracle",
@@ -1497,7 +1497,7 @@
     {
       "case_id": "AT-26",
       "case_title": "Concatenation construction loses one intermediate accept path",
-      "lean_file": "oracles/automata_theory_and_formal_languages/AT-26.lean",
+      "lean_file": "lean/oracles/automata_theory_and_formal_languages/AT-26.lean",
       "oracle_theorems": [
         "at_26_turn_01_oracle",
         "at_26_turn_02_oracle",
@@ -1603,7 +1603,7 @@
     {
       "case_id": "AT-27",
       "case_title": "Kleene star disallows double repetition",
-      "lean_file": "oracles/automata_theory_and_formal_languages/AT-27.lean",
+      "lean_file": "lean/oracles/automata_theory_and_formal_languages/AT-27.lean",
       "oracle_theorems": [
         "at_27_turn_01_oracle",
         "at_27_turn_02_oracle",
@@ -1709,7 +1709,7 @@
     {
       "case_id": "AT-33",
       "case_title": "Two distinguishable states declared equivalent",
-      "lean_file": "oracles/automata_theory_and_formal_languages/AT-33.lean",
+      "lean_file": "lean/oracles/automata_theory_and_formal_languages/AT-33.lean",
       "oracle_theorems": [
         "at_33_turn_01_oracle",
         "at_33_turn_02_oracle",
@@ -1815,7 +1815,7 @@
     {
       "case_id": "AT-42",
       "case_title": "Pop operation removes two symbols",
-      "lean_file": "oracles/automata_theory_and_formal_languages/AT-42.lean",
+      "lean_file": "lean/oracles/automata_theory_and_formal_languages/AT-42.lean",
       "oracle_theorems": [
         "at_42_turn_01_oracle",
         "at_42_turn_02_oracle",
@@ -1921,7 +1921,7 @@
     {
       "case_id": "AT-54",
       "case_title": "Halt state continues for one extra step",
-      "lean_file": "oracles/automata_theory_and_formal_languages/AT-54.lean",
+      "lean_file": "lean/oracles/automata_theory_and_formal_languages/AT-54.lean",
       "oracle_theorems": [
         "at_54_turn_01_oracle",
         "at_54_turn_02_oracle",
@@ -2027,7 +2027,7 @@
     {
       "case_id": "AT-58",
       "case_title": "Decider fails to halt on one finite input family",
-      "lean_file": "oracles/automata_theory_and_formal_languages/AT-58.lean",
+      "lean_file": "lean/oracles/automata_theory_and_formal_languages/AT-58.lean",
       "oracle_theorems": [
         "at_58_turn_01_oracle",
         "at_58_turn_02_oracle",
@@ -2133,7 +2133,7 @@
     {
       "case_id": "BA-09",
       "case_title": "a ∧ a ≠ a",
-      "lean_file": "oracles/boolean_algebra/BA-09.lean",
+      "lean_file": "lean/oracles/boolean_algebra/BA-09.lean",
       "oracle_theorems": [
         "ba_09_turn_01_oracle",
         "ba_09_turn_02_oracle",
@@ -2239,7 +2239,7 @@
     {
       "case_id": "BA-21",
       "case_title": "One element has no complement",
-      "lean_file": "oracles/boolean_algebra/BA-21.lean",
+      "lean_file": "lean/oracles/boolean_algebra/BA-21.lean",
       "oracle_theorems": [
         "ba_21_turn_01_oracle",
         "ba_21_turn_02_oracle",
@@ -2345,7 +2345,7 @@
     {
       "case_id": "BA-22",
       "case_title": "One element has two complements",
-      "lean_file": "oracles/boolean_algebra/BA-22.lean",
+      "lean_file": "lean/oracles/boolean_algebra/BA-22.lean",
       "oracle_theorems": [
         "ba_22_turn_01_oracle",
         "ba_22_turn_02_oracle",
@@ -2451,7 +2451,7 @@
     {
       "case_id": "BA-25",
       "case_title": "a ∧ ¬a ≠ 0",
-      "lean_file": "oracles/boolean_algebra/BA-25.lean",
+      "lean_file": "lean/oracles/boolean_algebra/BA-25.lean",
       "oracle_theorems": [
         "ba_25_turn_01_oracle",
         "ba_25_turn_02_oracle",
@@ -2557,7 +2557,7 @@
     {
       "case_id": "BA-27",
       "case_title": "Double complement does not return original element",
-      "lean_file": "oracles/boolean_algebra/BA-27.lean",
+      "lean_file": "lean/oracles/boolean_algebra/BA-27.lean",
       "oracle_theorems": [
         "ba_27_turn_01_oracle",
         "ba_27_turn_02_oracle",
@@ -2663,7 +2663,7 @@
     {
       "case_id": "BA-41",
       "case_title": "a ∧ (a ∨ b) ≠ a",
-      "lean_file": "oracles/boolean_algebra/BA-41.lean",
+      "lean_file": "lean/oracles/boolean_algebra/BA-41.lean",
       "oracle_theorems": [
         "ba_41_turn_01_oracle",
         "ba_41_turn_02_oracle",
@@ -2769,7 +2769,7 @@
     {
       "case_id": "BA-49",
       "case_title": "Define a ≤ b by a ∧ b = a, but the relation is not reflexive",
-      "lean_file": "oracles/boolean_algebra/BA-49.lean",
+      "lean_file": "lean/oracles/boolean_algebra/BA-49.lean",
       "oracle_theorems": [
         "ba_49_turn_01_oracle",
         "ba_49_turn_02_oracle",
@@ -2875,7 +2875,7 @@
     {
       "case_id": "BA-55",
       "case_title": "Meet is not greatest lower bound",
-      "lean_file": "oracles/boolean_algebra/BA-55.lean",
+      "lean_file": "lean/oracles/boolean_algebra/BA-55.lean",
       "oracle_theorems": [
         "ba_55_turn_01_oracle",
         "ba_55_turn_02_oracle",
@@ -2981,7 +2981,7 @@
     {
       "case_id": "BA-57",
       "case_title": "¬(a ∧ b) ≠ ¬a ∨ ¬b",
-      "lean_file": "oracles/boolean_algebra/BA-57.lean",
+      "lean_file": "lean/oracles/boolean_algebra/BA-57.lean",
       "oracle_theorems": [
         "ba_57_turn_01_oracle",
         "ba_57_turn_02_oracle",
@@ -3087,7 +3087,7 @@
     {
       "case_id": "BA-59",
       "case_title": "Dualizing a valid identity does not preserve validity",
-      "lean_file": "oracles/boolean_algebra/BA-59.lean",
+      "lean_file": "lean/oracles/boolean_algebra/BA-59.lean",
       "oracle_theorems": [
         "ba_59_turn_01_oracle",
         "ba_59_turn_02_oracle",
@@ -3193,7 +3193,7 @@
     {
       "case_id": "CT-01",
       "case_title": "Morphism composition not associative",
-      "lean_file": "oracles/category_theory/CT-01.lean",
+      "lean_file": "lean/oracles/category_theory/CT-01.lean",
       "oracle_theorems": [
         "ct_01_turn_01_oracle",
         "ct_01_turn_02_oracle",
@@ -3299,7 +3299,7 @@
     {
       "case_id": "CT-06",
       "case_title": "Composition undefined for one composable pair",
-      "lean_file": "oracles/category_theory/CT-06.lean",
+      "lean_file": "lean/oracles/category_theory/CT-06.lean",
       "oracle_theorems": [
         "ct_06_turn_01_oracle",
         "ct_06_turn_02_oracle",
@@ -3405,7 +3405,7 @@
     {
       "case_id": "CT-09",
       "case_title": "Composite morphism lands in wrong codomain for one pair",
-      "lean_file": "oracles/category_theory/CT-09.lean",
+      "lean_file": "lean/oracles/category_theory/CT-09.lean",
       "oracle_theorems": [
         "ct_09_turn_01_oracle",
         "ct_09_turn_02_oracle",
@@ -3511,7 +3511,7 @@
     {
       "case_id": "CT-25",
       "case_title": "Composite of isomorphisms not isomorphism",
-      "lean_file": "oracles/category_theory/CT-25.lean",
+      "lean_file": "lean/oracles/category_theory/CT-25.lean",
       "oracle_theorems": [
         "ct_25_turn_01_oracle",
         "ct_25_turn_02_oracle",
@@ -3617,7 +3617,7 @@
     {
       "case_id": "CT-29",
       "case_title": "Monomorphism cancellation fails for one pair",
-      "lean_file": "oracles/category_theory/CT-29.lean",
+      "lean_file": "lean/oracles/category_theory/CT-29.lean",
       "oracle_theorems": [
         "ct_29_turn_01_oracle",
         "ct_29_turn_02_oracle",
@@ -3723,7 +3723,7 @@
     {
       "case_id": "CT-37",
       "case_title": "Square commutes except one path pair",
-      "lean_file": "oracles/category_theory/CT-37.lean",
+      "lean_file": "lean/oracles/category_theory/CT-37.lean",
       "oracle_theorems": [
         "ct_37_turn_01_oracle",
         "ct_37_turn_02_oracle",
@@ -3829,7 +3829,7 @@
     {
       "case_id": "CT-48",
       "case_title": "Functor fails F(g ∘ f) = F(g) ∘ F(f) for one pair",
-      "lean_file": "oracles/category_theory/CT-48.lean",
+      "lean_file": "lean/oracles/category_theory/CT-48.lean",
       "oracle_theorems": [
         "ct_48_turn_01_oracle",
         "ct_48_turn_02_oracle",
@@ -3935,7 +3935,7 @@
     {
       "case_id": "CT-52",
       "case_title": "Naturality fails for one morphism",
-      "lean_file": "oracles/category_theory/CT-52.lean",
+      "lean_file": "lean/oracles/category_theory/CT-52.lean",
       "oracle_theorems": [
         "ct_52_turn_01_oracle",
         "ct_52_turn_02_oracle",
@@ -4041,7 +4041,7 @@
     {
       "case_id": "CT-57",
       "case_title": "Product projection satisfies only one projection law",
-      "lean_file": "oracles/category_theory/CT-57.lean",
+      "lean_file": "lean/oracles/category_theory/CT-57.lean",
       "oracle_theorems": [
         "ct_57_turn_01_oracle",
         "ct_57_turn_02_oracle",
@@ -4147,7 +4147,7 @@
     {
       "case_id": "CT-60",
       "case_title": "Pullback square commutes but mediating morphism is non-unique",
-      "lean_file": "oracles/category_theory/CT-60.lean",
+      "lean_file": "lean/oracles/category_theory/CT-60.lean",
       "oracle_theorems": [
         "ct_60_turn_01_oracle",
         "ct_60_turn_02_oracle",
@@ -4253,7 +4253,7 @@
     {
       "case_id": "FL-01",
       "case_title": "Modus Ponens invalid for one antecedent class",
-      "lean_file": "oracles/formal_logics_and_proof_systems/FL-01.lean",
+      "lean_file": "lean/oracles/formal_logics_and_proof_systems/FL-01.lean",
       "oracle_theorems": [
         "fl_01_turn_01_oracle",
         "fl_01_turn_02_oracle",
@@ -4359,7 +4359,7 @@
     {
       "case_id": "FL-10",
       "case_title": "Conjunction elimination returns only first conjunct",
-      "lean_file": "oracles/formal_logics_and_proof_systems/FL-10.lean",
+      "lean_file": "lean/oracles/formal_logics_and_proof_systems/FL-10.lean",
       "oracle_theorems": [
         "fl_10_turn_01_oracle",
         "fl_10_turn_02_oracle",
@@ -4465,7 +4465,7 @@
     {
       "case_id": "FL-14",
       "case_title": "Disjunction elimination invalid for one branch",
-      "lean_file": "oracles/formal_logics_and_proof_systems/FL-14.lean",
+      "lean_file": "lean/oracles/formal_logics_and_proof_systems/FL-14.lean",
       "oracle_theorems": [
         "fl_14_turn_01_oracle",
         "fl_14_turn_02_oracle",
@@ -4571,7 +4571,7 @@
     {
       "case_id": "FL-21",
       "case_title": "Explosion (⊥ ⊢ φ) blocked",
-      "lean_file": "oracles/formal_logics_and_proof_systems/FL-21.lean",
+      "lean_file": "lean/oracles/formal_logics_and_proof_systems/FL-21.lean",
       "oracle_theorems": [
         "fl_21_turn_01_oracle",
         "fl_21_turn_02_oracle",
@@ -4677,7 +4677,7 @@
     {
       "case_id": "FL-26",
       "case_title": "Equality substitution valid only in first argument position",
-      "lean_file": "oracles/formal_logics_and_proof_systems/FL-26.lean",
+      "lean_file": "lean/oracles/formal_logics_and_proof_systems/FL-26.lean",
       "oracle_theorems": [
         "fl_26_turn_01_oracle",
         "fl_26_turn_02_oracle",
@@ -4783,7 +4783,7 @@
     {
       "case_id": "FL-33",
       "case_title": "Universal instantiation blocked for one constant",
-      "lean_file": "oracles/formal_logics_and_proof_systems/FL-33.lean",
+      "lean_file": "lean/oracles/formal_logics_and_proof_systems/FL-33.lean",
       "oracle_theorems": [
         "fl_33_turn_01_oracle",
         "fl_33_turn_02_oracle",
@@ -4889,7 +4889,7 @@
     {
       "case_id": "FL-37",
       "case_title": "Existential witness not reusable",
-      "lean_file": "oracles/formal_logics_and_proof_systems/FL-37.lean",
+      "lean_file": "lean/oracles/formal_logics_and_proof_systems/FL-37.lean",
       "oracle_theorems": [
         "fl_37_turn_01_oracle",
         "fl_37_turn_02_oracle",
@@ -4995,7 +4995,7 @@
     {
       "case_id": "FL-43",
       "case_title": "Contraction invalid; duplicate premises matter",
-      "lean_file": "oracles/formal_logics_and_proof_systems/FL-43.lean",
+      "lean_file": "lean/oracles/formal_logics_and_proof_systems/FL-43.lean",
       "oracle_theorems": [
         "fl_43_turn_01_oracle",
         "fl_43_turn_02_oracle",
@@ -5101,7 +5101,7 @@
     {
       "case_id": "FL-45",
       "case_title": "Cut rule invalid for one formula family",
-      "lean_file": "oracles/formal_logics_and_proof_systems/FL-45.lean",
+      "lean_file": "lean/oracles/formal_logics_and_proof_systems/FL-45.lean",
       "oracle_theorems": [
         "fl_45_turn_01_oracle",
         "fl_45_turn_02_oracle",
@@ -5207,7 +5207,7 @@
     {
       "case_id": "FL-52",
       "case_title": "Additional premise can destroy derivability",
-      "lean_file": "oracles/formal_logics_and_proof_systems/FL-52.lean",
+      "lean_file": "lean/oracles/formal_logics_and_proof_systems/FL-52.lean",
       "oracle_theorems": [
         "fl_52_turn_01_oracle",
         "fl_52_turn_02_oracle",
@@ -5313,7 +5313,7 @@
     {
       "case_id": "LA-13",
       "case_title": "Scalar multiplication not associative with field multiplication",
-      "lean_file": "oracles/linear_algebra/LA-13.lean",
+      "lean_file": "lean/oracles/linear_algebra/LA-13.lean",
       "oracle_theorems": [
         "la_13_turn_01_oracle",
         "la_13_turn_02_oracle",
@@ -5419,7 +5419,7 @@
     {
       "case_id": "LA-15",
       "case_title": "0·v not always the zero vector",
-      "lean_file": "oracles/linear_algebra/LA-15.lean",
+      "lean_file": "lean/oracles/linear_algebra/LA-15.lean",
       "oracle_theorems": [
         "la_15_turn_01_oracle",
         "la_15_turn_02_oracle",
@@ -5525,7 +5525,7 @@
     {
       "case_id": "LA-29",
       "case_title": "Same vector has two incompatible coordinate decompositions in a declared basis",
-      "lean_file": "oracles/linear_algebra/LA-29.lean",
+      "lean_file": "lean/oracles/linear_algebra/LA-29.lean",
       "oracle_theorems": [
         "la_29_turn_01_oracle",
         "la_29_turn_02_oracle",
@@ -5631,7 +5631,7 @@
     {
       "case_id": "LA-30",
       "case_title": "One vector not expressible despite spanning declaration",
-      "lean_file": "oracles/linear_algebra/LA-30.lean",
+      "lean_file": "lean/oracles/linear_algebra/LA-30.lean",
       "oracle_theorems": [
         "la_30_turn_01_oracle",
         "la_30_turn_02_oracle",
@@ -5737,7 +5737,7 @@
     {
       "case_id": "LA-33",
       "case_title": "Span not closed under vector addition",
-      "lean_file": "oracles/linear_algebra/LA-33.lean",
+      "lean_file": "lean/oracles/linear_algebra/LA-33.lean",
       "oracle_theorems": [
         "la_33_turn_01_oracle",
         "la_33_turn_02_oracle",
@@ -5843,7 +5843,7 @@
     {
       "case_id": "LA-42",
       "case_title": "Two bases of the same space have different cardinalities",
-      "lean_file": "oracles/linear_algebra/LA-42.lean",
+      "lean_file": "lean/oracles/linear_algebra/LA-42.lean",
       "oracle_theorems": [
         "la_42_turn_01_oracle",
         "la_42_turn_02_oracle",
@@ -5949,7 +5949,7 @@
     {
       "case_id": "LA-45",
       "case_title": "Linear map fails T(u + v) = T(u) + T(v) for one pair",
-      "lean_file": "oracles/linear_algebra/LA-45.lean",
+      "lean_file": "lean/oracles/linear_algebra/LA-45.lean",
       "oracle_theorems": [
         "la_45_turn_01_oracle",
         "la_45_turn_02_oracle",
@@ -6055,7 +6055,7 @@
     {
       "case_id": "LA-49",
       "case_title": "Kernel not closed under addition",
-      "lean_file": "oracles/linear_algebra/LA-49.lean",
+      "lean_file": "lean/oracles/linear_algebra/LA-49.lean",
       "oracle_theorems": [
         "la_49_turn_01_oracle",
         "la_49_turn_02_oracle",
@@ -6161,7 +6161,7 @@
     {
       "case_id": "LA-59",
       "case_title": "Rank-nullity fails by one dimension unit",
-      "lean_file": "oracles/linear_algebra/LA-59.lean",
+      "lean_file": "lean/oracles/linear_algebra/LA-59.lean",
       "oracle_theorems": [
         "la_59_turn_01_oracle",
         "la_59_turn_02_oracle",
@@ -6267,7 +6267,7 @@
     {
       "case_id": "LA-60",
       "case_title": "det(AB) ≠ det(A)det(B) for one matrix pair",
-      "lean_file": "oracles/linear_algebra/LA-60.lean",
+      "lean_file": "lean/oracles/linear_algebra/LA-60.lean",
       "oracle_theorems": [
         "la_60_turn_01_oracle",
         "la_60_turn_02_oracle",

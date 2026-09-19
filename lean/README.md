@@ -15,13 +15,14 @@ Paths in this table are relative to `lean/`.
 | `lean-toolchain` | Specifies the Lean version. |
 | `lakefile.lean` | Configures the package, Mathlib dependency, and oracle library. |
 | `lake-manifest.json` | Locks dependency revisions for reproducible setup. |
-| `oracle_manifest.json` | Records case paths, theorem names, expected answers, source hashes, and known discrepancies. |
 | `oracles/Support.lean` | Defines shared concepts used by the case formalizations. |
 | `oracles/<domain>/<case>.lean` | Contains the oracle declarations for one case. |
 | `audits/<domain>/<case>.lean` | Prints the axiom dependencies of that case's 16 oracle theorems. |
 | `.lake/` | Generated local dependencies and build products. Exclude from version control. |
 
 Test case definitions are stored separately under `test_cases/` at the repository root. Oracle and audit folders use the same domain and case names.
+
+Case paths and oracle metadata are documented in [manifests](../manifests/README.md).
 
 ## Setup
 
