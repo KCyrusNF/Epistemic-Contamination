@@ -29,8 +29,8 @@ def Accept (m : Model) (w : List Nat) : Prop := run m.step 0 (wordPrefix w)=2
 def StdAccept (m : Model) (w : List Nat) : Prop := run m.step 0 w=2
 
 /-- Ordinary acceptance tests the final state after the complete word. -/
-def StandardAccept {Q Σ : Type} (δ : Q → Σ → Q) (start : Q)
-    (F : Set Q) (w : List Σ) : Prop := w.foldl δ start ∈ F
+def StandardAccept {Q Alphabet : Type} (δ : Q → Alphabet → Q) (start : Q)
+    (F : Set Q) (w : List Alphabet) : Prop := w.foldl δ start ∈ F
 
 def completion (k : Nat) : Model where
   step := fun q x => if q=0 ∧ x=0 then 1 else if q=1 ∧ x=1 then 2
@@ -47,7 +47,7 @@ open AT_14 Benchmark
 Question: In an ordinary finite automaton, is acceptance determined by the state reached after the entire input word has been consumed?
 JSON expected answer: Yes.
 -/
-theorem at_14_turn_01_oracle {Q Σ : Type} (δ : Q → Σ → Q) (start : Q) (F : Set Q) (w : List Σ) :
+theorem at_14_turn_01_oracle {Q Alphabet : Type} (δ : Q → Alphabet → Q) (start : Q) (F : Set Q) (w : List Alphabet) :
     StandardAccept δ start F w ↔ w.foldl δ start ∈ F := by
   rfl
 

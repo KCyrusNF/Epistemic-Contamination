@@ -4,7 +4,7 @@ This directory contains the Lean formalizations for 60 benchmark test cases, wit
 
 Each case has a separate oracle source and axiom audit. Build and review cases individually as their test case definitions are developed.
 
-**The formalizations remain provisional pending verification of the revised sources.** Revised Lean files require individual compilation, axiom review, and semantic validation.
+**All 60 oracle files compile successfully, and their axiom audits are complete.** The formalizations remain provisional pending manual semantic review.
 
 ## Directory structure
 
@@ -90,15 +90,15 @@ The audit prints information; it does not automatically reject unwanted axioms o
 
 ## Verification status
 
-Compilation, axiom review, and semantic validation serve different purposes:
+Compilation and axiom audits are complete for all 60 oracle files. The audits report only the accepted axioms `propext`, `Classical.choice`, and `Quot.sound`, with no `sorryAx` or unapproved axiom dependencies.
 
-| Check | What it establishes |
-| --- | --- |
-| Lean compilation | Lean accepts the declarations in the selected source. |
-| Axiom review | The proof dependencies have been inspected for admitted proofs and unapproved assumptions. |
-| Semantic validation | The formal statements faithfully represent the test case definitions and support the recorded expected answers. |
+| Check | Status | Scope | What it establishes |
+| --- | --- | --- | --- |
+| Lean compilation | Complete | All 60 oracle source files and their required dependencies. | Lean accepts the declarations in the selected source. |
+| Axiom review | Complete | All 960 named oracle theorems across the 60 cases. | The proof dependencies have been inspected for admitted proofs and unapproved assumptions. |
+| Manual semantic review | Pending | Each oracle statement, its corresponding test case prompt, and the recorded expected answer. | The formal statements faithfully represent the test case definitions and support the recorded expected answers. |
 
-Author semantic review remains pending. The formalizations require compilation, axiom review, and semantic validation before use as verified benchmark oracles. Successful compilation alone does not establish that a formal statement accurately represents its test case definition or supports the recorded expected answer.
+Only manual semantic review remains before the formalizations can be accepted as verified benchmark oracles. Successful compilation and axiom audits do not by themselves establish semantic correspondence with the test case definitions.
 
 `Benchmark.Underdetermined valid query` means that two interpretations satisfying `valid` produce different results for `query`. Proving this formal statement and checking that it matches the intended question are separate responsibilities.
 

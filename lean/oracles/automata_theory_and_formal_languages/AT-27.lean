@@ -50,7 +50,7 @@ open AT_27 Benchmark
 Question: For an ordinary language $$L$$, does Kleene star $$L^*$$ include every finite repetition count, including two repetitions?
 JSON expected answer: Yes.
 -/
-theorem at_27_turn_01_oracle {Σ : Type} (L : Language Σ) (ws : List (List Σ))
+theorem at_27_turn_01_oracle {Alphabet : Type} (L : Language Alphabet) (ws : List (List Alphabet))
     (h : ∀ w ∈ ws, w ∈ L) : ws.flatten ∈ KStar.kstar L := by
   exact Language.join_mem_kstar h
 

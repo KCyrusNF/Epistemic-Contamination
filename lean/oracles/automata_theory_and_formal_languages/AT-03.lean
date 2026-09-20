@@ -35,7 +35,7 @@ open AT_03 Benchmark
 Question: In an ordinary DFA, does the transition $$\delta(q,a)$$ depend only on the current state $$q$$ and input symbol $$a$$, not on the input position?
 JSON expected answer: Yes.
 -/
-theorem at_03_turn_01_oracle {Q Σ : Type} (δ : Q → Σ → Q) (q : Q) (x : Σ) (i j : Nat) :
+theorem at_03_turn_01_oracle {Q Alphabet : Type} (δ : Q → Alphabet → Q) (q : Q) (x : Alphabet) (i j : Nat) :
     (fun _ : Nat => δ q x) i = (fun _ : Nat => δ q x) j := by
   rfl
 
