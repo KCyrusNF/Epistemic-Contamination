@@ -6,7 +6,10 @@
     "created_by": [
       "Koorosh Nobakhtfar"
     ],
-    "reviewed_by": [],
+    "reviewed_by": [
+      "Koorosh Nobakhtfar",
+      "Elif Zeynep Çetinkaya"
+    ],
     "creation_timestamp_utc": "2026-09-08T07:31:00Z"
   },
   "formal_artifacts": {
@@ -69,7 +72,7 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "{q_f}"
+        "value": "$$\\{q_f\\}$$"
       },
       "references": null
     },
@@ -129,7 +132,7 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "{}"
+        "value": "$$\\{\\}$$"
       },
       "references": null
     },
@@ -144,7 +147,7 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "{}"
+        "value": "$$\\{\\}$$"
       },
       "references": null
     },
@@ -234,7 +237,7 @@
       },
       "expected_answer": {
         "answer_type": "semantic_statement",
-        "value": "{q_0,q_1,q_2} in the standard system and {q_0,q_1} in the modified system."
+        "value": "$$\\{q_0,q_1,q_2\\}$$ in the standard system and $$\\{q_0,q_1\\}$$ in the modified system."
       },
       "references": null
     },
@@ -249,7 +252,7 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "{q_0,q_1,q_2}"
+        "value": "$$\\{q_0,q_1,q_2\\}$$"
       },
       "references": null
     },
