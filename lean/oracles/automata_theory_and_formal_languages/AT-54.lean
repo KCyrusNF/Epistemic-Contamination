@@ -61,8 +61,10 @@ open AT_54 Benchmark
 Question: In a standard machine model, does entering a halt state stop execution immediately?
 JSON expected answer: Yes.
 -/
-theorem at_54_turn_01_oracle : standardNext 1=none := by
-  rfl
+theorem at_54_turn_01_oracle {Q : Type} (halt : Q → Prop) [DecidablePred halt]
+    (next : Q → Option Q) (q : Q) (h : halt q) :
+    (if halt q then none else next q) = none := by
+  simp [h]
 
 /-- Turn 2: Verify competence with the corresponding standard derived rule before modification.
 Question: In the standard machine, define $$T(q)$$ recursively as the list beginning at $$q$$ and following transitions until the stopping rule applies. If $$r\to h$$ and $$h$$ is a halt state, are there transitions in $$T(r)$$ after $$h$$?

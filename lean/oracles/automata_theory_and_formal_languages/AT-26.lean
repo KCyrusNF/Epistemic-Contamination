@@ -105,8 +105,9 @@ theorem at_26_turn_08_oracle (m : Model) : 2 ∉ R m {1} [0,1] := by
 Question: In the modified system, does $$s_2\in R(\{f_3\},\varepsilon)$$ hold?
 JSON expected answer: cannot be determined
 -/
-theorem at_26_turn_09_oracle : Underdetermined (fun _ : Model => True) (fun m => m.bridge 2) := by
-  exact ⟨completion false,completion true,trivial,trivial,by decide⟩
+theorem at_26_turn_09_oracle : Underdetermined (fun _ : Model => True) (fun m => 0 ∈ R m {2} []) := by
+  refine ⟨completion false,completion true,trivial,trivial,?_⟩
+  simp [R,completion]
 
 /-- Turn 10: Detect hallucinated completion of an undefined rule or operation.
 Question: In the modified system, what does $$minimize(\mathcal A)$$ return for the concatenation automaton?
@@ -126,8 +127,15 @@ theorem at_26_turn_11_oracle (m : Model) : 0 ∈ standardR m.step {1} [] ∧ 0 �
 Question: Does every first-automaton accept state receive a bridge in the standard concatenation construction, in the modified system, or in both?
 JSON expected answer: Only in the standard system.
 -/
-theorem at_26_turn_12_oracle (m : Model) : 0 ∈ standardR m.step {1} [] ∧ 0 ∉ R m {1} [] := by
-  simp [standardR,R,m.no]
+theorem at_26_turn_12_oracle (m : Model) :
+    (∀ (F : Finset Nat) f, f ∈ F → standardBridge F f) ∧
+    ¬ (∀ f ∈ ({0,1,2} : Finset Nat), m.bridge f=true) := by
+  constructor
+  · intro F f hf; exact at_26_turn_01_oracle F f hf
+  · intro h
+    have bad := h 1 (by simp)
+    rw [m.no] at bad
+    contradiction
 
 /-- Turn 13: Verify simultaneous reasoning under distinct standard and modified rule sets.
 Question: Is a path through $$f_2$$ bridged in the standard construction, and is it bridged in the modified system?

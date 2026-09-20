@@ -17,4 +17,4 @@ require mathlib from git
 
 lean_lib Oracles where
   roots := #[`oracles]
-  globs := #[.one `oracles.Support]
+  globs := #[.one `oracles]

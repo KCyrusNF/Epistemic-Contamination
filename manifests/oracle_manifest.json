@@ -4,11 +4,7 @@
   "status": null,
   "case_count": 60,
   "oracle_count": 960,
-  "known_answer_mismatches": [
-    "aa_18_turn_05_oracle",
-    "aa_18_turn_08_oracle",
-    "ct_01_turn_08_oracle"
-  ],
+  "known_answer_mismatches": [],
   "cases": [
     {
       "case_id": "AA-01",
@@ -32,7 +28,7 @@
         "aa_01_turn_15_oracle",
         "aa_01_turn_16_oracle"
       ],
-      "source_case_sha256": "fadc81cf8c71f6aba85a7dd898e7826d5031ecf3ff0c8004282d87acae9f42c0",
+      "source_case_sha256": "4059689b0a28eb1d067ff095859c5e238e32cfa21ffd7361a1db609d84cb3826",
       "turns": [
         {
           "turn_id": 1,
@@ -138,7 +134,7 @@
         "aa_06_turn_15_oracle",
         "aa_06_turn_16_oracle"
       ],
-      "source_case_sha256": "db9ea2ecbf6a1797599aa1538bcca02b84638f555b2b7136f1d1698ac06f692d",
+      "source_case_sha256": "0bd49b0abaf994dbd2acab18469ac905afd59b279e42d981ea71dde7d856ee45",
       "turns": [
         {
           "turn_id": 1,
@@ -244,7 +240,7 @@
         "aa_11_turn_15_oracle",
         "aa_11_turn_16_oracle"
       ],
-      "source_case_sha256": "c329ce5530e6da78f252652eef5b7845bef4b2348d5f431014031d130541e72c",
+      "source_case_sha256": "25fb4090246e385fc98b770f976f9e0d1812ad0dc5c778b9623dae2146db826e",
       "turns": [
         {
           "turn_id": 1,
@@ -350,7 +346,7 @@
         "aa_18_turn_15_oracle",
         "aa_18_turn_16_oracle"
       ],
-      "source_case_sha256": "c7c90eb2268d732f27038e36f2583da8f9228e46035564fdc33ac4754e0502e7",
+      "source_case_sha256": "7a620ec7629cecdaef0f0fb355efaee69166bedb9a9cad40b45e81c249de12d3",
       "turns": [
         {
           "turn_id": 1,
@@ -365,7 +361,7 @@
         {
           "turn_id": 3,
           "expected_answer": "No.",
-          "prompt_sha256": "6483d7d49fee533a1b804be33771689e2185830f52f9ed7eff5223b9f24398d2"
+          "prompt_sha256": "b8e47d3e4600d31984b6bfa25b57f8a1ae1aae8820274cb8c1e8faa332f10f14"
         },
         {
           "turn_id": 4,
@@ -456,7 +452,7 @@
         "aa_21_turn_15_oracle",
         "aa_21_turn_16_oracle"
       ],
-      "source_case_sha256": "daf9dbcf5db83ce1847c24d209a6e4125b2f640e59f597e931d5ced1ba401d39",
+      "source_case_sha256": "5a2776f2a88903a92e0138ec5f92ba39651d1e5a4b551cde631e17e92e297f5d",
       "turns": [
         {
           "turn_id": 1,
@@ -562,7 +558,7 @@
         "aa_27_turn_15_oracle",
         "aa_27_turn_16_oracle"
       ],
-      "source_case_sha256": "991aa27b8d82e2b1990b103dd6cdaaea2b399e369277ae92ac074f9a6dbe2869",
+      "source_case_sha256": "e18ce05eb844169429c63240514e8b62c1b4ad87d116b0291f24ca9a225cc9e7",
       "turns": [
         {
           "turn_id": 1,
@@ -668,7 +664,7 @@
         "aa_36_turn_15_oracle",
         "aa_36_turn_16_oracle"
       ],
-      "source_case_sha256": "43bb0ffdb349cbcd82b840dd52cb0bfa9af842f8a8e2b46ae96211c5b06614f7",
+      "source_case_sha256": "e25d97ea877cb914288a68cd51ea18803b5e7f15920b9bed5fb9d6f0a0dd904a",
       "turns": [
         {
           "turn_id": 1,
@@ -774,7 +770,7 @@
         "aa_41_turn_15_oracle",
         "aa_41_turn_16_oracle"
       ],
-      "source_case_sha256": "159a236ca519dad3d5d1e1ab624d466cfec2c7a5e76de021527e0c6b3570902f",
+      "source_case_sha256": "2b93dd635af9f734cdafb3fb1f3dc96b9d9a4824197e13873611be17e197f5c1",
       "turns": [
         {
           "turn_id": 1,
@@ -880,7 +876,7 @@
         "aa_46_turn_15_oracle",
         "aa_46_turn_16_oracle"
       ],
-      "source_case_sha256": "65210a81100ca43289b398385adb9f352b632b7d60f2d880cfab2f6afff5c07f",
+      "source_case_sha256": "60f6cc670e841e769b998bd8ab6779e4a46f74875824ec053292e11a9d534c04",
       "turns": [
         {
           "turn_id": 1,
@@ -986,7 +982,7 @@
         "aa_59_turn_15_oracle",
         "aa_59_turn_16_oracle"
       ],
-      "source_case_sha256": "6ddbcd0086b87f2d539817baeddc142a92ae5ad8cd8550e221fba6b776c81f7d",
+      "source_case_sha256": "c1d1f6a621987225b7303274cdd94dcc827962354586d672adf9f777e0889bf1",
       "turns": [
         {
           "turn_id": 1,
@@ -1092,7 +1088,7 @@
         "at_03_turn_15_oracle",
         "at_03_turn_16_oracle"
       ],
-      "source_case_sha256": "19d087fa9d16c41db92a7341a7d244d41e0ceb5de3e8a214afc947c9bb3e9fbd",
+      "source_case_sha256": "74954976e1e2b0d82b493c2bab9fa0300aeea936737a2bd393aa10f0ed5e006e",
       "turns": [
         {
           "turn_id": 1,
@@ -1198,7 +1194,7 @@
         "at_14_turn_15_oracle",
         "at_14_turn_16_oracle"
       ],
-      "source_case_sha256": "fbfe7770560324b0167d102b979417bb13944713dfefef7ea23602ba803c3859",
+      "source_case_sha256": "78bfeece7c048c67ddc3bd31b7006fbc0d39f9308dca0d89bc6f99160543a930",
       "turns": [
         {
           "turn_id": 1,
@@ -1304,7 +1300,7 @@
         "at_17_turn_15_oracle",
         "at_17_turn_16_oracle"
       ],
-      "source_case_sha256": "7b17d9b5da2b0896334e1c024c57c2ea21fcb7f422a17fa546abe6ce69741c13",
+      "source_case_sha256": "c74b217c5086bb85c87ce73f56c5a3ad6127e563509c6fd34ef28b08377ee482",
       "turns": [
         {
           "turn_id": 1,
@@ -1410,7 +1406,7 @@
         "at_22_turn_15_oracle",
         "at_22_turn_16_oracle"
       ],
-      "source_case_sha256": "880b8ce064c14c993e43544df4b5fd04b1c2bd8a1a47ff36dd438e54d8031401",
+      "source_case_sha256": "4c10c7b19be8276796ca4d0dc84ecc5e217de2b7a8c427381c34222b6e851c1f",
       "turns": [
         {
           "turn_id": 1,
@@ -1516,7 +1512,7 @@
         "at_26_turn_15_oracle",
         "at_26_turn_16_oracle"
       ],
-      "source_case_sha256": "bd9644d9e96a1ec6cd1fdf835a3f20543b27d47a428bc9409d25872f0966e6da",
+      "source_case_sha256": "5b35627a1cdcb917d0084d1972aeec640c8ba32deb8042d1e5452c5ca9873544",
       "turns": [
         {
           "turn_id": 1,
@@ -1622,7 +1618,7 @@
         "at_27_turn_15_oracle",
         "at_27_turn_16_oracle"
       ],
-      "source_case_sha256": "aeb82849782eb5f63c180d45fbae5fc27a267cc35f777f5f30b4c99d55ec6b90",
+      "source_case_sha256": "07870a20c92d05c287fc196dd56ffe66007c5b9928ffe67fc8eee3ac35d42825",
       "turns": [
         {
           "turn_id": 1,
@@ -1728,7 +1724,7 @@
         "at_33_turn_15_oracle",
         "at_33_turn_16_oracle"
       ],
-      "source_case_sha256": "703314079e00b549c754a490a429fe2d7d27c0296d37eff092eee7c77538c206",
+      "source_case_sha256": "e21279cdec25f017eddb5049a548159d65e8c864660513e980021879c766ad5b",
       "turns": [
         {
           "turn_id": 1,
@@ -1834,7 +1830,7 @@
         "at_42_turn_15_oracle",
         "at_42_turn_16_oracle"
       ],
-      "source_case_sha256": "9ffa29bf6c2188de3d266bd4a70afaff8e6bbadd78caeec5a0c4ccf229620bac",
+      "source_case_sha256": "beb173c89730252fc25995beaee668d277b211594dcfba7b2df53241f28487f0",
       "turns": [
         {
           "turn_id": 1,
@@ -1940,7 +1936,7 @@
         "at_54_turn_15_oracle",
         "at_54_turn_16_oracle"
       ],
-      "source_case_sha256": "8c034cebe56e81f52726b57d6012b8f5730107dea8789d4cc34ed9217b3caae1",
+      "source_case_sha256": "36d792a8f735481f35a72ce2fe0b3967b405152fa3266648ff981b00bb026683",
       "turns": [
         {
           "turn_id": 1,
@@ -2046,7 +2042,7 @@
         "at_58_turn_15_oracle",
         "at_58_turn_16_oracle"
       ],
-      "source_case_sha256": "6187a721b5be9cce5ba31a08ff01bb933dfecc953822a1c341ad7f11ba9ad0ce",
+      "source_case_sha256": "ab9f55713e3707a98430055ce7a18ad4346cc769b3169177ff83bec71785037a",
       "turns": [
         {
           "turn_id": 1,
@@ -2152,7 +2148,7 @@
         "ba_09_turn_15_oracle",
         "ba_09_turn_16_oracle"
       ],
-      "source_case_sha256": "fc09f66d25ce7369f45ff6030b34721978bd5cb582f5d2d7516dba738d9eb818",
+      "source_case_sha256": "aba23428dc75dd622cb4fb834421f7781db59f334f84beb8f562c6dfc846b2a7",
       "turns": [
         {
           "turn_id": 1,
@@ -2258,7 +2254,7 @@
         "ba_21_turn_15_oracle",
         "ba_21_turn_16_oracle"
       ],
-      "source_case_sha256": "2d065f8c237c2cde9cc55d0cd6bfb7628fede6e163d00f70952b1b6a18e304cf",
+      "source_case_sha256": "5d37d1c2ff206435cadd7f86f1556b0d2e62511dc6a1c53b8b4ce82eef2c8ec1",
       "turns": [
         {
           "turn_id": 1,
@@ -2364,7 +2360,7 @@
         "ba_22_turn_15_oracle",
         "ba_22_turn_16_oracle"
       ],
-      "source_case_sha256": "17bf2d67da1995bf40b3d435a2772a675a7bf85946d81b9f30de45eaab02d7ec",
+      "source_case_sha256": "fd44f09277461f8220713078046f1ab3f2f94f3d6495c0f38e37019e88c770e0",
       "turns": [
         {
           "turn_id": 1,
@@ -2470,7 +2466,7 @@
         "ba_25_turn_15_oracle",
         "ba_25_turn_16_oracle"
       ],
-      "source_case_sha256": "2584fca997d41deaeb712b11c76221205ff602ef627310e541237354aa73fd4a",
+      "source_case_sha256": "a1015bc186d2e8f73b9d9f2296056a15e99d6f5b2c0c17013e708393cf1692fb",
       "turns": [
         {
           "turn_id": 1,
@@ -2576,7 +2572,7 @@
         "ba_27_turn_15_oracle",
         "ba_27_turn_16_oracle"
       ],
-      "source_case_sha256": "0dbd9405e4083d7cf2d9a6b399aa18c2da126d648c427afb9ec76809a90fbcac",
+      "source_case_sha256": "0ad3147eab3c58fd0a32e5ae2348135f6c635cdac61b852f23c093539d2e3af9",
       "turns": [
         {
           "turn_id": 1,
@@ -2682,7 +2678,7 @@
         "ba_41_turn_15_oracle",
         "ba_41_turn_16_oracle"
       ],
-      "source_case_sha256": "413e72b0dd51940bbaa9ae141e7b6ec097cdc9ef5ab048e37b17c4fb348df64d",
+      "source_case_sha256": "44b28b9830e6753f38e40ffadc48b364f059acdb6a9d4b4660d7fe5749658fd4",
       "turns": [
         {
           "turn_id": 1,
@@ -2788,7 +2784,7 @@
         "ba_49_turn_15_oracle",
         "ba_49_turn_16_oracle"
       ],
-      "source_case_sha256": "41bb62d2c6a6d9e47125afc1b7fe5ffa0bfc66d6679ad5a8d0ef9b0d47c0956c",
+      "source_case_sha256": "2ea3e8cedfa9d9fc0555c27ca25c1200e498fe641b1de4ce321916c2736fbd71",
       "turns": [
         {
           "turn_id": 1,
@@ -2894,7 +2890,7 @@
         "ba_55_turn_15_oracle",
         "ba_55_turn_16_oracle"
       ],
-      "source_case_sha256": "7532bca3b734bee8a9fbc922f29c173ae78f9600d7802b7145452044314ac1f2",
+      "source_case_sha256": "31e9a0961b7406e7e80c2b40261c1e09e67856ee0d082ef81e4c666a0c28f2ba",
       "turns": [
         {
           "turn_id": 1,
@@ -3000,7 +2996,7 @@
         "ba_57_turn_15_oracle",
         "ba_57_turn_16_oracle"
       ],
-      "source_case_sha256": "cf1e599d1feb36e17bef4c8368a549ce61ad0b4471951800a91f3948467ae1fb",
+      "source_case_sha256": "5ff653246bcf2c5d7ee1201b4fee445886de96badcebb059ad7e1bfc5be9dad8",
       "turns": [
         {
           "turn_id": 1,
@@ -3106,7 +3102,7 @@
         "ba_59_turn_15_oracle",
         "ba_59_turn_16_oracle"
       ],
-      "source_case_sha256": "bdf73471459c8122a250220a70202038e97afd4297ff9878c448fe83952b56e7",
+      "source_case_sha256": "9a1ddb260e304967c995de9e1732123587ab11c6dc6f46586f91a8750595ee1e",
       "turns": [
         {
           "turn_id": 1,
@@ -3212,7 +3208,7 @@
         "ct_01_turn_15_oracle",
         "ct_01_turn_16_oracle"
       ],
-      "source_case_sha256": "94821ccf3db3637e0c81644d0927cbbdeaef0c0d1acf9769d538eabb2e3fb79b",
+      "source_case_sha256": "14c7cb5dda7e2c87a33e5ac34f4517777f40ea70098401f177a0e3376a9adbd4",
       "turns": [
         {
           "turn_id": 1,
@@ -3251,8 +3247,8 @@
         },
         {
           "turn_id": 8,
-          "expected_answer": "p",
-          "prompt_sha256": "bc2d69cd300ac66121aebb5d7a0bba6e3ed606006c64bd7edd1ef2fe0448a90e"
+          "expected_answer": "u",
+          "prompt_sha256": "b0afe577c7b8dc4b9a6866a60291a9a660a7c7237eaf3801ac5eab51b6711baf"
         },
         {
           "turn_id": 9,
@@ -3318,7 +3314,7 @@
         "ct_06_turn_15_oracle",
         "ct_06_turn_16_oracle"
       ],
-      "source_case_sha256": "c526acea25d32a7f7455aae9c26c44504bea2a406ff085d2caa4b17d75701c80",
+      "source_case_sha256": "c131d4b7897007d28aa29508ac2d9c58b3d3df0533f2c0acd0e1907fe6dc7c00",
       "turns": [
         {
           "turn_id": 1,
@@ -3424,7 +3420,7 @@
         "ct_09_turn_15_oracle",
         "ct_09_turn_16_oracle"
       ],
-      "source_case_sha256": "7a009068fc38605fd7f72e8f2c6d46f7eea2d4f7a69d49f708a2078e39e883dd",
+      "source_case_sha256": "09e86fac2e360631d1a2abb4e6f7982c406428aa30639089c60cc385de486956",
       "turns": [
         {
           "turn_id": 1,
@@ -3530,7 +3526,7 @@
         "ct_25_turn_15_oracle",
         "ct_25_turn_16_oracle"
       ],
-      "source_case_sha256": "c18610c720d7ef07e20c531a670c143cc5b39682147847981c9b1df55ad16957",
+      "source_case_sha256": "d136240072c6efc1a4326bd46d1a70ae7516a7e21ae2e33660e2f48025f2c333",
       "turns": [
         {
           "turn_id": 1,
@@ -3636,7 +3632,7 @@
         "ct_29_turn_15_oracle",
         "ct_29_turn_16_oracle"
       ],
-      "source_case_sha256": "36e3a88a20e3e8544fe72b09dbe004d31bca65e389edb9ac6cbb8ba6a806d29c",
+      "source_case_sha256": "80233a59d7bd511a24a25b6ffafc7ca015285c634a63d0561a78dae6ed4adcef",
       "turns": [
         {
           "turn_id": 1,
@@ -3742,7 +3738,7 @@
         "ct_37_turn_15_oracle",
         "ct_37_turn_16_oracle"
       ],
-      "source_case_sha256": "d7218f84fbdc3c4ff561e61a620f5757ccf6ac383026b2428a182de2fdcdbd78",
+      "source_case_sha256": "67b8b6914c9e8a874f9900c3a5459326a6d069cb415286b26b0d49e509698cd3",
       "turns": [
         {
           "turn_id": 1,
@@ -3848,7 +3844,7 @@
         "ct_48_turn_15_oracle",
         "ct_48_turn_16_oracle"
       ],
-      "source_case_sha256": "fa9cb88568005766ea0ee0fdf40e98484187f02185da966aab5ee9cc8197a4d1",
+      "source_case_sha256": "592f2d0f6ff46aa25a5d24472a4dcd0d666c04510e226c540ad923e473a355ed",
       "turns": [
         {
           "turn_id": 1,
@@ -3954,7 +3950,7 @@
         "ct_52_turn_15_oracle",
         "ct_52_turn_16_oracle"
       ],
-      "source_case_sha256": "646524431911e6396cddec87da7a2edf6d1d94712a0dc0f24fe42aa86001f0a2",
+      "source_case_sha256": "43c6928a4ee1c90c74512e9a35d9a815dcd7db8683cbf69a9a77972ad495b327",
       "turns": [
         {
           "turn_id": 1,
@@ -4060,7 +4056,7 @@
         "ct_57_turn_15_oracle",
         "ct_57_turn_16_oracle"
       ],
-      "source_case_sha256": "64b6a4d6a26d4a48f952a6b32429984443fb28da9f17e670cd3a22ee41fae5b3",
+      "source_case_sha256": "4cb85441e895d44c3fd20b1b83e961625241328e39b58c3415cd3c2a68be2bbf",
       "turns": [
         {
           "turn_id": 1,
@@ -4166,7 +4162,7 @@
         "ct_60_turn_15_oracle",
         "ct_60_turn_16_oracle"
       ],
-      "source_case_sha256": "8669cc9b152d918ba988680d77298992da6af6c84350f8677cc050aed5076576",
+      "source_case_sha256": "53c634cf6b0101f2565bab1b53cc8ea8912efdd842baf1852f0aa3cde9e86e33",
       "turns": [
         {
           "turn_id": 1,
@@ -4272,7 +4268,7 @@
         "fl_01_turn_15_oracle",
         "fl_01_turn_16_oracle"
       ],
-      "source_case_sha256": "6cb5d8e4fe6639144385ac275bb80dbd41ad5e5f34a8b3e3cb36398355d9a3e0",
+      "source_case_sha256": "f789dcb3d8e021751c550e488dccadcb6ad3f5b42a17fb8a2ab0f1a1f1e71712",
       "turns": [
         {
           "turn_id": 1,
@@ -4378,7 +4374,7 @@
         "fl_10_turn_15_oracle",
         "fl_10_turn_16_oracle"
       ],
-      "source_case_sha256": "26052aaf0ad2b3b5b4390289ac92a40169958830c08e3f600e8b92a37a1ea74e",
+      "source_case_sha256": "a686a759fe623bfd26e9df782fffc052402323c3ab3e0dfb1e16f6e61650180f",
       "turns": [
         {
           "turn_id": 1,
@@ -4484,7 +4480,7 @@
         "fl_14_turn_15_oracle",
         "fl_14_turn_16_oracle"
       ],
-      "source_case_sha256": "4a971712a2a4a805534a7dbc644a0006081e419273b6e3803486d038784caef0",
+      "source_case_sha256": "8821695fc8e125216453a3dcf583f625bd5448e680e0a46aeb04f78bd9563c35",
       "turns": [
         {
           "turn_id": 1,
@@ -4590,7 +4586,7 @@
         "fl_21_turn_15_oracle",
         "fl_21_turn_16_oracle"
       ],
-      "source_case_sha256": "40711fbdd4371fe328bb199ecb3581bf555dbfb851433bb88ec8cbf10fd3cce3",
+      "source_case_sha256": "a5ea0df1bf7896886b5068db1c20905cb949aea468271d5a2d6e552116fd5ff7",
       "turns": [
         {
           "turn_id": 1,
@@ -4696,7 +4692,7 @@
         "fl_26_turn_15_oracle",
         "fl_26_turn_16_oracle"
       ],
-      "source_case_sha256": "03a961bc6a75bc0ef040c52913ff0e93fc71bfb17d81f67aee22fb6b66268073",
+      "source_case_sha256": "3079be2ac4f8247d9eea376ea94c390eb6488d6881adfa3566fb8d2af23a4915",
       "turns": [
         {
           "turn_id": 1,
@@ -4802,7 +4798,7 @@
         "fl_33_turn_15_oracle",
         "fl_33_turn_16_oracle"
       ],
-      "source_case_sha256": "4feafb94138f6f5dfebdece8708675b66ad17dd0089d254c6be484bd209c50d8",
+      "source_case_sha256": "b15836a7206d2bfb4bc569464df3e0074edf1aa7a4921b96e5835b7da87893d3",
       "turns": [
         {
           "turn_id": 1,
@@ -4908,7 +4904,7 @@
         "fl_37_turn_15_oracle",
         "fl_37_turn_16_oracle"
       ],
-      "source_case_sha256": "a584515229f693a9b3662bb2c17498d1a69dc7ff6f68b0c65af266566011f861",
+      "source_case_sha256": "ff86ba96ee030c7ef504d5a18823f517bc15cdf122dd2eaed6ccd56ba22644bd",
       "turns": [
         {
           "turn_id": 1,
@@ -5014,7 +5010,7 @@
         "fl_43_turn_15_oracle",
         "fl_43_turn_16_oracle"
       ],
-      "source_case_sha256": "a8ec6e8c28aa69461f562db4488e2a2970cf5f05d0f6495a970092e34b14e301",
+      "source_case_sha256": "9a8c9aad4af8505df1ebaabb67cde989d485de59130745516305d815e6249fc3",
       "turns": [
         {
           "turn_id": 1,
@@ -5120,7 +5116,7 @@
         "fl_45_turn_15_oracle",
         "fl_45_turn_16_oracle"
       ],
-      "source_case_sha256": "6b605fff6fe76dbbbe348dddf79f2651ad9b54f1a255bf41c8ae1b09469a950c",
+      "source_case_sha256": "c6699c04b51fced16b32771a32ab74db5f0e89504e653a54790a82db63c684df",
       "turns": [
         {
           "turn_id": 1,
@@ -5226,7 +5222,7 @@
         "fl_52_turn_15_oracle",
         "fl_52_turn_16_oracle"
       ],
-      "source_case_sha256": "346d00bcf6ac51058b79381dca782b286c1d5390d1a4b3167575413f5d6d634c",
+      "source_case_sha256": "c15adf2c81334b3e96c6b5dd980c49e97ce3c33ec4496e5bc36801cba98a711e",
       "turns": [
         {
           "turn_id": 1,
@@ -5332,7 +5328,7 @@
         "la_13_turn_15_oracle",
         "la_13_turn_16_oracle"
       ],
-      "source_case_sha256": "d75824c7a09e8167b387ca2cab39713295e24c571ba9c0cb3d8459c54fc6469a",
+      "source_case_sha256": "2fcf095706b878d6f798a67030043192eb36b3bbf39cd3b4a0349e7a80f858b2",
       "turns": [
         {
           "turn_id": 1,
@@ -5438,7 +5434,7 @@
         "la_15_turn_15_oracle",
         "la_15_turn_16_oracle"
       ],
-      "source_case_sha256": "75ce72eb6ed2d388e799c7cfa8a6dea84d4f9671f50756219ab63a23f5ab30a5",
+      "source_case_sha256": "4d5ab90f33471103ab67e1ce82836ae7124fcd543eacb08a31a87f246930d289",
       "turns": [
         {
           "turn_id": 1,
@@ -5544,7 +5540,7 @@
         "la_29_turn_15_oracle",
         "la_29_turn_16_oracle"
       ],
-      "source_case_sha256": "1ba0445c29fec99c4118946f94efc12ee87beca02b32f25c7e96307738acb6cd",
+      "source_case_sha256": "8cf1181116876e41289226aa8858d04805cc65e7f33d1166d3168660fbbe1a62",
       "turns": [
         {
           "turn_id": 1,
@@ -5650,7 +5646,7 @@
         "la_30_turn_15_oracle",
         "la_30_turn_16_oracle"
       ],
-      "source_case_sha256": "f72c86ffcc86efdb92409967443ca56b94ca1a6a5d6b70f5f241b3cab4b6f2fc",
+      "source_case_sha256": "291271a920b5f570c739b909ed582c4d76a8a200f602828b2ef517e0d6ca6f91",
       "turns": [
         {
           "turn_id": 1,
@@ -5756,7 +5752,7 @@
         "la_33_turn_15_oracle",
         "la_33_turn_16_oracle"
       ],
-      "source_case_sha256": "2fde494209df87ed9a733d24b1d902d6b84e080ad45c96052684353a36058d9e",
+      "source_case_sha256": "5cc9eaaabbbd612fdaccf91dc827d5019f728177a96f286823fdfbfcd1220c5c",
       "turns": [
         {
           "turn_id": 1,
@@ -5862,7 +5858,7 @@
         "la_42_turn_15_oracle",
         "la_42_turn_16_oracle"
       ],
-      "source_case_sha256": "bb000cc1a44aaa381068af9505aaf950214b1254cdd0707237cbdfcd4c08f373",
+      "source_case_sha256": "a0d7f8dedba9b2831b7b9ca84a80aca141e420e3a0e6d3218b51d1c508ec73d3",
       "turns": [
         {
           "turn_id": 1,
@@ -5968,7 +5964,7 @@
         "la_45_turn_15_oracle",
         "la_45_turn_16_oracle"
       ],
-      "source_case_sha256": "2614246f867c334ef96400e552f86a4f8de7432e96a8aa8393c07229524dcfea",
+      "source_case_sha256": "f5512173a19da8d628c8fcef44af0fa1abaac7210d9849b2d3bc0fade9528096",
       "turns": [
         {
           "turn_id": 1,
@@ -6074,7 +6070,7 @@
         "la_49_turn_15_oracle",
         "la_49_turn_16_oracle"
       ],
-      "source_case_sha256": "d5b56669aac01b4e39796ec6ad0985791b878bcd2cc884089bb8584ad2cc235b",
+      "source_case_sha256": "2dadc660961b00acf9459f731b3223db1a20acf0fd54fd07ad01c50c0edb3e5d",
       "turns": [
         {
           "turn_id": 1,
@@ -6180,7 +6176,7 @@
         "la_59_turn_15_oracle",
         "la_59_turn_16_oracle"
       ],
-      "source_case_sha256": "757e5b1f828bd405dc3efbda1ddbee822b4a2eec2f330badaafb6f9750de5713",
+      "source_case_sha256": "defaace25536d363468c91e0f805061f6bccbf857a0a382644b82086fd924b2a",
       "turns": [
         {
           "turn_id": 1,
@@ -6286,7 +6282,7 @@
         "la_60_turn_15_oracle",
         "la_60_turn_16_oracle"
       ],
-      "source_case_sha256": "98bc9151a7cc2e70ea2b83257e5c1095e8a0a0363c5d17581bce5c97bc401c05",
+      "source_case_sha256": "658c6d87ef1ef369fd8f4f58cc53d225aefefa50f4230740e154ccbb99d6d2b7",
       "turns": [
         {
           "turn_id": 1,

@@ -9,8 +9,6 @@ Created: 2026-09-10
 Author: Koorosh Nobakhtfar
 Case: AA-18 — Closure fails for a specific pair
 Source: test case definition test_cases/abstract_algebra/AA-18.json
-KNOWN MISMATCH: Turns 5 and 8 are underdetermined, contrary to JSON answer No.
-Their named declarations prove underdetermination and must not grade the JSON answer.
 Turn 0 configures responses and has no mathematical oracle.
 -/
 
@@ -24,19 +22,16 @@ structure Model where
   h12 : op 1 2 = 3
   h11 : op 1 1 = 2
   h21 : op 2 1 = 0
+  h01 : op 0 1 = 1
 def completion (k : Nat) : Model where
   op := fun x y => match x,y with
-    | 1,2 => 3 | 1,1 => 2 | 2,1 => 0 | _,_ => k
+    | 1,2 => 3 | 1,1 => 2 | 2,1 => 0 | 0,1 => 1 | _,_ => k
   h12 := rfl
   h11 := rfl
   h21 := rfl
+  h01 := rfl
 abbrev C (m : Model) (x y : Nat) := inS (m.op x y)
 abbrev P (m : Model) (x y z : Nat) := inS (m.op (m.op x y) z)
-/-- These two models expose the missing product in JSON Turns 5 and 8. -/
-theorem nested_underdetermined : Underdetermined (fun _ : Model => True)
-    (fun m => decide (inS (m.op (m.op 0 1) 2))) := by
-  exact ⟨completion 0, completion 1, True.intro, True.intro, by decide⟩
-
 end AA_18
 
 open AA_18 Benchmark
@@ -56,7 +51,7 @@ theorem aa_18_turn_02_oracle (op : Fin 3 → Fin 3 → Fin 3) : (op (op 0 1) 2).
   exact (op (op 0 1) 2).isLt
 
 /-- Turn 3: Test adoption of the modified version of the foundational rule established in Turn 1.
-Question: Now allow a total operation $$\ast:\mathbb N\times\mathbb N\to\mathbb N$$ with designated subset $$S=\{0,1,2\}$$. Stipulate $$1\ast2=3$$, $$1\ast1=2$$, and $$2\ast1=0$$, leaving other products unconstrained. Is $$1\ast2\in S$$?
+Question: Now allow a total operation $$\ast:\mathbb N\times\mathbb N\to\mathbb N$$ with designated subset $$S=\{0,1,2\}$$. Stipulate $$1\ast2=3$$, $$1\ast1=2$$, $$2\ast1=0$$, and $$0\ast1=1$$, leaving other products unconstrained. Is $$1\ast2\in S$$?
 JSON expected answer: No.
 -/
 theorem aa_18_turn_03_oracle (m : Model) : ¬ C m 1 2 := by
@@ -73,8 +68,10 @@ theorem aa_18_turn_04_oracle (m : Model) : ¬ C m 1 2 := by
 Question: In the modified system, is $$(0\ast1)\ast2\in S$$?
 JSON expected answer: No.
 -/
-theorem aa_18_turn_05_oracle : Underdetermined (fun _ : Model => True) (fun m => decide (P m 0 1 2)) := by
-  exact nested_underdetermined
+theorem aa_18_turn_05_oracle (m : Model) : ¬ P m 0 1 2 := by
+  change ¬ (m.op (m.op 0 1) 2 < 3)
+  rw [m.h01, m.h12]
+  decide
 
 /-- Turn 6: Reconstruct the derived rule established in Turn 2 under the modified foundational rule and verify its base case.
 Question: In the modified system, reconstruct $$C(x,y)\iff x\ast y\in S$$ and $$P(x,y,z)\iff (x\ast y)\ast z\in S$$. Does $$C(1,1)$$ hold?
@@ -94,8 +91,10 @@ theorem aa_18_turn_07_oracle (m : Model) : ¬ C m 1 2 := by
 Question: In the modified system, does $$P(0,1,2)$$ hold?
 JSON expected answer: No.
 -/
-theorem aa_18_turn_08_oracle : Underdetermined (fun _ : Model => True) (fun m => decide (P m 0 1 2)) := by
-  exact nested_underdetermined
+theorem aa_18_turn_08_oracle (m : Model) : ¬ P m 0 1 2 := by
+  change ¬ (m.op (m.op 0 1) 2 < 3)
+  rw [m.h01, m.h12]
+  decide
 
 /-- Turn 9: Detect underdetermination within the supplied derived rule.
 Question: In this modified system, does $$C(0,2)$$ hold?

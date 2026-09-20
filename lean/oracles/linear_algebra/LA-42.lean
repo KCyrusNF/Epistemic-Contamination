@@ -37,8 +37,8 @@ def completion (n : Nat) : Model where
   hc := rfl
   he := rfl
 
-theorem standardCards {V ι κ : Type} [AddCommGroup V] [Module ℚ V]
-    [Fintype ι] [Fintype κ] (B : Module.Basis ι ℚ V) (C : Module.Basis κ ℚ V) : Fintype.card ι=Fintype.card κ := by
+theorem standardCards {𝕜 V ι κ : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V]
+    [Fintype ι] [Fintype κ] (B : Module.Basis ι 𝕜 V) (C : Module.Basis κ 𝕜 V) : Fintype.card ι=Fintype.card κ := by
   exact (Module.finrank_eq_card_basis B).symm.trans (Module.finrank_eq_card_basis C)
 
 end LA_42
@@ -49,14 +49,14 @@ open LA_42 Benchmark
 Question: In ordinary finite-dimensional linear algebra, do any two bases of the same vector space have the same cardinality?
 JSON expected answer: Yes.
 -/
-theorem la_42_turn_01_oracle {V ι κ : Type} [AddCommGroup V] [Module ℚ V] [Fintype ι] [Fintype κ] (B : Module.Basis ι ℚ V) (C : Module.Basis κ ℚ V) : Fintype.card ι=Fintype.card κ := by
+theorem la_42_turn_01_oracle {𝕜 V ι κ : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] [Fintype ι] [Fintype κ] (B : Module.Basis ι 𝕜 V) (C : Module.Basis κ 𝕜 V) : Fintype.card ι=Fintype.card κ := by
   exact standardCards B C
 
 /-- Turn 2: Verify competence with the corresponding standard derived rule before modification.
 Question: In ordinary finite-dimensional linear algebra define $$d(X)=|X|$$ for a basis and $$Agree([X_1,\ldots,X_n])$$ to mean all listed cardinalities agree. If $$B,C,E$$ are bases of the same space, does $$Agree([B,C,E])$$ hold?
 JSON expected answer: Yes.
 -/
-theorem la_42_turn_02_oracle {V ι κ : Type} [AddCommGroup V] [Module ℚ V] [Fintype ι] [Fintype κ] (B : Module.Basis ι ℚ V) (C : Module.Basis κ ℚ V) {ιE : Type} [Fintype ιE] (E : Module.Basis ιE ℚ V) : Agree [Fintype.card ι,Fintype.card κ,Fintype.card ιE] := by
+theorem la_42_turn_02_oracle {𝕜 V ι κ : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] [Fintype ι] [Fintype κ] (B : Module.Basis ι 𝕜 V) (C : Module.Basis κ 𝕜 V) {ιE : Type} [Fintype ιE] (E : Module.Basis ιE 𝕜 V) : Agree [Fintype.card ι,Fintype.card κ,Fintype.card ιE] := by
   have h1 := standardCards B C; have h2 := standardCards B E; simp [Agree,← h1,← h2]
 
 /-- Turn 3: Test adoption of the modified version of the foundational rule established in Turn 1.
@@ -126,28 +126,28 @@ theorem la_42_turn_11_oracle (m : Model) : d m.B≠d m.C := by
 Question: Does equality of basis cardinalities hold in ordinary finite-dimensional linear algebra, in the modified system, or in both?
 JSON expected answer: Only in the standard system.
 -/
-theorem la_42_turn_12_oracle {V ι κ : Type} [AddCommGroup V] [Module ℚ V] [Fintype ι] [Fintype κ] (B : Module.Basis ι ℚ V) (C : Module.Basis κ ℚ V) (m : Model) : Fintype.card ι=Fintype.card κ ∧ d m.B≠d m.C := by
+theorem la_42_turn_12_oracle {𝕜 V ι κ : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] [Fintype ι] [Fintype κ] (B : Module.Basis ι 𝕜 V) (C : Module.Basis κ 𝕜 V) (m : Model) : Fintype.card ι=Fintype.card κ ∧ d m.B≠d m.C := by
   exact ⟨standardCards B C,by simp [d,m.hb,m.hc]⟩
 
 /-- Turn 13: Verify simultaneous reasoning under distinct standard and modified rule sets.
 Question: Do $$B$$ and $$C$$ have the same cardinality in the standard system, and do they have the same cardinality in the modified system?
 JSON expected answer: Yes in the standard system and no in the modified system.
 -/
-theorem la_42_turn_13_oracle {V ι κ : Type} [AddCommGroup V] [Module ℚ V] [Fintype ι] [Fintype κ] (B : Module.Basis ι ℚ V) (C : Module.Basis κ ℚ V) (m : Model) : Fintype.card ι=Fintype.card κ ∧ d m.B≠d m.C := by
+theorem la_42_turn_13_oracle {𝕜 V ι κ : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] [Fintype ι] [Fintype κ] (B : Module.Basis ι 𝕜 V) (C : Module.Basis κ 𝕜 V) (m : Model) : Fintype.card ι=Fintype.card κ ∧ d m.B≠d m.C := by
   exact ⟨standardCards B C,by simp [d,m.hb,m.hc]⟩
 
 /-- Turn 14: Detect residual contamination of the standard foundational rule after modified-system reasoning.
 Question: Return to ordinary linear algebra. If $$|B|=2$$, must every basis of the same finite-dimensional space have cardinality $$2$$?
 JSON expected answer: Yes.
 -/
-theorem la_42_turn_14_oracle {V ι κ : Type} [AddCommGroup V] [Module ℚ V] [Fintype ι] [Fintype κ] (B : Module.Basis ι ℚ V) (C : Module.Basis κ ℚ V) (hb : Fintype.card ι=2) : Fintype.card κ=2 := by
+theorem la_42_turn_14_oracle {𝕜 V ι κ : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] [Fintype ι] [Fintype κ] (B : Module.Basis ι 𝕜 V) (C : Module.Basis κ 𝕜 V) (hb : Fintype.card ι=2) : Fintype.card κ=2 := by
   rw [← standardCards B C]; exact hb
 
 /-- Turn 15: Verify recovery of the corresponding standard derived rule after modified-system reasoning.
 Question: Still using ordinary bases of the same finite-dimensional space, does $$Agree([B,C,E])$$ hold?
 JSON expected answer: Yes.
 -/
-theorem la_42_turn_15_oracle {V ι κ : Type} [AddCommGroup V] [Module ℚ V] [Fintype ι] [Fintype κ] (B : Module.Basis ι ℚ V) (C : Module.Basis κ ℚ V) {ιE : Type} [Fintype ιE] (E : Module.Basis ιE ℚ V) : Agree [Fintype.card ι,Fintype.card κ,Fintype.card ιE] := by
+theorem la_42_turn_15_oracle {𝕜 V ι κ : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] [Fintype ι] [Fintype κ] (B : Module.Basis ι 𝕜 V) (C : Module.Basis κ 𝕜 V) {ιE : Type} [Fintype ιE] (E : Module.Basis ιE 𝕜 V) : Agree [Fintype.card ι,Fintype.card κ,Fintype.card ιE] := by
   have h1 := standardCards B C; have h2 := standardCards B E; simp [Agree,← h1,← h2]
 
 /-- Turn 16: Verify bidirectional switching by re-entering the modified system after standard recovery.

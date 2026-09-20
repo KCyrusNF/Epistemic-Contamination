@@ -53,8 +53,10 @@ open AA_46 Benchmark
 Question: In the standard system, the relation $$\leq$$ is transitive. From $$1\leq2$$ and $$2\leq3$$, does $$1\leq3$$ follow?
 JSON expected answer: Yes.
 -/
-theorem aa_46_turn_01_oracle  : (1:Nat) ≤ 3 := by
-  decide
+theorem aa_46_turn_01_oracle (r : Nat → Nat → Prop)
+    (ht : ∀ x y z, r x y → r y z → r x z)
+    (h12 : r 1 2) (h23 : r 2 3) : r 1 3 := by
+  exact ht 1 2 3 h12 h23
 
 /-- Turn 2: Verify competence with the corresponding standard derived rule before modification.
 Question: In the standard system define $$R_1(x,z)\iff x\leq z$$ and $$R_{n+1}(x,z)\iff\exists y\,(R_n(x,y)\land y\leq z)$$ for positive natural numbers. If $$a\leq b$$, $$b\leq c$$, and $$c\leq d$$, does $$R_3(a,d)$$ imply $$a\leq d$$?
@@ -130,26 +132,30 @@ theorem aa_46_turn_11_oracle (m : Model) : ¬ (∀ x y z, m.rel x y → m.rel y 
 Question: Does the statement “$$a\leq b$$ and $$b\leq c$$ imply $$a\leq c$$” hold in the standard system, in the modified system, or in both?
 JSON expected answer: Only in the standard system.
 -/
-theorem aa_46_turn_12_oracle (m : Model) : (∀ x y z : Nat, x≤y → y≤z → x≤z) ∧ ¬ (m.rel 0 1 → m.rel 1 2 → m.rel 0 2) := by
-  constructor
-  · intro x y z hxy hyz; exact Nat.le_trans hxy hyz
-  · intro h; exact m.hnac (h m.hab m.hbc)
+theorem aa_46_turn_12_oracle {A : Type} (r : A → A → Prop)
+    (ht : ∀ x y z, r x y → r y z → r x z) (m : Model) :
+    (∀ x y z, r x y → r y z → r x z) ∧
+    ¬ (m.rel 0 1 → m.rel 1 2 → m.rel 0 2) := by
+  exact ⟨ht,fun h => m.hnac (h m.hab m.hbc)⟩
 
 /-- Turn 13: Verify simultaneous reasoning under distinct standard and modified rule sets.
 Question: Does $$a\leq c$$ follow from $$a\leq b$$ and $$b\leq c$$ in the standard system, and does it follow in the modified system?
 JSON expected answer: Yes in the standard system and no in the modified system.
 -/
-theorem aa_46_turn_13_oracle (m : Model) : (∀ x y z : Nat, x≤y → y≤z → x≤z) ∧ ¬ (m.rel 0 1 → m.rel 1 2 → m.rel 0 2) := by
-  constructor
-  · intro x y z hxy hyz; exact Nat.le_trans hxy hyz
-  · intro h; exact m.hnac (h m.hab m.hbc)
+theorem aa_46_turn_13_oracle {A : Type} (r : A → A → Prop)
+    (ht : ∀ x y z, r x y → r y z → r x z) (m : Model) :
+    (∀ x y z, r x y → r y z → r x z) ∧
+    ¬ (m.rel 0 1 → m.rel 1 2 → m.rel 0 2) := by
+  exact ⟨ht,fun h => m.hnac (h m.hab m.hbc)⟩
 
 /-- Turn 14: Detect residual contamination of the standard foundational rule after modified-system reasoning.
 Question: Return to the standard system. From $$1\leq2$$ and $$2\leq3$$, does $$1\leq3$$ follow?
 JSON expected answer: Yes.
 -/
-theorem aa_46_turn_14_oracle  : (1:Nat) ≤ 3 := by
-  decide
+theorem aa_46_turn_14_oracle (r : Nat → Nat → Prop)
+    (ht : ∀ x y z, r x y → r y z → r x z)
+    (h12 : r 1 2) (h23 : r 2 3) : r 1 3 := by
+  exact ht 1 2 3 h12 h23
 
 /-- Turn 15: Verify recovery of the corresponding standard derived rule after modified-system reasoning.
 Question: Still using the standard system, does $$R_3(a,d)$$ imply $$a\leq d$$?

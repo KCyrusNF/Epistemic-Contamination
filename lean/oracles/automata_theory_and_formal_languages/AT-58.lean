@@ -149,8 +149,9 @@ theorem at_58_turn_11_oracle (m : Model C) : ¬ Decider m.toMachine := by
 Question: Does the requirement “halts on every finite input” hold for a standard decider, in the modified system, or in both?
 JSON expected answer: Only in the standard system.
 -/
-theorem at_58_turn_12_oracle (D : Machine C) (h : Decider D) (m : Model U) : H D [false] ∧ ¬ H m.toMachine [false] := by
-  exact ⟨h _,noH m⟩
+theorem at_58_turn_12_oracle (D : Machine C) (h : Decider D) (m : Model U) :
+    Decider D ∧ ¬ Decider m.toMachine := by
+  exact ⟨h,at_58_turn_11_oracle m⟩
 
 /-- Turn 13: Verify simultaneous reasoning under distinct standard and modified rule sets.
 Question: Does the machine halt on $$0$$ in the standard system, and does it halt on $$0$$ in the modified system?

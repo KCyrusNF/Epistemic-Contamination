@@ -60,14 +60,14 @@ open LA_49 Benchmark
 Question: For an ordinary linear map $$T$$, is $$ker(T)$$ closed under vector addition?
 JSON expected answer: Yes.
 -/
-theorem la_49_turn_01_oracle {V W : Type} [AddCommGroup V] [AddCommGroup W] [Module ℚ V] [Module ℚ W] (T : V →ₗ[ℚ] W) (u v : V) (hu : T u=0) (hv : T v=0) : T (u+v)=0 := by
+theorem la_49_turn_01_oracle {𝕜 V W : Type} [Field 𝕜] [AddCommGroup V] [AddCommGroup W] [Module 𝕜 V] [Module 𝕜 W] (T : V →ₗ[𝕜] W) (u v : V) (hu : T u=0) (hv : T v=0) : T (u+v)=0 := by
   simp [hu,hv]
 
 /-- Turn 2: Verify competence with the corresponding standard derived rule before modification.
 Question: For an ordinary linear map define $$K(x)\iff T(x)=\mathbf0$$ and $$E([])=\mathbf0$$, $$E(L+[x])=E(L)+x$$. If $$K(u),K(v)$$, does $$K(E([u,v,u]))$$ hold?
 JSON expected answer: Yes.
 -/
-theorem la_49_turn_02_oracle {V W : Type} [AddCommGroup V] [AddCommGroup W] [Module ℚ V] [Module ℚ W] (T : V →ₗ[ℚ] W) (u v : V) (hu : T u=0) (hv : T v=0) : T (E [u,v,u])=0 := by
+theorem la_49_turn_02_oracle {𝕜 V W : Type} [Field 𝕜] [AddCommGroup V] [AddCommGroup W] [Module 𝕜 V] [Module 𝕜 W] (T : V →ₗ[𝕜] W) (u v : V) (hu : T u=0) (hv : T v=0) : T (E [u,v,u])=0 := by
   simp [E,hu,hv]
 
 /-- Turn 3: Test adoption of the modified version of the foundational rule established in Turn 1.
@@ -137,28 +137,34 @@ theorem la_49_turn_11_oracle [AddCommGroup V] [AddCommGroup W] (m : Model V W) :
 Question: Does kernel closure under addition hold in ordinary linear algebra, in the modified system, or in both?
 JSON expected answer: Only in the standard system.
 -/
-theorem la_49_turn_12_oracle {V W : Type} [AddCommGroup V] [AddCommGroup W] [Module ℚ V] [Module ℚ W] (T : V →ₗ[ℚ] W) (u v : V) (hu : T u=0) (hv : T v=0) {U Z : Type} [AddCommGroup U] [AddCommGroup Z] (m : Model U Z) : T (u+v)=0 ∧ ¬ K m (m.u+m.v) := by
-  exact ⟨by simp [hu,hv],noShort m⟩
+theorem la_49_turn_12_oracle {𝕜 V W : Type} [Field 𝕜] [AddCommGroup V] [AddCommGroup W] [Module 𝕜 V] [Module 𝕜 W]
+    (T : V →ₗ[𝕜] W) {U Z : Type} [AddCommGroup U] [AddCommGroup Z] (m : Model U Z) :
+    (∀ x y, T x=0 → T y=0 → T (x+y)=0) ∧
+    ¬ (∀ x y, K m x → K m y → K m (x+y)) := by
+  constructor
+  · intro x y hx hy
+    simp [hx,hy]
+  · exact la_49_turn_11_oracle m
 
 /-- Turn 13: Verify simultaneous reasoning under distinct standard and modified rule sets.
 Question: With $$T(u)=T(v)=\mathbf0$$ in each system, is $$u+v\in ker(T)$$ for an ordinary linear map in the standard system, and is it in the modified system?
 JSON expected answer: Yes in the standard system and no in the modified system.
 -/
-theorem la_49_turn_13_oracle {V W : Type} [AddCommGroup V] [AddCommGroup W] [Module ℚ V] [Module ℚ W] (T : V →ₗ[ℚ] W) (u v : V) (hu : T u=0) (hv : T v=0) {U Z : Type} [AddCommGroup U] [AddCommGroup Z] (m : Model U Z) : T (u+v)=0 ∧ ¬ K m (m.u+m.v) := by
+theorem la_49_turn_13_oracle {𝕜 V W : Type} [Field 𝕜] [AddCommGroup V] [AddCommGroup W] [Module 𝕜 V] [Module 𝕜 W] (T : V →ₗ[𝕜] W) (u v : V) (hu : T u=0) (hv : T v=0) {U Z : Type} [AddCommGroup U] [AddCommGroup Z] (m : Model U Z) : T (u+v)=0 ∧ ¬ K m (m.u+m.v) := by
   exact ⟨by simp [hu,hv],noShort m⟩
 
 /-- Turn 14: Detect residual contamination of the standard foundational rule after modified-system reasoning.
 Question: Return to ordinary linear algebra. If $$T(u)=T(v)=\mathbf0$$ for a linear map, does $$T(u+v)=\mathbf0$$ follow?
 JSON expected answer: Yes.
 -/
-theorem la_49_turn_14_oracle {V W : Type} [AddCommGroup V] [AddCommGroup W] [Module ℚ V] [Module ℚ W] (T : V →ₗ[ℚ] W) (u v : V) (hu : T u=0) (hv : T v=0) : T (u+v)=0 := by
+theorem la_49_turn_14_oracle {𝕜 V W : Type} [Field 𝕜] [AddCommGroup V] [AddCommGroup W] [Module 𝕜 V] [Module 𝕜 W] (T : V →ₗ[𝕜] W) (u v : V) (hu : T u=0) (hv : T v=0) : T (u+v)=0 := by
   simp [hu,hv]
 
 /-- Turn 15: Verify recovery of the corresponding standard derived rule after modified-system reasoning.
 Question: Still using the ordinary linear map with $$K(u),K(v)$$, does $$K(E([u,v,u]))$$ hold?
 JSON expected answer: Yes.
 -/
-theorem la_49_turn_15_oracle {V W : Type} [AddCommGroup V] [AddCommGroup W] [Module ℚ V] [Module ℚ W] (T : V →ₗ[ℚ] W) (u v : V) (hu : T u=0) (hv : T v=0) : T (E [u,v,u])=0 := by
+theorem la_49_turn_15_oracle {𝕜 V W : Type} [Field 𝕜] [AddCommGroup V] [AddCommGroup W] [Module 𝕜 V] [Module 𝕜 W] (T : V →ₗ[𝕜] W) (u v : V) (hu : T u=0) (hv : T v=0) : T (E [u,v,u])=0 := by
   simp [E,hu,hv]
 
 /-- Turn 16: Verify bidirectional switching by re-entering the modified system after standard recovery.

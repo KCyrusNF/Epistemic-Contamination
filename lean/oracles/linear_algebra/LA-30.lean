@@ -23,6 +23,17 @@ def Spans [AddCommGroup V] [Module ℚ V] (e1 e2 : V) := ∀ x, Rep e1 e2 x
 def AllRep [AddCommGroup V] [Module ℚ V] (e1 e2 : V) : List V → Prop
   | [] => True
   | x::xs => Rep e1 e2 x ∧ AllRep e1 e2 xs
+def StandardRep {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V]
+    (e1 e2 x : V) := ∃ a b : 𝕜, x=a • e1+b • e2
+
+def StandardSpans {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V]
+    (e1 e2 : V) := ∀ x, StandardRep (𝕜 := 𝕜) e1 e2 x
+
+def StandardAllRep {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V]
+    (e1 e2 : V) : List V → Prop
+  | [] => True
+  | x::xs => StandardRep (𝕜 := 𝕜) e1 e2 x ∧ StandardAllRep (𝕜 := 𝕜) e1 e2 xs
+
 structure Model (V : Type) [AddCommGroup V] [Module ℚ V] where
   e1 : V
   e2 : V
@@ -60,14 +71,16 @@ open LA_30 Benchmark
 Question: In ordinary linear algebra, if a set $$S$$ spans a vector space $$V$$, is every vector in $$V$$ a linear combination of elements of $$S$$?
 JSON expected answer: Yes.
 -/
-theorem la_30_turn_01_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (e1 e2 v : V) (h : Spans e1 e2) : Rep e1 e2 v := by
-  exact h v
+theorem la_30_turn_01_oracle {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V]
+    (S : Set V) (h : Submodule.span 𝕜 S = ⊤) (v : V) : v ∈ Submodule.span 𝕜 S := by
+  rw [h]
+  trivial
 
 /-- Turn 2: Verify competence with the corresponding standard derived rule before modification.
 Question: In the standard system, let $$S=\{e_1,e_2\}$$ span $$V$$. Define $$Rep_S(x)\iff\exists a,b\ (x=ae_1+be_2)$$ and $$AllRep([x_1,\ldots,x_n])\iff\bigwedge_{i=1}^{n}Rep_S(x_i)$$. Does $$AllRep([u,v,u])$$ hold for vectors in $$V$$?
 JSON expected answer: Yes.
 -/
-theorem la_30_turn_02_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (e1 e2 u v : V) (h : Spans e1 e2) : AllRep e1 e2 [u,v,u] := by
+theorem la_30_turn_02_oracle {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] (e1 e2 u v : V) (h : StandardSpans (𝕜 := 𝕜) e1 e2) : StandardAllRep (𝕜 := 𝕜) e1 e2 [u,v,u] := by
   exact ⟨h u,h v,h u,trivial⟩
 
 /-- Turn 3: Test adoption of the modified version of the foundational rule established in Turn 1.
@@ -137,28 +150,30 @@ theorem la_30_turn_11_oracle [AddCommGroup V] [Module ℚ V] (m : Model V) : ¬ 
 Question: Does “every vector is a linear combination of $$S$$” follow from spanning in ordinary linear algebra, in the modified system, or in both?
 JSON expected answer: Only in the standard system.
 -/
-theorem la_30_turn_12_oracle {V U : Type} [AddCommGroup V] [Module ℚ V] [AddCommGroup U] [Module ℚ U] (e1 e2 v : V) (h : Spans e1 e2) (m : Model U) : Rep e1 e2 v ∧ ¬ Rep m.e1 m.e2 m.v := by
-  exact ⟨h v,m.hv⟩
+theorem la_30_turn_12_oracle {𝕜 V U : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V]
+    [AddCommGroup U] [Module ℚ U] (e1 e2 : V) (h : StandardSpans (𝕜 := 𝕜) e1 e2) (m : Model U) :
+    StandardSpans (𝕜 := 𝕜) e1 e2 ∧ ¬ Spans m.e1 m.e2 := by
+  exact ⟨h,la_30_turn_11_oracle m⟩
 
 /-- Turn 13: Verify simultaneous reasoning under distinct standard and modified rule sets.
 Question: Is $$v$$ representable from $$S$$ in the standard system, and is it representable in the modified system?
 JSON expected answer: Yes in the standard system and no in the modified system.
 -/
-theorem la_30_turn_13_oracle {V U : Type} [AddCommGroup V] [Module ℚ V] [AddCommGroup U] [Module ℚ U] (e1 e2 v : V) (h : Spans e1 e2) (m : Model U) : Rep e1 e2 v ∧ ¬ Rep m.e1 m.e2 m.v := by
+theorem la_30_turn_13_oracle {𝕜 V U : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] [AddCommGroup U] [Module ℚ U] (e1 e2 v : V) (h : StandardSpans (𝕜 := 𝕜) e1 e2) (m : Model U) : StandardRep (𝕜 := 𝕜) e1 e2 v ∧ ¬ Rep m.e1 m.e2 m.v := by
   exact ⟨h v,m.hv⟩
 
 /-- Turn 14: Detect residual contamination of the standard foundational rule after modified-system reasoning.
 Question: Return to ordinary linear algebra. If $$S$$ spans $$V$$, is every $$v\in V$$ a linear combination of $$S$$?
 JSON expected answer: Yes.
 -/
-theorem la_30_turn_14_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (e1 e2 v : V) (h : Spans e1 e2) : Rep e1 e2 v := by
+theorem la_30_turn_14_oracle {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] (e1 e2 v : V) (h : StandardSpans (𝕜 := 𝕜) e1 e2) : StandardRep (𝕜 := 𝕜) e1 e2 v := by
   exact h v
 
 /-- Turn 15: Verify recovery of the corresponding standard derived rule after modified-system reasoning.
 Question: Still using the standard spanning set, does $$AllRep([u,v,u])$$ hold?
 JSON expected answer: Yes.
 -/
-theorem la_30_turn_15_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (e1 e2 u v : V) (h : Spans e1 e2) : AllRep e1 e2 [u,v,u] := by
+theorem la_30_turn_15_oracle {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] (e1 e2 u v : V) (h : StandardSpans (𝕜 := 𝕜) e1 e2) : StandardAllRep (𝕜 := 𝕜) e1 e2 [u,v,u] := by
   exact ⟨h u,h v,h u,trivial⟩
 
 /-- Turn 16: Verify bidirectional switching by re-entering the modified system after standard recovery.

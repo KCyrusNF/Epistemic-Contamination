@@ -50,8 +50,9 @@ open AT_27 Benchmark
 Question: For an ordinary language $$L$$, does Kleene star $$L^*$$ include every finite repetition count, including two repetitions?
 JSON expected answer: Yes.
 -/
-theorem at_27_turn_01_oracle (n : Nat) : StandardStar (word n) := by
-  exact ⟨n,rfl⟩
+theorem at_27_turn_01_oracle {Σ : Type} (L : Language Σ) (ws : List (List Σ))
+    (h : ∀ w ∈ ws, w ∈ L) : ws.flatten ∈ KStar.kstar L := by
+  exact Language.join_mem_kstar h
 
 /-- Turn 2: Verify competence with the corresponding standard derived rule before modification.
 Question: For ordinary $$L=\{ab\}$$, define $$M(n)\iff(ab)^n\in L^*$$ and $$Prefix(n)\iff\bigwedge_{j=0}^{n}M(j)$$. Does $$Prefix(3)$$ hold?

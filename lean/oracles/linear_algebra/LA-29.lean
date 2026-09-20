@@ -56,8 +56,8 @@ theorem varies : Underdetermined (fun _ : Model Vec => True) (fun m => ∃ p, Co
   simp [completion] at hh
 
 /-- The inverse of the basis coordinate equivalence reconstructs the vector. -/
-theorem standardUnique {V : Type} [AddCommGroup V] [Module ℚ V]
-    (b : Module.Basis (Fin 2) ℚ V) (v : V) : ∃! c : Fin 2 → ℚ, b.equivFun.symm c=v := by
+theorem standardUnique {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V]
+    (b : Module.Basis (Fin 2) 𝕜 V) (v : V) : ∃! c : Fin 2 → 𝕜, b.equivFun.symm c=v := by
   refine ⟨b.equivFun v,b.equivFun.symm_apply_apply v,?_⟩
   intro c hc
   exact b.equivFun.symm.injective (hc.trans (b.equivFun.symm_apply_apply v).symm)
@@ -70,14 +70,17 @@ open LA_29 Benchmark
 Question: In ordinary linear algebra, does a basis give each vector a unique coordinate decomposition?
 JSON expected answer: Yes.
 -/
-theorem la_29_turn_01_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (b : Module.Basis (Fin 2) ℚ V) (v : V) : ∃! c : Fin 2 → ℚ, b.equivFun.symm c=v := by
-  exact standardUnique b v
+theorem la_29_turn_01_oracle {𝕜 V ι : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V]
+    (b : Module.Basis ι 𝕜 V) (v : V) : ∃! c : ι →₀ 𝕜, b.repr.symm c = v := by
+  refine ⟨b.repr v,b.repr.symm_apply_apply v,?_⟩
+  intro c hc
+  exact b.repr.symm.injective (hc.trans (b.repr.symm_apply_apply v).symm)
 
 /-- Turn 2: Verify competence with the corresponding standard derived rule before modification.
 Question: In the standard system with basis $$B=(e_1,e_2)$$ define $$Coord_B(x,(a,b))\iff x=ae_1+be_2$$ and $$C_B(x)=\{(a,b):Coord_B(x,(a,b))\}$$. Is $$C_B(v)$$ a singleton?
 JSON expected answer: Yes.
 -/
-theorem la_29_turn_02_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (b : Module.Basis (Fin 2) ℚ V) (v : V) : ∃! c : Fin 2 → ℚ, b.equivFun.symm c=v := by
+theorem la_29_turn_02_oracle {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] (b : Module.Basis (Fin 2) 𝕜 V) (v : V) : ∃! c : Fin 2 → 𝕜, b.equivFun.symm c=v := by
   exact standardUnique b v
 
 /-- Turn 3: Test adoption of the modified version of the foundational rule established in Turn 1.
@@ -147,28 +150,28 @@ theorem la_29_turn_11_oracle [AddCommGroup V] [Module ℚ V] (m : Model V) : ¬ 
 Question: Does uniqueness of coordinates for a basis hold in ordinary linear algebra, in the modified system, or in both?
 JSON expected answer: Only in the standard system.
 -/
-theorem la_29_turn_12_oracle {V U : Type} [AddCommGroup V] [Module ℚ V] [AddCommGroup U] [Module ℚ U] (b : Module.Basis (Fin 2) ℚ V) (v : V) (m : Model U) : (∃! c : Fin 2 → ℚ, b.equivFun.symm c=v) ∧ ¬ ∃! p, Coord m m.v p := by
+theorem la_29_turn_12_oracle {𝕜 V U : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] [AddCommGroup U] [Module ℚ U] (b : Module.Basis (Fin 2) 𝕜 V) (v : V) (m : Model U) : (∃! c : Fin 2 → 𝕜, b.equivFun.symm c=v) ∧ ¬ ∃! p, Coord m m.v p := by
   exact ⟨standardUnique b v,notUnique m⟩
 
 /-- Turn 13: Verify simultaneous reasoning under distinct standard and modified rule sets.
 Question: Are the coordinates of $$v$$ unique in the standard system, and are they unique in the modified system?
 JSON expected answer: Yes in the standard system and no in the modified system.
 -/
-theorem la_29_turn_13_oracle {V U : Type} [AddCommGroup V] [Module ℚ V] [AddCommGroup U] [Module ℚ U] (b : Module.Basis (Fin 2) ℚ V) (v : V) (m : Model U) : (∃! c : Fin 2 → ℚ, b.equivFun.symm c=v) ∧ ¬ ∃! p, Coord m m.v p := by
+theorem la_29_turn_13_oracle {𝕜 V U : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] [AddCommGroup U] [Module ℚ U] (b : Module.Basis (Fin 2) 𝕜 V) (v : V) (m : Model U) : (∃! c : Fin 2 → 𝕜, b.equivFun.symm c=v) ∧ ¬ ∃! p, Coord m m.v p := by
   exact ⟨standardUnique b v,notUnique m⟩
 
 /-- Turn 14: Detect residual contamination of the standard foundational rule after modified-system reasoning.
 Question: Return to ordinary linear algebra. Does a basis give unique coordinates?
 JSON expected answer: Yes.
 -/
-theorem la_29_turn_14_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (b : Module.Basis (Fin 2) ℚ V) (v : V) : ∃! c : Fin 2 → ℚ, b.equivFun.symm c=v := by
+theorem la_29_turn_14_oracle {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] (b : Module.Basis (Fin 2) 𝕜 V) (v : V) : ∃! c : Fin 2 → 𝕜, b.equivFun.symm c=v := by
   exact standardUnique b v
 
 /-- Turn 15: Verify recovery of the corresponding standard derived rule after modified-system reasoning.
 Question: Still using an ordinary basis, is $$C_B(v)$$ a singleton?
 JSON expected answer: Yes.
 -/
-theorem la_29_turn_15_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (b : Module.Basis (Fin 2) ℚ V) (v : V) : ∃! c : Fin 2 → ℚ, b.equivFun.symm c=v := by
+theorem la_29_turn_15_oracle {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] (b : Module.Basis (Fin 2) 𝕜 V) (v : V) : ∃! c : Fin 2 → 𝕜, b.equivFun.symm c=v := by
   exact standardUnique b v
 
 /-- Turn 16: Verify bidirectional switching by re-entering the modified system after standard recovery.

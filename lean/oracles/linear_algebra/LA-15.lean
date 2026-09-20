@@ -50,14 +50,14 @@ open LA_15 Benchmark
 Question: In an ordinary vector space, does $$0\cdot v=\mathbf{0}$$ hold for every vector $$v$$?
 JSON expected answer: Yes.
 -/
-theorem la_15_turn_01_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (v : V) : (0:ℚ) • v = 0 := by
+theorem la_15_turn_01_oracle {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] (v : V) : (0:𝕜) • v = 0 := by
   simp
 
 /-- Turn 2: Verify competence with the corresponding standard derived rule before modification.
 Question: In the standard system, define $$Z(v)=0\cdot v$$. What is $$Z(Z(v))$$?
 JSON expected answer: \mathbf{0}
 -/
-theorem la_15_turn_02_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (v : V) : (0:ℚ) • ((0:ℚ) • v) = 0 := by
+theorem la_15_turn_02_oracle {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] (v : V) : (0:𝕜) • ((0:𝕜) • v) = 0 := by
   simp
 
 /-- Turn 3: Test adoption of the modified version of the foundational rule established in Turn 1.
@@ -127,28 +127,28 @@ theorem la_15_turn_11_oracle (m : Model α) : ¬ ∀ x, Z m x = m.zero := by
 Question: Does $$0\cdot u=\mathbf{0}$$ hold in ordinary linear algebra, in the modified system, or in both?
 JSON expected answer: Only in the standard system.
 -/
-theorem la_15_turn_12_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (v : V) (m : Model α) : (0:ℚ) • v = 0 ∧ Z m m.u = m.u ∧ Z m m.u ≠ m.zero := by
+theorem la_15_turn_12_oracle {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] (v : V) (m : Model α) : (0:𝕜) • v = 0 ∧ Z m m.u = m.u ∧ Z m m.u ≠ m.zero := by
   exact ⟨by simp,m.hu,notZero m⟩
 
 /-- Turn 13: Verify simultaneous reasoning under distinct standard and modified rule sets.
 Question: What is $$0\cdot u$$ in the standard system, and what is it in the modified system?
 JSON expected answer: \mathbf{0} in the standard system and u in the modified system.
 -/
-theorem la_15_turn_13_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (v : V) (m : Model α) : (0:ℚ) • v = 0 ∧ Z m m.u = m.u ∧ Z m m.u ≠ m.zero := by
+theorem la_15_turn_13_oracle {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] (v : V) (m : Model α) : (0:𝕜) • v = 0 ∧ Z m m.u = m.u ∧ Z m m.u ≠ m.zero := by
   exact ⟨by simp,m.hu,notZero m⟩
 
 /-- Turn 14: Detect residual contamination of the standard foundational rule after modified-system reasoning.
 Question: Return to ordinary linear algebra. What is $$0\cdot u$$?
 JSON expected answer: \mathbf{0}
 -/
-theorem la_15_turn_14_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (v : V) : (0:ℚ) • v = 0 := by
+theorem la_15_turn_14_oracle {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] (v : V) : (0:𝕜) • v = 0 := by
   simp
 
 /-- Turn 15: Verify recovery of the corresponding standard derived rule after modified-system reasoning.
 Question: Still using ordinary linear algebra, what is $$Z(Z(u))$$?
 JSON expected answer: \mathbf{0}
 -/
-theorem la_15_turn_15_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (v : V) : (0:ℚ) • ((0:ℚ) • v) = 0 := by
+theorem la_15_turn_15_oracle {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] (v : V) : (0:𝕜) • ((0:𝕜) • v) = 0 := by
   simp
 
 /-- Turn 16: Verify bidirectional switching by re-entering the modified system after standard recovery.

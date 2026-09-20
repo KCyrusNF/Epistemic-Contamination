@@ -54,7 +54,8 @@ open LA_60 Benchmark
 Question: For ordinary square matrices, does $$det(AB)=det(A)det(B)$$ hold?
 JSON expected answer: Yes.
 -/
-theorem la_60_turn_01_oracle {n : Type} [Fintype n] [DecidableEq n] (A B : Matrix n n ℚ) : (A*B).det=A.det*B.det := by
+theorem la_60_turn_01_oracle {𝕜 n : Type} [Field 𝕜] [Fintype n] [DecidableEq n]
+    (A B : Matrix n n 𝕜) : (A*B).det=A.det*B.det := by
   exact Matrix.det_mul A B
 
 /-- Turn 2: Verify competence with the corresponding standard derived rule before modification.
@@ -131,8 +132,10 @@ theorem la_60_turn_11_oracle [Fintype n] [DecidableEq n] (m : Model n) : ¬ ∀ 
 Question: Does $$det(AB)=det(A)det(B)$$ hold in ordinary linear algebra, in the modified system, or in both?
 JSON expected answer: Only in the standard system.
 -/
-theorem la_60_turn_12_oracle {n : Type} [Fintype n] [DecidableEq n] (A B : Matrix n n ℚ) (ha : A.det=2) (hb : B.det=3) {k : Type} [Fintype k] [DecidableEq k] (m : Model k) : (A*B).det=6 ∧ m.det (m.A*m.B)=5 ∧ m.det (m.A*m.B)≠m.det m.A*m.det m.B := by
-  refine ⟨by rw [Matrix.det_mul,ha,hb]; norm_num,m.hab,?_⟩; norm_num [m.ha,m.hb,m.hab]
+theorem la_60_turn_12_oracle {n : Type} [Fintype n] [DecidableEq n] (A B : Matrix n n ℚ)
+    {k : Type} [Fintype k] [DecidableEq k] (m : Model k) :
+    (A*B).det=A.det*B.det ∧ m.det (m.A*m.B)≠m.det m.A*m.det m.B := by
+  exact ⟨Matrix.det_mul A B,la_60_turn_04_oracle m⟩
 
 /-- Turn 13: Verify simultaneous reasoning under distinct standard and modified rule sets.
 Question: What is $$det(AB)$$ in the standard system when $$det(A)=2$$ and $$det(B)=3$$, and what is it in the modified system?

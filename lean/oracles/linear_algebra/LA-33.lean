@@ -46,15 +46,15 @@ open LA_33 Benchmark
 Question: In ordinary linear algebra, is $$span(S)$$ closed under vector addition?
 JSON expected answer: Yes.
 -/
-theorem la_33_turn_01_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (S : Set V) (u v : V) (hu : u ∈ Submodule.span ℚ S) (hv : v ∈ Submodule.span ℚ S) : u+v ∈ Submodule.span ℚ S := by
-  exact (Submodule.span ℚ S).add_mem hu hv
+theorem la_33_turn_01_oracle {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] (S : Set V) (u v : V) (hu : u ∈ Submodule.span 𝕜 S) (hv : v ∈ Submodule.span 𝕜 S) : u+v ∈ Submodule.span 𝕜 S := by
+  exact (Submodule.span 𝕜 S).add_mem hu hv
 
 /-- Turn 2: Verify competence with the corresponding standard derived rule before modification.
 Question: In the standard system define $$M(x)\iff x\in span(S)$$ and $$Sum([])=\mathbf0$$, $$Sum(L+[x])=Sum(L)+x$$. If $$u,v\in span(S)$$, does $$M(Sum([u,v,u]))$$ hold?
 JSON expected answer: Yes.
 -/
-theorem la_33_turn_02_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (S : Set V) (u v : V) (hu : u ∈ Submodule.span ℚ S) (hv : v ∈ Submodule.span ℚ S) : E [u,v,u] ∈ Submodule.span ℚ S := by
-  simpa [E,add_assoc] using (Submodule.span ℚ S).add_mem ((Submodule.span ℚ S).add_mem hu hv) hu
+theorem la_33_turn_02_oracle {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] (S : Set V) (u v : V) (hu : u ∈ Submodule.span 𝕜 S) (hv : v ∈ Submodule.span 𝕜 S) : E [u,v,u] ∈ Submodule.span 𝕜 S := by
+  simpa [E,add_assoc] using (Submodule.span 𝕜 S).add_mem ((Submodule.span 𝕜 S).add_mem hu hv) hu
 
 /-- Turn 3: Test adoption of the modified version of the foundational rule established in Turn 1.
 Question: Now retain ordinary rational vector arithmetic but interpret $$span(S)$$ as a designated subset, without requiring it to be the ordinary linear span. Stipulate $$\mathbf0,u,v\in span(S)$$, $$u+v\notin span(S)$$, and $$(u+v)+u\notin span(S)$$. Is $$u+v\in span(S)$$?
@@ -123,29 +123,32 @@ theorem la_33_turn_11_oracle [AddCommGroup V] (m : Model V) : ¬ ∀ x ∈ m.mem
 Question: Does addition-closure of $$span(S)$$ hold in ordinary linear algebra, in the modified system, or in both?
 JSON expected answer: Only in the standard system.
 -/
-theorem la_33_turn_12_oracle {V U : Type} [AddCommGroup V] [Module ℚ V] [AddCommGroup U] (S : Set V) (u v : V) (hu : u ∈ Submodule.span ℚ S) (hv : v ∈ Submodule.span ℚ S) (m : Model U) : u+v ∈ Submodule.span ℚ S ∧ m.u+m.v ∉ m.members := by
-  exact ⟨(Submodule.span ℚ S).add_mem hu hv,m.huv⟩
+theorem la_33_turn_12_oracle {𝕜 V U : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] [AddCommGroup U]
+    (S : Set V) (m : Model U) :
+    (∀ x ∈ Submodule.span 𝕜 S, ∀ y ∈ Submodule.span 𝕜 S, x+y ∈ Submodule.span 𝕜 S) ∧
+    ¬ (∀ x ∈ m.members, ∀ y ∈ m.members, x+y ∈ m.members) := by
+  exact ⟨fun _ hx _ hy => (Submodule.span 𝕜 S).add_mem hx hy,la_33_turn_11_oracle m⟩
 
 /-- Turn 13: Verify simultaneous reasoning under distinct standard and modified rule sets.
 Question: With $$u,v\in span(S)$$ in each system, is $$u+v\in span(S)$$ in the standard system, and is it in the modified system?
 JSON expected answer: Yes in the standard system and no in the modified system.
 -/
-theorem la_33_turn_13_oracle {V U : Type} [AddCommGroup V] [Module ℚ V] [AddCommGroup U] (S : Set V) (u v : V) (hu : u ∈ Submodule.span ℚ S) (hv : v ∈ Submodule.span ℚ S) (m : Model U) : u+v ∈ Submodule.span ℚ S ∧ m.u+m.v ∉ m.members := by
-  exact ⟨(Submodule.span ℚ S).add_mem hu hv,m.huv⟩
+theorem la_33_turn_13_oracle {𝕜 V U : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] [AddCommGroup U] (S : Set V) (u v : V) (hu : u ∈ Submodule.span 𝕜 S) (hv : v ∈ Submodule.span 𝕜 S) (m : Model U) : u+v ∈ Submodule.span 𝕜 S ∧ m.u+m.v ∉ m.members := by
+  exact ⟨(Submodule.span 𝕜 S).add_mem hu hv,m.huv⟩
 
 /-- Turn 14: Detect residual contamination of the standard foundational rule after modified-system reasoning.
 Question: Return to ordinary linear algebra. If $$u,v\in span(S)$$, is $$u+v\in span(S)$$?
 JSON expected answer: Yes.
 -/
-theorem la_33_turn_14_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (S : Set V) (u v : V) (hu : u ∈ Submodule.span ℚ S) (hv : v ∈ Submodule.span ℚ S) : u+v ∈ Submodule.span ℚ S := by
-  exact (Submodule.span ℚ S).add_mem hu hv
+theorem la_33_turn_14_oracle {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] (S : Set V) (u v : V) (hu : u ∈ Submodule.span 𝕜 S) (hv : v ∈ Submodule.span 𝕜 S) : u+v ∈ Submodule.span 𝕜 S := by
+  exact (Submodule.span 𝕜 S).add_mem hu hv
 
 /-- Turn 15: Verify recovery of the corresponding standard derived rule after modified-system reasoning.
 Question: Still using the ordinary span and $$u,v\in span(S)$$, does $$M(Sum([u,v,u]))$$ hold?
 JSON expected answer: Yes.
 -/
-theorem la_33_turn_15_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (S : Set V) (u v : V) (hu : u ∈ Submodule.span ℚ S) (hv : v ∈ Submodule.span ℚ S) : E [u,v,u] ∈ Submodule.span ℚ S := by
-  simpa [E,add_assoc] using (Submodule.span ℚ S).add_mem ((Submodule.span ℚ S).add_mem hu hv) hu
+theorem la_33_turn_15_oracle {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] (S : Set V) (u v : V) (hu : u ∈ Submodule.span 𝕜 S) (hv : v ∈ Submodule.span 𝕜 S) : E [u,v,u] ∈ Submodule.span 𝕜 S := by
+  simpa [E,add_assoc] using (Submodule.span 𝕜 S).add_mem ((Submodule.span 𝕜 S).add_mem hu hv) hu
 
 /-- Turn 16: Verify bidirectional switching by re-entering the modified system after standard recovery.
 Question: Return to the modified system. Does $$M(u+v)$$ hold?

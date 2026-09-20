@@ -137,8 +137,8 @@ theorem at_17_turn_11_oracle (m : Model) : 2 ∈ standardR m [0] ∧ 2 ∉ R m [
 Question: Does an NFA retain all branches after a nondeterministic split in the standard system, in the modified system, or in both?
 JSON expected answer: Only in the standard system.
 -/
-theorem at_17_turn_12_oracle (m : Model) : (standardR m [0,1] ∩ {4}).Nonempty ∧ ¬ (R m [0,1] ∩ {4}).Nonempty := by
-  simp [R,standardR,advance,m.ha,m.hb1,m.hb2]
+theorem at_17_turn_12_oracle (m : Model) : standardR m [0]={1,2} ∧ R m [0]≠{1,2} := by
+  exact ⟨at_17_turn_01_oracle m,at_17_turn_04_oracle m⟩
 
 /-- Turn 13: Verify simultaneous reasoning under distinct standard and modified rule sets.
 Question: Is $$ab$$ accepted in the standard NFA, and is it accepted in the modified system?

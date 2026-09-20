@@ -130,7 +130,7 @@ theorem aa_59_turn_11_oracle (m : Model) : ¬ (∀ x y z, m.rel x y → m.rel y 
 Question: Does the statement “$$a=b$$ and $$b=c$$ imply $$a=c$$” hold in the standard system, in the modified system, or in both?
 JSON expected answer: Only in the standard system.
 -/
-theorem aa_59_turn_12_oracle (m : Model) : (∀ x y z : Nat, x=y → y=z → x=z) ∧ ¬ (m.rel 0 1 → m.rel 1 2 → m.rel 0 2) := by
+theorem aa_59_turn_12_oracle {A : Type} (m : Model) : (∀ x y z : A, x=y → y=z → x=z) ∧ ¬ (m.rel 0 1 → m.rel 1 2 → m.rel 0 2) := by
   constructor
   · intro x y z hxy hyz; exact hxy.trans hyz
   · intro h; exact m.hnac (h m.hab m.hbc)
@@ -139,7 +139,7 @@ theorem aa_59_turn_12_oracle (m : Model) : (∀ x y z : Nat, x=y → y=z → x=z
 Question: Does $$a=c$$ follow from $$a=b$$ and $$b=c$$ in the standard system, and does it follow in the modified system?
 JSON expected answer: Yes in the standard system and no in the modified system.
 -/
-theorem aa_59_turn_13_oracle (m : Model) : (∀ x y z : Nat, x=y → y=z → x=z) ∧ ¬ (m.rel 0 1 → m.rel 1 2 → m.rel 0 2) := by
+theorem aa_59_turn_13_oracle {A : Type} (m : Model) : (∀ x y z : A, x=y → y=z → x=z) ∧ ¬ (m.rel 0 1 → m.rel 1 2 → m.rel 0 2) := by
   constructor
   · intro x y z hxy hyz; exact hxy.trans hyz
   · intro h; exact m.hnac (h m.hab m.hbc)

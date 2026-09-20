@@ -60,14 +60,14 @@ open LA_45 Benchmark
 Question: For an ordinary linear map $$T$$, does $$T(u+v)=T(u)+T(v)$$ hold?
 JSON expected answer: Yes.
 -/
-theorem la_45_turn_01_oracle {V W : Type} [AddCommGroup V] [AddCommGroup W] [Module ℚ V] [Module ℚ W] (T : V →ₗ[ℚ] W) (u v : V) : T (u+v)=T u+T v := by
+theorem la_45_turn_01_oracle {𝕜 V W : Type} [Field 𝕜] [AddCommGroup V] [AddCommGroup W] [Module 𝕜 V] [Module 𝕜 W] (T : V →ₗ[𝕜] W) (u v : V) : T (u+v)=T u+T v := by
   exact T.map_add u v
 
 /-- Turn 2: Verify competence with the corresponding standard derived rule before modification.
 Question: In the standard system define $$E([])=\mathbf0$$ and $$E(L+[x])=E(L)+x$$. For a linear map $$T$$, does $$T(E([u,v,u]))=T(u)+T(v)+T(u)$$ hold?
 JSON expected answer: Yes.
 -/
-theorem la_45_turn_02_oracle {V W : Type} [AddCommGroup V] [AddCommGroup W] [Module ℚ V] [Module ℚ W] (T : V →ₗ[ℚ] W) (u v : V) : T (E [u,v,u])=(T u+T v)+T u := by
+theorem la_45_turn_02_oracle {𝕜 V W : Type} [Field 𝕜] [AddCommGroup V] [AddCommGroup W] [Module 𝕜 V] [Module 𝕜 W] (T : V →ₗ[𝕜] W) (u v : V) : T (E [u,v,u])=(T u+T v)+T u := by
   simp [E,add_assoc]
 
 /-- Turn 3: Test adoption of the modified version of the foundational rule established in Turn 1.
@@ -137,28 +137,28 @@ theorem la_45_turn_11_oracle [AddCommGroup V] [AddCommGroup W] (m : Model V W) :
 Question: Does $$T(u+v)=T(u)+T(v)$$ hold for a linear map in ordinary linear algebra, in the modified system, or in both?
 JSON expected answer: Only in the standard system.
 -/
-theorem la_45_turn_12_oracle {V W : Type} [AddCommGroup V] [AddCommGroup W] [Module ℚ V] [Module ℚ W] (T : V →ₗ[ℚ] W) (u v : V) {U Z : Type} [AddCommGroup U] [AddCommGroup Z] (m : Model U Z) : T (u+v)=T u+T v ∧ m.T (m.u+m.v) ≠ m.T m.u+m.T m.v := by
+theorem la_45_turn_12_oracle {𝕜 V W : Type} [Field 𝕜] [AddCommGroup V] [AddCommGroup W] [Module 𝕜 V] [Module 𝕜 W] (T : V →ₗ[𝕜] W) (u v : V) {U Z : Type} [AddCommGroup U] [AddCommGroup Z] (m : Model U Z) : T (u+v)=T u+T v ∧ m.T (m.u+m.v) ≠ m.T m.u+m.T m.v := by
   exact ⟨T.map_add u v,by simpa [m.huv,m.hu,m.hv] using m.nonzero⟩
 
 /-- Turn 13: Verify simultaneous reasoning under distinct standard and modified rule sets.
 Question: Does additivity hold for $$(u,v)$$ in the standard system, and does it hold in the modified system?
 JSON expected answer: Yes in the standard system and no in the modified system.
 -/
-theorem la_45_turn_13_oracle {V W : Type} [AddCommGroup V] [AddCommGroup W] [Module ℚ V] [Module ℚ W] (T : V →ₗ[ℚ] W) (u v : V) {U Z : Type} [AddCommGroup U] [AddCommGroup Z] (m : Model U Z) : T (u+v)=T u+T v ∧ m.T (m.u+m.v) ≠ m.T m.u+m.T m.v := by
+theorem la_45_turn_13_oracle {𝕜 V W : Type} [Field 𝕜] [AddCommGroup V] [AddCommGroup W] [Module 𝕜 V] [Module 𝕜 W] (T : V →ₗ[𝕜] W) (u v : V) {U Z : Type} [AddCommGroup U] [AddCommGroup Z] (m : Model U Z) : T (u+v)=T u+T v ∧ m.T (m.u+m.v) ≠ m.T m.u+m.T m.v := by
   exact ⟨T.map_add u v,by simpa [m.huv,m.hu,m.hv] using m.nonzero⟩
 
 /-- Turn 14: Detect residual contamination of the standard foundational rule after modified-system reasoning.
 Question: Return to ordinary linear algebra. Does $$T(u+v)=T(u)+T(v)$$ hold?
 JSON expected answer: Yes.
 -/
-theorem la_45_turn_14_oracle {V W : Type} [AddCommGroup V] [AddCommGroup W] [Module ℚ V] [Module ℚ W] (T : V →ₗ[ℚ] W) (u v : V) : T (u+v)=T u+T v := by
+theorem la_45_turn_14_oracle {𝕜 V W : Type} [Field 𝕜] [AddCommGroup V] [AddCommGroup W] [Module 𝕜 V] [Module 𝕜 W] (T : V →ₗ[𝕜] W) (u v : V) : T (u+v)=T u+T v := by
   exact T.map_add u v
 
 /-- Turn 15: Verify recovery of the corresponding standard derived rule after modified-system reasoning.
 Question: Still using the ordinary linear map, does $$T(E([u,v,u]))=(T(u)+T(v))+T(u)$$ hold?
 JSON expected answer: Yes.
 -/
-theorem la_45_turn_15_oracle {V W : Type} [AddCommGroup V] [AddCommGroup W] [Module ℚ V] [Module ℚ W] (T : V →ₗ[ℚ] W) (u v : V) : T (E [u,v,u])=(T u+T v)+T u := by
+theorem la_45_turn_15_oracle {𝕜 V W : Type} [Field 𝕜] [AddCommGroup V] [AddCommGroup W] [Module 𝕜 V] [Module 𝕜 W] (T : V →ₗ[𝕜] W) (u v : V) : T (E [u,v,u])=(T u+T v)+T u := by
   simp [E,add_assoc]
 
 /-- Turn 16: Verify bidirectional switching by re-entering the modified system after standard recovery.

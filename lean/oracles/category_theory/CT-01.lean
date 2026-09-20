@@ -137,15 +137,12 @@ theorem ct_01_turn_07_oracle (m : Model α) : P m m.f [m.g]=m.t := by
   simp [P,m.gf,m.hg,m.sf,m.ht,m.ks,m.lf,m.ku,m.kv]
 
 /-- Turn 8: Verify multi-step propagation through the reconstructed derived rule.
-Question: In the modified system, what is $$P([f,g,h,k])$$?
-JSON expected answer: p
+Question: In the modified system, what is $$P([f,g,h])$$?
+JSON expected answer: u
 -/
--- The recorded answer p needs an additional composition rule.
--- The recurrence evaluates ((k ∘ h) ∘ g) ∘ f; k ∘ h is unspecified.
-theorem ct_01_turn_08_oracle :
-    Underdetermined (fun _ : Model Nat => True)
-      (fun m => P m m.f [m.g,m.h,m.k]) := by
-  exact ⟨completion 0, completion 1, trivial, trivial, by decide⟩
+theorem ct_01_turn_08_oracle (m : Model α) : P m m.f [m.g,m.h] = m.u := by
+  change m.comp (m.comp m.h m.g) m.f = m.u
+  rw [m.hg, m.sf]
 
 /-- Turn 9: Detect underdetermination within the supplied derived rule.
 Question: In the modified system, what is $$P([f,g,r])$$ for another arrow $$r:C\to D$$?

@@ -4,7 +4,7 @@ This directory contains the Lean formalizations for 60 benchmark test cases, wit
 
 Each case has a separate oracle source and axiom audit. Build and review cases individually as their test case definitions are developed.
 
-**The formalizations remain provisional.** Semantic validation is still required, and AA-18 and CT-01 have unresolved expected-answer discrepancies described below.
+**The formalizations remain provisional pending verification of the revised sources.** Revised Lean files require individual compilation, axiom review, and semantic validation.
 
 ## Directory structure
 
@@ -15,6 +15,7 @@ Paths in this table are relative to `lean/`.
 | `lean-toolchain` | Specifies the Lean version. |
 | `lakefile.lean` | Configures the package, Mathlib dependency, and oracle library. |
 | `lake-manifest.json` | Locks dependency revisions for reproducible setup. |
+| `oracles.lean` | Root module for the oracle library; imports only `oracles.Support`. |
 | `oracles/Support.lean` | Defines shared concepts used by the case formalizations. |
 | `oracles/<domain>/<case>.lean` | Contains the oracle declarations for one case. |
 | `audits/<domain>/<case>.lean` | Prints the axiom dependencies of that case's 16 oracle theorems. |
@@ -40,19 +41,40 @@ lake exe cache get
 
 Keep `.lake/` locally so Lake can reuse downloaded dependencies and build products. Exclude it from Git; keep `lake-manifest.json` in version control. Cache retrieval is a setup or recovery step, not something to repeat before every case build.
 
+## Build configuration
+
+The `Oracles` library in `lakefile.lean` uses the `oracles` module root:
+
+```lean
+lean_lib Oracles where
+  roots := #[`oracles]
+  globs := #[.one `oracles]
+```
+
+The corresponding root file, `oracles.lean`, imports only the shared support module:
+
+```lean
+import oracles.Support
+```
+
+`roots` makes modules under `oracles` available to Lake. The single-module `globs` entry selects the root for library builds, which also build its imports. Keep case and audit imports out of this root file so a library build does not select every case. These settings follow [Lake's library configuration](https://lean-lang.org/doc/reference/latest/Build-Tools-and-Distribution/Lake/).
+
+The library has no `@[default_target]` annotation. Use an explicit case target for normal work. To build only the root and its required dependencies, use `lake build Oracles`.
+
 ## Work on one case
 
 ### 1. Build the oracle
 
-From the `lean/` directory, specify the case source explicitly:
+From the `lean/` directory, select the case by its module name:
 
 ```powershell
-lake build oracles/boolean_algebra/BA-49.lean
+$env:LEAN_NUM_THREADS = '1'
+lake build '+oracles.boolean_algebra.«BA-49»'
 ```
 
-Lake builds the selected case and its required dependencies, reusing current build products. Support is handled as a dependency and normally needs no separate build. Use the corresponding domain and filename for another case.
+Lake builds the selected case and its required dependencies, reusing current build products. Support is handled as a dependency and normally needs no separate build. Use the corresponding domain and case ID for another case. The `+` selects a module target; `«BA-49»` quotes the hyphenated Lean name, and the outer single quotes preserve the argument in PowerShell.
 
-The library configuration selects only `oracles.Support` for a library-wide build. Case modules remain available as explicit build targets. Individual builds can still require substantial work when shared dependencies are missing or outdated.
+The thread setting applies to the current PowerShell session and inherited Lean processes. It is not a hard limit on total CPU or memory use. Individual builds can still require substantial work when shared dependencies are missing or outdated.
 
 ### 2. Inspect the axiom audit
 
@@ -76,16 +98,7 @@ Compilation, axiom review, and semantic validation serve different purposes:
 | Axiom review | The proof dependencies have been inspected for admitted proofs and unapproved assumptions. |
 | Semantic validation | The formal statements faithfully represent the test case definitions and support the recorded expected answers. |
 
-The formalizations require compilation, axiom review, and semantic validation before use as verified benchmark oracles. Successful compilation alone does not establish that a formal statement accurately represents its test case definition or supports the recorded expected answer.
-
-### Unresolved discrepancies
-
-| Case | Turns | Issue |
-| --- | --- | --- |
-| AA-18 | 5 and 8 | The manifest records `No.`, while the formal oracles establish underdetermination through admissible completions with different membership results. |
-| CT-01 | 8 | The manifest records `p`, while the formal oracle establishes underdetermination because the supplied composition table leaves a required composition unspecified. |
-
-**AA-18 and CT-01 are not final.** Review their test case definitions, formal statements, and recorded answers together before using them as validated benchmark cases. Semantic review is also required for the remaining cases.
+Author semantic review remains pending. The formalizations require compilation, axiom review, and semantic validation before use as verified benchmark oracles. Successful compilation alone does not establish that a formal statement accurately represents its test case definition or supports the recorded expected answer.
 
 `Benchmark.Underdetermined valid query` means that two interpretations satisfying `valid` produce different results for `query`. Proving this formal statement and checking that it matches the intended question are separate responsibilities.
 

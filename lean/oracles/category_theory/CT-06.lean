@@ -44,15 +44,15 @@ open CT_06 Benchmark
 Question: In an ordinary category, if $$f:A\to B$$ and $$g:B\to C$$, is the composite $$g\circ f$$ defined?
 JSON expected answer: Yes.
 -/
-theorem ct_06_turn_01_oracle {C : Type} [Category C] {A B D : C} (f : A ⟶ B) (g : B ⟶ D) : Nonempty (A ⟶ D) := by
-  exact ⟨f ≫ g⟩
+theorem ct_06_turn_01_oracle {C : Type} [Category C] {A B D : C} (f : A ⟶ B) (g : B ⟶ D) : (∃ k : A ⟶ D, k = f ≫ g) := by
+  exact ⟨f ≫ g,rfl⟩
 
 /-- Turn 2: Verify competence with the corresponding standard derived rule before modification.
 Question: In an ordinary category with $$h:C\to D$$, define $$P([f])=f$$ and evaluate longer paths by successively composing the next arrow on the left of the accumulated value. Is $$P([f,g,h])$$ defined?
 JSON expected answer: Yes.
 -/
-theorem ct_06_turn_02_oracle {C : Type} [Category C] {A B D E : C} (f : A ⟶ B) (g : B ⟶ D) (h : D ⟶ E) : Nonempty (A ⟶ E) := by
-  exact ⟨(f ≫ g) ≫ h⟩
+theorem ct_06_turn_02_oracle {C : Type} [Category C] {A B D E : C} (f : A ⟶ B) (g : B ⟶ D) (h : D ⟶ E) : (∃ k : A ⟶ E, k = (f ≫ g) ≫ h) := by
+  exact ⟨(f ≫ g) ≫ h,rfl⟩
 
 /-- Turn 3: Test adoption of the modified version of the foundational rule established in Turn 1.
 Question: Now consider arrows with the same sources and targets and a partial composition operation; source-target compatibility does not guarantee a value. Stipulate that $$g\circ f$$ is undefined, $$h\circ g=m$$ is defined, and $$m\circ f$$ is undefined. Is $$g\circ f$$ defined?
@@ -121,29 +121,29 @@ theorem ct_06_turn_11_oracle (m : Model) : ∃ x y, m.comp y x=none := by
 Question: Does the statement “$$g\circ f$$ is defined” hold in ordinary category theory, in the modified system, or in both?
 JSON expected answer: Only in the standard system.
 -/
-theorem ct_06_turn_12_oracle {C : Type} [Category C] {A B D : C} (f : A ⟶ B) (g : B ⟶ D) (m : Model) : Nonempty (A ⟶ D) ∧ m.comp 1 0=none := by
-  exact ⟨⟨f ≫ g⟩,m.gf⟩
+theorem ct_06_turn_12_oracle {C : Type} [Category C] {A B D : C} (f : A ⟶ B) (g : B ⟶ D) (m : Model) : (∃ k : A ⟶ D, k = f ≫ g) ∧ m.comp 1 0=none := by
+  exact ⟨⟨f ≫ g,rfl⟩,m.gf⟩
 
 /-- Turn 13: Verify simultaneous reasoning under distinct standard and modified rule sets.
 Question: Is $$g\circ f$$ defined in ordinary category theory, and is it defined in the modified system?
 JSON expected answer: Yes in the standard system and no in the modified system.
 -/
-theorem ct_06_turn_13_oracle {C : Type} [Category C] {A B D : C} (f : A ⟶ B) (g : B ⟶ D) (m : Model) : Nonempty (A ⟶ D) ∧ m.comp 1 0=none := by
-  exact ⟨⟨f ≫ g⟩,m.gf⟩
+theorem ct_06_turn_13_oracle {C : Type} [Category C] {A B D : C} (f : A ⟶ B) (g : B ⟶ D) (m : Model) : (∃ k : A ⟶ D, k = f ≫ g) ∧ m.comp 1 0=none := by
+  exact ⟨⟨f ≫ g,rfl⟩,m.gf⟩
 
 /-- Turn 14: Detect residual contamination of the standard foundational rule after modified-system reasoning.
 Question: Return to ordinary category theory. Is $$g\circ f$$ defined?
 JSON expected answer: Yes.
 -/
-theorem ct_06_turn_14_oracle {C : Type} [Category C] {A B D : C} (f : A ⟶ B) (g : B ⟶ D) : Nonempty (A ⟶ D) := by
-  exact ⟨f ≫ g⟩
+theorem ct_06_turn_14_oracle {C : Type} [Category C] {A B D : C} (f : A ⟶ B) (g : B ⟶ D) : (∃ k : A ⟶ D, k = f ≫ g) := by
+  exact ⟨f ≫ g,rfl⟩
 
 /-- Turn 15: Verify recovery of the corresponding standard derived rule after modified-system reasoning.
 Question: Still using ordinary category theory, is $$P([f,g,h])$$ defined?
 JSON expected answer: Yes.
 -/
-theorem ct_06_turn_15_oracle {C : Type} [Category C] {A B D E : C} (f : A ⟶ B) (g : B ⟶ D) (h : D ⟶ E) : Nonempty (A ⟶ E) := by
-  exact ⟨(f ≫ g) ≫ h⟩
+theorem ct_06_turn_15_oracle {C : Type} [Category C] {A B D E : C} (f : A ⟶ B) (g : B ⟶ D) (h : D ⟶ E) : (∃ k : A ⟶ E, k = (f ≫ g) ≫ h) := by
+  exact ⟨(f ≫ g) ≫ h,rfl⟩
 
 /-- Turn 16: Verify bidirectional switching by re-entering the modified system after standard recovery.
 Question: Return to the modified system. Is $$g\circ f$$ defined?

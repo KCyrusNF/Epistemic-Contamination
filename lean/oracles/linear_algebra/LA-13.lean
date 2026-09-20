@@ -31,7 +31,7 @@ structure Model (α : Type) where
   uw : u ≠ w
   pq : p ≠ q
 /-- Left fold is precisely application in the order of the list. -/
-def E (act : ℚ → α → α) (scalars : List ℚ) (v : α) := scalars.foldl (fun x a => act a x) v
+def E {𝕜 : Type} (act : 𝕜 → α → α) (scalars : List 𝕜) (v : α) := scalars.foldl (fun x a => act a x) v
 
 def completion (k : Nat) : Model Nat where
   act := fun a x => if a=3 ∧ x=0 then 1 else if a=2 ∧ x=1 then 2
@@ -66,14 +66,14 @@ open LA_13 Benchmark
 Question: In an ordinary vector space, does scalar multiplication satisfy $$(ab)v=a(bv)$$?
 JSON expected answer: Yes.
 -/
-theorem la_13_turn_01_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (a b : ℚ) (v : V) : (a*b) • v = a • (b • v) := by
+theorem la_13_turn_01_oracle {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] (a b : 𝕜) (v : V) : (a*b) • v = a • (b • v) := by
   exact mul_smul a b v
 
 /-- Turn 2: Verify competence with the corresponding standard derived rule before modification.
 Question: In an ordinary vector space define $$E([],x)=x$$ and $$E(L+[a],x)=a\cdot E(L,x)$$, applying scalars in list order. Does $$E([3,2,4],v)=24\cdot v$$ hold?
 JSON expected answer: Yes.
 -/
-theorem la_13_turn_02_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (v : V) : E (fun a x => a • x) [3,2,4] v = (24:ℚ) • v := by
+theorem la_13_turn_02_oracle {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] (v : V) : E (𝕜 := 𝕜) (fun a x => a • x) [3,2,4] v = (24:𝕜) • v := by
   simp only [E, List.foldl_cons, List.foldl_nil]; rw [← mul_smul, ← mul_smul]; norm_num
 
 /-- Turn 3: Test adoption of the modified version of the foundational rule established in Turn 1.
@@ -143,16 +143,16 @@ theorem la_13_turn_11_oracle (m : Model α) : ¬ ∀ a b x, m.act (a*b) x = m.ac
 Question: Does $$(ab)v=a(bv)$$ hold in an ordinary vector space, in the modified system, or in both?
 JSON expected answer: Only in the standard system.
 -/
-theorem la_13_turn_12_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (v : V) (m : Model α) : (6:ℚ) • v = (2:ℚ) • ((3:ℚ) • v) ∧ m.act 6 m.v ≠ m.act 2 (m.act 3 m.v) := by
-  constructor
-  · rw [← mul_smul]; norm_num
-  · exact noAssoc m
+theorem la_13_turn_12_oracle {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] (m : Model α) :
+    (∀ (a b : 𝕜) (v : V), (a*b) • v = a • (b • v)) ∧
+    ¬ (∀ a b x, m.act (a*b) x = m.act a (m.act b x)) := by
+  exact ⟨fun a b v => mul_smul a b v,la_13_turn_11_oracle m⟩
 
 /-- Turn 13: Verify simultaneous reasoning under distinct standard and modified rule sets.
 Question: Does scalar associativity hold for $$(2,3,v)$$ in the standard system, and does it hold in the modified system?
 JSON expected answer: Yes in the standard system and no in the modified system.
 -/
-theorem la_13_turn_13_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (v : V) (m : Model α) : (6:ℚ) • v = (2:ℚ) • ((3:ℚ) • v) ∧ m.act 6 m.v ≠ m.act 2 (m.act 3 m.v) := by
+theorem la_13_turn_13_oracle {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] (v : V) (m : Model α) : (6:𝕜) • v = (2:𝕜) • ((3:𝕜) • v) ∧ m.act 6 m.v ≠ m.act 2 (m.act 3 m.v) := by
   constructor
   · rw [← mul_smul]; norm_num
   · exact noAssoc m
@@ -161,14 +161,14 @@ theorem la_13_turn_13_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (v : V) 
 Question: Return to ordinary linear algebra. Does $$(2\cdot3)\cdot v=2\cdot(3\cdot v)$$ hold?
 JSON expected answer: Yes.
 -/
-theorem la_13_turn_14_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (a b : ℚ) (v : V) : (a*b) • v = a • (b • v) := by
+theorem la_13_turn_14_oracle {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] (a b : 𝕜) (v : V) : (a*b) • v = a • (b • v) := by
   exact mul_smul a b v
 
 /-- Turn 15: Verify recovery of the corresponding standard derived rule after modified-system reasoning.
 Question: Still using ordinary linear algebra, does $$E([3,2,4],v)=24\cdot v$$ hold?
 JSON expected answer: Yes.
 -/
-theorem la_13_turn_15_oracle {V : Type} [AddCommGroup V] [Module ℚ V] (v : V) : E (fun a x => a • x) [3,2,4] v = (24:ℚ) • v := by
+theorem la_13_turn_15_oracle {𝕜 V : Type} [Field 𝕜] [AddCommGroup V] [Module 𝕜 V] (v : V) : E (𝕜 := 𝕜) (fun a x => a • x) [3,2,4] v = (24:𝕜) • v := by
   simp only [E, List.foldl_cons, List.foldl_nil]; rw [← mul_smul, ← mul_smul]; norm_num
 
 /-- Turn 16: Verify bidirectional switching by re-entering the modified system after standard recovery.

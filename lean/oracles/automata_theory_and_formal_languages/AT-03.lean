@@ -35,7 +35,8 @@ open AT_03 Benchmark
 Question: In an ordinary DFA, does the transition $$\delta(q,a)$$ depend only on the current state $$q$$ and input symbol $$a$$, not on the input position?
 JSON expected answer: Yes.
 -/
-theorem at_03_turn_01_oracle (δ : Bool → Bool → Bool) (q x : Bool) (i j : Nat) : (fun _ : Nat => δ q x) i = (fun _ : Nat => δ q x) j := by
+theorem at_03_turn_01_oracle {Q Σ : Type} (δ : Q → Σ → Q) (q : Q) (x : Σ) (i j : Nat) :
+    (fun _ : Nat => δ q x) i = (fun _ : Nat => δ q x) j := by
   rfl
 
 /-- Turn 2: Verify competence with the corresponding standard derived rule before modification.
@@ -112,8 +113,14 @@ theorem at_03_turn_11_oracle (b : Bool → Nat → Bool) : step b false false 1 
 Question: Does position-independence of $$\delta(q,a)$$ hold in an ordinary DFA, in the modified system, or in both?
 JSON expected answer: Only in the standard system.
 -/
-theorem at_03_turn_12_oracle (b : Bool → Nat → Bool) : stdRun false [false,false]=false ∧ run (step b) false [false,false] 1=true ∧ step b false false 1≠step b false false 2 := by
-  simp [stdRun,run,standardStep,step]
+theorem at_03_turn_12_oracle (b : Bool → Nat → Bool) :
+    (∀ q x i j, (fun _ : Nat => standardStep q x) i = (fun _ : Nat => standardStep q x) j) ∧
+    ¬ (∀ q x i j, step b q x i = step b q x j) := by
+  constructor
+  · intros; rfl
+  · intro h
+    have bad := h false false 1 2
+    simp [step] at bad
 
 /-- Turn 13: Verify simultaneous reasoning under distinct standard and modified rule sets.
 Question: What state is reached from $$q_0$$ on $$aa$$ in the standard DFA, and what state is reached in the modified system?

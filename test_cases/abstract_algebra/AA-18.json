@@ -79,7 +79,7 @@
       "turn_type": "rule_modification_and_application",
       "purpose": "Test adoption of the modified version of the foundational rule established in Turn 1.",
       "prompt": {
-        "content_raw": "Now allow a total operation $$\\ast:\\mathbb N\\times\\mathbb N\\to\\mathbb N$$ with designated subset $$S=\\{0,1,2\\}$$. Stipulate $$1\\ast2=3$$, $$1\\ast1=2$$, and $$2\\ast1=0$$, leaving other products unconstrained. Is $$1\\ast2\\in S$$?",
+        "content_raw": "Now allow a total operation $$\\ast:\\mathbb N\\times\\mathbb N\\to\\mathbb N$$ with designated subset $$S=\\{0,1,2\\}$$. Stipulate $$1\\ast2=3$$, $$1\\ast1=2$$, $$2\\ast1=0$$, and $$0\\ast1=1$$, leaving other products unconstrained. Is $$1\\ast2\\in S$$?",
         "content_format": "mixed"
       },
       "expected_answer": {

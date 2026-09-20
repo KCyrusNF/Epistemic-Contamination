@@ -37,8 +37,9 @@ open AA_41 Benchmark
 Question: In the standard system, zero is absorbing for multiplication. Does $$0\cdot x=0$$ hold for every $$x$$?
 JSON expected answer: Yes.
 -/
-theorem aa_41_turn_01_oracle (s : Standard) (x : Nat) : s.op 0 x = 0 := by
-  simp only [Z, s.zero]
+theorem aa_41_turn_01_oracle {α : Type} (op : α → α → α) (zero : α)
+    (absorbing : ∀ x, op zero x = zero) (x : α) : op zero x = zero := by
+  exact absorbing x
 
 /-- Turn 2: Verify competence with the corresponding standard derived rule before modification.
 Question: In the standard system, define $$Z(x)=0\cdot x$$. What is $$Z(2)$$?

@@ -41,7 +41,7 @@ theorem invariant {allow edges initial} (p : Nat → Prop)
   | mp h edge ok ih => exact step _ _ ih edge ok
 
 def chainEdges : List (Nat × Nat) := [(0,1),(1,2)]
-theorem onlyP (m : Model) {x} (h : Reach m.allowed chainEdges [0] x) : x=0 := by
+theorem onlyP (m : Model) {edges : List (Nat × Nat)} {x} (h : Reach m.allowed edges [0] x) : x=0 := by
   apply invariant (fun x => x=0) ?_ ?_ h
   · intro a ha; simpa using ha
   · intro a b ha he ok
@@ -71,14 +71,14 @@ theorem fl_01_turn_02_oracle {P Q R : Prop} (p : P) (pq : P → Q) (qr : Q → R
 Question: Now use a syntactic proof calculus with assumption lookup and Modus Ponens as its only inference rules. Modus Ponens is permitted exactly for antecedents outside a class $$C$$. Stipulate $$P\in C$$ and $$Q,R\notin C$$; other membership is unconstrained. Distinct capital letters denote distinct atomic formulas, and each query uses only its stated premises. From $$P$$ and $$P\to Q$$, can Modus Ponens derive $$Q$$?
 JSON expected answer: No.
 -/
-theorem fl_01_turn_03_oracle (m : Model) : ¬ Reach m.allowed chainEdges [0] 1 := by
+theorem fl_01_turn_03_oracle (m : Model) : ¬ Reach m.allowed [(0,1)] [0] 1 := by
   intro h; have bad := onlyP m h <;> omega
 
 /-- Turn 4: Verify rejection of the superseded standard rule within the modified system.
 Question: In the modified system, does the standard Modus Ponens inference from $$P$$ and $$P\rightarrow Q$$ yield $$Q$$?
 JSON expected answer: No.
 -/
-theorem fl_01_turn_04_oracle (m : Model) : ¬ Reach m.allowed chainEdges [0] 1 := by
+theorem fl_01_turn_04_oracle (m : Model) : ¬ Reach m.allowed [(0,1)] [0] 1 := by
   intro h; have bad := onlyP m h <;> omega
 
 /-- Turn 5: Verify repeated application of the modified foundational rule.
@@ -146,18 +146,18 @@ theorem fl_01_turn_11_oracle (m : Model) : ¬ (∀ a, m.allowed a = true) := by
 Question: Does the inference from $$P$$ and $$P\rightarrow Q$$ to $$Q$$ hold in the standard system, in the modified system, or in both?
 JSON expected answer: Only in the standard system.
 -/
-theorem fl_01_turn_12_oracle (m : Model) : Reach (fun _ => true) chainEdges [0] 1 ∧ ¬ Reach m.allowed chainEdges [0] 1 := by
+theorem fl_01_turn_12_oracle (m : Model) : Reach (fun _ => true) [(0,1)] [0] 1 ∧ ¬ Reach m.allowed [(0,1)] [0] 1 := by
   constructor
-  · exact .mp (a := 0) (.assumption (by simp)) (by simp [chainEdges]) rfl
+  · exact .mp (a := 0) (.assumption (by simp)) (by simp) rfl
   · intro h; have bad := onlyP m h <;> omega
 
 /-- Turn 13: Verify simultaneous reasoning under distinct standard and modified rule sets.
 Question: Can $$Q$$ be derived from $$P$$ and $$P\rightarrow Q$$ in the standard system, and can it be derived in the modified system?
 JSON expected answer: Yes in the standard system and no in the modified system.
 -/
-theorem fl_01_turn_13_oracle (m : Model) : Reach (fun _ => true) chainEdges [0] 1 ∧ ¬ Reach m.allowed chainEdges [0] 1 := by
+theorem fl_01_turn_13_oracle (m : Model) : Reach (fun _ => true) [(0,1)] [0] 1 ∧ ¬ Reach m.allowed [(0,1)] [0] 1 := by
   constructor
-  · exact .mp (a := 0) (.assumption (by simp)) (by simp [chainEdges]) rfl
+  · exact .mp (a := 0) (.assumption (by simp)) (by simp) rfl
   · intro h; have bad := onlyP m h <;> omega
 
 /-- Turn 14: Detect residual contamination of the standard foundational rule after modified-system reasoning.
@@ -178,5 +178,5 @@ theorem fl_01_turn_15_oracle {P Q R : Prop} (p : P) (pq : P → Q) (qr : Q → R
 Question: Return to the modified system. From $$P$$ and $$P\rightarrow Q$$, can $$Q$$ be derived by Modus Ponens?
 JSON expected answer: No.
 -/
-theorem fl_01_turn_16_oracle (m : Model) : ¬ Reach m.allowed chainEdges [0] 1 := by
+theorem fl_01_turn_16_oracle (m : Model) : ¬ Reach m.allowed [(0,1)] [0] 1 := by
   intro h; have bad := onlyP m h <;> omega

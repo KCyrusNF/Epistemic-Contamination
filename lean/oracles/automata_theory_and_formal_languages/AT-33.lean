@@ -83,7 +83,10 @@ open AT_33 Benchmark
 Question: In an ordinary DFA, are two states equivalent only if no input suffix distinguishes their acceptance behavior?
 JSON expected answer: Yes.
 -/
-theorem at_33_turn_01_oracle (m : Model) (q r : Nat) (h : Behavior m q r) (w : List Nat) : m.accepting (run m.step q w) ↔ m.accepting (run m.step r w) := by
+theorem at_33_turn_01_oracle {Q Σ : Type} (step : Q → Σ → Q)
+    (accepting : Q → Prop) (q r : Q)
+    (h : ∀ w : List Σ, accepting (w.foldl step q) ↔ accepting (w.foldl step r))
+    (w : List Σ) : accepting (w.foldl step q) ↔ accepting (w.foldl step r) := by
   exact h w
 
 /-- Turn 2: Verify competence with the corresponding standard derived rule before modification.

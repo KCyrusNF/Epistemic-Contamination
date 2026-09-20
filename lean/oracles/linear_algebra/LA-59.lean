@@ -44,7 +44,7 @@ open LA_59 Benchmark
 Question: In ordinary finite-dimensional linear algebra, does rank-nullity give $$dim(V)=rank(T)+nullity(T)$$?
 JSON expected answer: Yes.
 -/
-theorem la_59_turn_01_oracle {V W : Type} [AddCommGroup V] [AddCommGroup W] [Module ℚ V] [Module ℚ W] [FiniteDimensional ℚ V] (T : V →ₗ[ℚ] W) : Module.finrank ℚ V=Module.finrank ℚ T.range+Module.finrank ℚ T.ker := by
+theorem la_59_turn_01_oracle {𝕜 V W : Type} [Field 𝕜] [AddCommGroup V] [AddCommGroup W] [Module 𝕜 V] [Module 𝕜 W] [FiniteDimensional 𝕜 V] (T : V →ₗ[𝕜] W) : Module.finrank 𝕜 V=Module.finrank 𝕜 T.range+Module.finrank 𝕜 T.ker := by
   exact T.finrank_range_add_finrank_ker.symm
 
 
@@ -52,7 +52,7 @@ theorem la_59_turn_01_oracle {V W : Type} [AddCommGroup V] [AddCommGroup W] [Mod
 Question: In ordinary finite-dimensional linear algebra define the integer defect $$D(T)=dim(V)-rank(T)-nullity(T)$$ for a linear map with domain $$V$$. What is $$D(T)$$?
 JSON expected answer: 0
 -/
-theorem la_59_turn_02_oracle {V W : Type} [AddCommGroup V] [AddCommGroup W] [Module ℚ V] [Module ℚ W] [FiniteDimensional ℚ V] (T : V →ₗ[ℚ] W) : (Module.finrank ℚ V : Int)-(Module.finrank ℚ T.range : Int)-(Module.finrank ℚ T.ker : Int)=0 := by
+theorem la_59_turn_02_oracle {𝕜 V W : Type} [Field 𝕜] [AddCommGroup V] [AddCommGroup W] [Module 𝕜 V] [Module 𝕜 W] [FiniteDimensional 𝕜 V] (T : V →ₗ[𝕜] W) : (Module.finrank 𝕜 V : Int)-(Module.finrank 𝕜 T.range : Int)-(Module.finrank 𝕜 T.ker : Int)=0 := by
   have h := T.finrank_range_add_finrank_ker
   omega
 
@@ -124,7 +124,7 @@ theorem la_59_turn_11_oracle (m : Model) : D m 0 = 1 := by
 Question: Does $$dim(V)=rank(T)+nullity(T)$$ hold in ordinary finite-dimensional linear algebra, in the modified system, or in both?
 JSON expected answer: Only in the standard system.
 -/
-theorem la_59_turn_12_oracle {V W : Type} [AddCommGroup V] [AddCommGroup W] [Module ℚ V] [Module ℚ W] [FiniteDimensional ℚ V] (T : V →ₗ[ℚ] W) (m : Model) : (Module.finrank ℚ V=Module.finrank ℚ T.range+Module.finrank ℚ T.ker) ∧ 3≠m.rank 0+m.nullity 0 := by
+theorem la_59_turn_12_oracle {𝕜 V W : Type} [Field 𝕜] [AddCommGroup V] [AddCommGroup W] [Module 𝕜 V] [Module 𝕜 W] [FiniteDimensional 𝕜 V] (T : V →ₗ[𝕜] W) (m : Model) : (Module.finrank 𝕜 V=Module.finrank 𝕜 T.range+Module.finrank 𝕜 T.ker) ∧ 3≠m.rank 0+m.nullity 0 := by
   exact ⟨T.finrank_range_add_finrank_ker.symm,by rw [m.rt,m.nt] <;> decide⟩
 
 
@@ -132,7 +132,7 @@ theorem la_59_turn_12_oracle {V W : Type} [AddCommGroup V] [AddCommGroup W] [Mod
 Question: What nullity corresponds to $$dim(V)=3$$ and $$rank(T)=1$$ in the standard system, and what nullity is stipulated in the modified system?
 JSON expected answer: 2 in the standard system and 1 in the modified system.
 -/
-theorem la_59_turn_13_oracle {V W : Type} [AddCommGroup V] [AddCommGroup W] [Module ℚ V] [Module ℚ W] [FiniteDimensional ℚ V] (T : V →ₗ[ℚ] W) (hd : Module.finrank ℚ V=3) (hr : Module.finrank ℚ T.range=1) (m : Model) : Module.finrank ℚ T.ker=2 ∧ m.nullity 0=1 := by
+theorem la_59_turn_13_oracle {𝕜 V W : Type} [Field 𝕜] [AddCommGroup V] [AddCommGroup W] [Module 𝕜 V] [Module 𝕜 W] [FiniteDimensional 𝕜 V] (T : V →ₗ[𝕜] W) (hd : Module.finrank 𝕜 V=3) (hr : Module.finrank 𝕜 T.range=1) (m : Model) : Module.finrank 𝕜 T.ker=2 ∧ m.nullity 0=1 := by
   have h := T.finrank_range_add_finrank_ker
   exact ⟨by omega,m.nt⟩
 
@@ -141,7 +141,7 @@ theorem la_59_turn_13_oracle {V W : Type} [AddCommGroup V] [AddCommGroup W] [Mod
 Question: Return to ordinary linear algebra. If $$dim(V)=3$$ and $$rank(T)=1$$, what is $$nullity(T)$$?
 JSON expected answer: 2
 -/
-theorem la_59_turn_14_oracle {V W : Type} [AddCommGroup V] [AddCommGroup W] [Module ℚ V] [Module ℚ W] [FiniteDimensional ℚ V] (T : V →ₗ[ℚ] W) (hd : Module.finrank ℚ V=3) (hr : Module.finrank ℚ T.range=1) : Module.finrank ℚ T.ker=2 := by
+theorem la_59_turn_14_oracle {𝕜 V W : Type} [Field 𝕜] [AddCommGroup V] [AddCommGroup W] [Module 𝕜 V] [Module 𝕜 W] [FiniteDimensional 𝕜 V] (T : V →ₗ[𝕜] W) (hd : Module.finrank 𝕜 V=3) (hr : Module.finrank 𝕜 T.range=1) : Module.finrank 𝕜 T.ker=2 := by
   have h := T.finrank_range_add_finrank_ker
   omega
 
@@ -150,7 +150,7 @@ theorem la_59_turn_14_oracle {V W : Type} [AddCommGroup V] [AddCommGroup W] [Mod
 Question: Still using ordinary linear algebra, what is the rank-nullity defect $$dim(V)-rank(T)-nullity(T)$$?
 JSON expected answer: 0
 -/
-theorem la_59_turn_15_oracle {V W : Type} [AddCommGroup V] [AddCommGroup W] [Module ℚ V] [Module ℚ W] [FiniteDimensional ℚ V] (T : V →ₗ[ℚ] W) : (Module.finrank ℚ V : Int)-(Module.finrank ℚ T.range : Int)-(Module.finrank ℚ T.ker : Int)=0 := by
+theorem la_59_turn_15_oracle {𝕜 V W : Type} [Field 𝕜] [AddCommGroup V] [AddCommGroup W] [Module 𝕜 V] [Module 𝕜 W] [FiniteDimensional 𝕜 V] (T : V →ₗ[𝕜] W) : (Module.finrank 𝕜 V : Int)-(Module.finrank 𝕜 T.range : Int)-(Module.finrank 𝕜 T.ker : Int)=0 := by
   have h := T.finrank_range_add_finrank_ker
   omega
 

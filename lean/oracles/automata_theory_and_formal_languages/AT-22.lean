@@ -17,6 +17,10 @@ open Benchmark
 
 /-- q₀,q₁,q₂,q_f,q₃ are represented by 0,1,2,3,4. -/
 abbrev Q := Fin 5
+
+/-- Ordinary epsilon closure on an arbitrary state type. -/
+def epsilonClosure {S : Type} (ε : S → S → Prop) (q : S) : Set S :=
+  {r | Relation.ReflTransGen ε q r}
 abbrev edge (q r : Q) : Prop := (q,r)=(0,1) ∨ (q,r)=(1,2)
 def stdClosure (q : Q) : Finset Q :=
   if q=0 then {0,1,2} else if q=1 then {1,2} else {q}
@@ -67,8 +71,10 @@ open AT_22 Benchmark
 Question: In an ordinary NFA, does $$\varepsilon\text{-closure}(q)$$ include $$q$$ and every state reachable from $$q$$ by any finite sequence of $$\varepsilon$$-transitions?
 JSON expected answer: Yes.
 -/
-theorem at_22_turn_01_oracle (q r : Q) (h : Relation.ReflTransGen edge q r) : r ∈ stdClosure q := by
-  exact reachableIncluded h
+theorem at_22_turn_01_oracle {S : Type} (ε : S → S → Prop) (q : S) :
+    q ∈ epsilonClosure ε q ∧
+    ∀ r, Relation.ReflTransGen ε q r → r ∈ epsilonClosure ε q := by
+  exact ⟨Relation.ReflTransGen.refl,fun _ h => h⟩
 
 /-- Turn 2: Verify competence with the corresponding standard derived rule before modification.
 Question: In the standard NFA with distinct state names, the only epsilon edges are $$q_0\to q_1\to q_2$$. The only $$a$$-edges are $$q_2\to q_f$$ and $$q_f\to q_f$$. Let $$C(S)=\bigcup_{q\in S}\varepsilon\text{-closure}(q)$$ and $$Move(S,a)=\bigcup_{q\in C(S)}\delta(q,a)$$. What is $$Move(\{q_0\},a)$$?
@@ -144,8 +150,14 @@ theorem at_22_turn_11_oracle (m : Model) : Relation.ReflTransGen edge 0 2 ∧ (2
 Question: Does transitive epsilon-closure hold in an ordinary NFA, in the modified system, or in both?
 JSON expected answer: Only in the standard system.
 -/
-theorem at_22_turn_12_oracle (m : Model) : stdClosure 0={0,1,2} ∧ m.closure 0={0,1} := by
-  exact ⟨rfl,m.h0⟩
+theorem at_22_turn_12_oracle (m : Model) :
+    (∀ q r : Q, Relation.ReflTransGen edge q r → r ∈ stdClosure q) ∧
+    ¬ (∀ q r : Q, Relation.ReflTransGen edge q r → r ∈ m.closure q) := by
+  constructor
+  · intro q r h; exact reachableIncluded h
+  · intro h
+    have missing := at_22_turn_11_oracle m
+    exact missing.2 (h 0 2 missing.1)
 
 /-- Turn 13: Verify simultaneous reasoning under distinct standard and modified rule sets.
 Question: What is $$\varepsilon\text{-closure}(q_0)$$ in the standard NFA, and what is it in the modified system?

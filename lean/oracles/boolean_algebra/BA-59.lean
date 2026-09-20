@@ -86,12 +86,10 @@ theorem ba_59_turn_03_oracle {α : Type} (m : Model α) : m.join m.a m.zero ≠ 
 Question: In the modified system, does dualizing the valid identity $$x\land1=x$$ preserve validity at $$a$$?
 JSON expected answer: No.
 -/
-theorem ba_59_turn_04_oracle {α : Type} (m : Model α) : ¬ D m I := by
-  intro h
-  have bad := h m.a
-  change m.join m.a m.zero = m.a at bad
-  rw [m.ha] at bad
-  exact m.hab bad
+theorem ba_59_turn_04_oracle {α : Type} (m : Model α) : eval m m.a (dual I) ≠ m.a := by
+  change m.join m.a m.zero ≠ m.a
+  rw [m.ha]
+  exact m.hab
 
 
 /-- Turn 5: Verify repeated application of the modified foundational rule.
@@ -163,7 +161,7 @@ theorem ba_59_turn_11_oracle {α : Type} (m : Model α) : ¬ (∀ t, Valid m t �
   have valid : Valid m I := by
     change ∀ x, m.meet x m.one = x
     exact m.meetOne
-  exact ba_59_turn_04_oracle m (h I valid)
+  exact ba_59_turn_04_oracle m ((h I valid) m.a)
 
 
 /-- Turn 12: Verify explicit separation between the standard and modified formal systems.

@@ -28,6 +28,10 @@ def wordPrefix (w : List Nat) := w.take (w.length-1)
 def Accept (m : Model) (w : List Nat) : Prop := run m.step 0 (wordPrefix w)=2
 def StdAccept (m : Model) (w : List Nat) : Prop := run m.step 0 w=2
 
+/-- Ordinary acceptance tests the final state after the complete word. -/
+def StandardAccept {Q Σ : Type} (δ : Q → Σ → Q) (start : Q)
+    (F : Set Q) (w : List Σ) : Prop := w.foldl δ start ∈ F
+
 def completion (k : Nat) : Model where
   step := fun q x => if q=0 ∧ x=0 then 1 else if q=1 ∧ x=1 then 2
     else if q=2 ∧ x=2 then 2 else k
@@ -43,7 +47,8 @@ open AT_14 Benchmark
 Question: In an ordinary finite automaton, is acceptance determined by the state reached after the entire input word has been consumed?
 JSON expected answer: Yes.
 -/
-theorem at_14_turn_01_oracle (m : Model) (w : List Nat) : StdAccept m w ↔ run m.step 0 w=2 := by
+theorem at_14_turn_01_oracle {Q Σ : Type} (δ : Q → Σ → Q) (start : Q) (F : Set Q) (w : List Σ) :
+    StandardAccept δ start F w ↔ w.foldl δ start ∈ F := by
   rfl
 
 /-- Turn 2: Verify competence with the corresponding standard derived rule before modification.
@@ -120,8 +125,14 @@ theorem at_14_turn_11_oracle (m : Model) (w : List Nat) (x y : Nat) : Accept m (
 Question: Does acceptance after consuming the full word characterize ordinary automata, the modified system, or both?
 JSON expected answer: Only in the standard system.
 -/
-theorem at_14_turn_12_oracle (m : Model) : StdAccept m [0,1] ∧ ¬ Accept m [0,1] := by
-  simp [Accept,StdAccept,run,wordPrefix,m.ha,m.hb,m.hc]
+theorem at_14_turn_12_oracle (m : Model) :
+    (∀ w, StdAccept m w ↔ run m.step 0 w=2) ∧
+    ¬ (∀ w, Accept m w ↔ run m.step 0 w=2) := by
+  constructor
+  · intro w; rfl
+  · intro h
+    have bad := (h [0,1]).mpr (by simp [run,m.ha,m.hb])
+    simpa [Accept,run,wordPrefix,m.ha] using bad
 
 /-- Turn 13: Verify simultaneous reasoning under distinct standard and modified rule sets.
 Question: Is $$ab$$ accepted in the standard automaton, and is it accepted in the modified system?
@@ -134,8 +145,8 @@ theorem at_14_turn_13_oracle (m : Model) : StdAccept m [0,1] ∧ ¬ Accept m [0,
 Question: Return to the standard automaton. Is $$ab$$ accepted?
 JSON expected answer: Yes.
 -/
-theorem at_14_turn_14_oracle (m : Model) (w : List Nat) : StdAccept m w ↔ run m.step 0 w=2 := by
-  rfl
+theorem at_14_turn_14_oracle (m : Model) : StdAccept m [0,1] := by
+  simp [StdAccept,run,m.ha,m.hb]
 
 /-- Turn 15: Verify recovery of the corresponding standard derived rule after modified-system reasoning.
 Question: Still using the standard automaton, is $$Accept(ab)$$ true?

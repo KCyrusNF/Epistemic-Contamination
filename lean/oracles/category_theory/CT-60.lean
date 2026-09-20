@@ -77,6 +77,37 @@ theorem singletonOfUnique [Fintype α] (p : α → Prop) (h : ∃! x, p x) :
   rw [hs]
   simp
 
+/-- The actual projection equations for the fixed ordinary pullback cone. -/
+def StandardMediates {C : Type} [Category C] {A B Z X : C}
+    (f : A ⟶ Z) (g : B ⟶ Z) [Limits.HasPullback f g]
+    (a : X ⟶ A) (b : X ⟶ B) (u : X ⟶ Limits.pullback f g) : Prop :=
+  u ≫ Limits.pullback.fst f g = a ∧ u ≫ Limits.pullback.snd f g = b
+
+/-- Derive uniqueness from the pullback, assuming only the stated existence. -/
+theorem standardUnique {C : Type} [Category C] {A B Z X : C}
+    (f : A ⟶ Z) (g : B ⟶ Z) [Limits.HasPullback f g]
+    (a : X ⟶ A) (b : X ⟶ B)
+    (existsMediator : ∃ u, StandardMediates f g a b u) :
+    ∃! u, StandardMediates f g a b u := by
+  rcases existsMediator with ⟨u,hu⟩
+  refine ⟨u,hu,?_⟩
+  intro v hv
+  exact Limits.pullback.hom_ext (hv.1.trans hu.1.symm) (hv.2.trans hu.2.symm)
+
+/-- The mediator set is a singleton even when the ambient hom-set is infinite. -/
+theorem standardCard {C : Type} [Category C] {A B Z X : C}
+    (f : A ⟶ Z) (g : B ⟶ Z) [Limits.HasPullback f g]
+    (a : X ⟶ A) (b : X ⟶ B)
+    (existsMediator : ∃ u, StandardMediates f g a b u) :
+    ({u | StandardMediates f g a b u} : Set (X ⟶ Limits.pullback f g)).ncard = 1 := by
+  rcases standardUnique f g a b existsMediator with ⟨u,hu,unique⟩
+  have hs : ({v | StandardMediates f g a b v} : Set (X ⟶ Limits.pullback f g)) = {u} := by
+    ext v
+    change StandardMediates f g a b v ↔ v = u
+    exact ⟨unique v,fun h => h.symm ▸ hu⟩
+  rw [hs]
+  exact Set.ncard_singleton u
+
 end CT_60
 
 open CT_60 Benchmark
@@ -92,10 +123,12 @@ theorem ct_60_turn_01_oracle {C : Type} [Category C] {A B Z X : C} (f : A ⟶ Z)
 Question: In the standard system define $$M=\{m:X\to P\mid(p_1\circ m=a)\land(p_2\circ m=b)\}$$ for the fixed cone. A mediator exists. What is $$|M|$$?
 JSON expected answer: 1
 -/
-theorem ct_60_turn_02_oracle [Fintype α] (p : α → Prop) (h : ∃! x, p x) : (by
-      classical
-      exact Finset.univ.filter p : Finset α).card=1 := by
-  exact singletonOfUnique p h
+theorem ct_60_turn_02_oracle {C : Type} [Category C] {A B Z X : C}
+    (f : A ⟶ Z) (g : B ⟶ Z) [Limits.HasPullback f g]
+    (a : X ⟶ A) (b : X ⟶ B)
+    (existsMediator : ∃ u, StandardMediates f g a b u) :
+    ({u | StandardMediates f g a b u} : Set (X ⟶ Limits.pullback f g)).ncard = 1 := by
+  exact standardCard f g a b existsMediator
 
 /-- Turn 3: Test adoption of the modified version of the foundational rule established in Turn 1.
 Question: Now use a finite typed composition calculus with a commuting square and the same cone and projection signatures, but no pullback uniqueness axiom. Stipulate distinct $$u,v:X\to P$$ with $$p_1\circ u=p_1\circ v=a$$ and $$p_2\circ u=p_2\circ v=b$$. Additional mediators are not excluded. Is the mediator unique?
@@ -174,15 +207,23 @@ theorem ct_60_turn_11_oracle (m : Model α β γ) : ∃ u v, Mediates m u ∧ Me
 Question: Does the statement “the mediating morphism is unique” hold for a pullback in ordinary category theory, in the modified system, or in both?
 JSON expected answer: Only in the standard system.
 -/
-theorem ct_60_turn_12_oracle (p : δ → Prop) (h : ∃! x, p x) (m : Model α β γ) : (∃! x, p x) ∧ ¬ ∃! x, Mediates m x := by
-  exact ⟨h,notUnique m⟩
+theorem ct_60_turn_12_oracle {C : Type} [Category C] {A B Z X : C}
+    (f : A ⟶ Z) (g : B ⟶ Z) [Limits.HasPullback f g]
+    (a : X ⟶ A) (b : X ⟶ B)
+    (existsMediator : ∃ u, StandardMediates f g a b u) (m : Model α β γ) :
+    (∃! u, StandardMediates f g a b u) ∧ ¬ ∃! x, Mediates m x := by
+  exact ⟨standardUnique f g a b existsMediator,notUnique m⟩
 
 /-- Turn 13: Verify simultaneous reasoning under distinct standard and modified rule sets.
 Question: Is the mediator unique in ordinary category theory, and is it unique in the modified system?
 JSON expected answer: Yes in the standard system and no in the modified system.
 -/
-theorem ct_60_turn_13_oracle (p : δ → Prop) (h : ∃! x, p x) (m : Model α β γ) : (∃! x, p x) ∧ ¬ ∃! x, Mediates m x := by
-  exact ⟨h,notUnique m⟩
+theorem ct_60_turn_13_oracle {C : Type} [Category C] {A B Z X : C}
+    (f : A ⟶ Z) (g : B ⟶ Z) [Limits.HasPullback f g]
+    (a : X ⟶ A) (b : X ⟶ B)
+    (existsMediator : ∃ u, StandardMediates f g a b u) (m : Model α β γ) :
+    (∃! u, StandardMediates f g a b u) ∧ ¬ ∃! x, Mediates m x := by
+  exact ⟨standardUnique f g a b existsMediator,notUnique m⟩
 
 /-- Turn 14: Detect residual contamination of the standard foundational rule after modified-system reasoning.
 Question: Return to ordinary category theory. Is a pullback mediating morphism unique?
@@ -195,10 +236,12 @@ theorem ct_60_turn_14_oracle {C : Type} [Category C] {A B Z X : C} (f : A ⟶ Z)
 Question: Still using ordinary category theory, what is $$|M|$$ when a mediator exists for fixed cone data?
 JSON expected answer: 1
 -/
-theorem ct_60_turn_15_oracle [Fintype α] (p : α → Prop) (h : ∃! x, p x) : (by
-      classical
-      exact Finset.univ.filter p : Finset α).card=1 := by
-  exact singletonOfUnique p h
+theorem ct_60_turn_15_oracle {C : Type} [Category C] {A B Z X : C}
+    (f : A ⟶ Z) (g : B ⟶ Z) [Limits.HasPullback f g]
+    (a : X ⟶ A) (b : X ⟶ B)
+    (existsMediator : ∃ u, StandardMediates f g a b u) :
+    ({u | StandardMediates f g a b u} : Set (X ⟶ Limits.pullback f g)).ncard = 1 := by
+  exact standardCard f g a b existsMediator
 
 /-- Turn 16: Verify bidirectional switching by re-entering the modified system after standard recovery.
 Question: Return to the modified system. Is the mediating morphism unique?

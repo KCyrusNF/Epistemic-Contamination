@@ -154,12 +154,12 @@
       "turn_type": "multi_step_derived_rule_application",
       "purpose": "Verify multi-step propagation through the reconstructed derived rule.",
       "prompt": {
-        "content_raw": "In the modified system, what is $$P([f,g,h,k])$$?",
+        "content_raw": "In the modified system, what is $$P([f,g,h])$$?",
         "content_format": "mixed"
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "p"
+        "value": "u"
       },
       "references": null
     },
