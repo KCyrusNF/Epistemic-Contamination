@@ -15,9 +15,9 @@ the CLI and the GUI all read and write the same tree:
 scratch state for crash recovery, kept outside ``results/`` so that a partially
 written session never looks like a finished one.
 
-The root is taken from ``EPICON_ROOT`` when set, otherwise it is discovered by
-walking up from this file until a directory containing ``templates`` and
-``test_cases`` is found.
+The root is the directory that contains the ``epicon`` package
+(``epicon_harness/``). It is an absolute path derived from this file, so a parent
+repository that also has ``templates/`` cannot be selected by walking upward.
 """
 
 from __future__ import annotations
@@ -27,23 +27,8 @@ from pathlib import Path
 
 from .errors import PathOutsideProject
 
-_MARKER_DIRS = ("templates", "test_cases")
-
-
-def _detect_root() -> Path:
-    override = os.environ.get("EPICON_ROOT")
-    if override:
-        return Path(override).expanduser().resolve()
-
-    here = Path(__file__).resolve()
-    for candidate in here.parents:
-        if all((candidate / marker).is_dir() for marker in _MARKER_DIRS):
-            return candidate
-    # Fall back to the directory containing the package.
-    return here.parent.parent
-
-
-PROJECT_ROOT = _detect_root()
+# epicon/paths.py -> epicon/ -> epicon_harness/
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
 LEAN_DIR = PROJECT_ROOT / "lean"
 MANIFESTS_DIR = PROJECT_ROOT / "manifests"
