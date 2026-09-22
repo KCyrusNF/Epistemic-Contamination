@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "epicon"
+version = "2.0.0"
+description = "Automated multi-turn LLM evaluation pipeline with a PySide6 review assistant"
+requires-python = ">=3.10"
+dependencies = [
+    "anthropic>=0.40.0",
+    "openai>=1.40.0",
+    "keyring>=25.0.0",
+    "openpyxl>=3.1.2",
+    "Markdown>=3.5",
+    "Pygments>=2.17",
+]
+
+[project.optional-dependencies]
+gui = ["PySide6>=6.6.0"]
+
+[project.scripts]
+epicon = "epicon.cli:main"
+
+[project.gui-scripts]
+epicon-assistant = "epicon.gui.app:main"
+
+[tool.setuptools]
+packages = ["epicon", "epicon.clients", "epicon.gui"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+ignore = [
+  # A worker must never take down the batch, and a client's close() must never
+  # mask the error that is already propagating, so both catch Exception on
+  # purpose and discard it.
+  "BLE001",
+  "S110",
+  # Guard clauses read better as a chain of early returns than as one negated
+  # boolean expression.
+  "SIM103",
+  # write_json_atomic creates the temp file outside the `with` deliberately: on
+  # Windows os.replace fails while the handle is open, so it must close first.
+  "SIM115",
+  # __enter__ predates typing.Self, which is unavailable on the 3.10 floor.
+  "PYI034",
+]

@@ -1,0 +1,58 @@
+{
+  "_readme": [
+    "Batch definition. Run with: python -m epicon run -m example_sweep",
+    "Keys prefixed with '_' are documentation and ignored by the loader.",
+    "",
+    "model           REQUIRED. Test cases carry no model configuration.",
+    "                temperature is pinned to 0.0 (REQ-RUN-009); do not set it.",
+    "                thinking.enabled raises max_tokens to 2048 with a 1024 budget.",
+    "run_index       1..5; becomes results/{Model}-run-{N}/ (REQ-RUN-012).",
+    "test_cases      Files, directories or globs relative to the project root.",
+    "execution.resume  Reconstruct turns 1..k from .journals/ and continue at k+1."
+  ],
+  "manifest_id": "example_sweep",
+  "description": "Example sweep over the abstract algebra cases.",
+  "run_index": 1,
+
+  "model": {
+    "provider": "anthropic",
+    "model_id": "Claude-4.6-Opus",
+    "model_short_id": "Claude46",
+    "top_p": null,
+    "thinking": {
+      "enabled": false,
+      "budget_tokens": null,
+      "effort": null
+    },
+    "cache_system_prompt": true,
+    "cache_conversation_prefix": true
+  },
+
+  "test_cases": ["test_cases"],
+  "domains": ["abstract_algebra"],
+  "include_case_ids": [],
+  "exclude_case_ids": [],
+  "repeat": 1,
+  "reviewers": ["unassigned"],
+
+  "retry": {
+    "max_attempts": 5,
+    "base_delay": 1.5,
+    "max_delay": 60.0,
+    "jitter": true
+  },
+
+  "execution": {
+    "max_workers": 3,
+    "request_timeout": 600.0,
+    "turn_delay": 0.0,
+    "stop_on_error": false,
+    "resume": false,
+    "throttle": {
+      "default": { "rpm": 60, "concurrency": 2 },
+      "anthropic": { "rpm": 45, "concurrency": 2 }
+    }
+  },
+
+  "providers": []
+}
