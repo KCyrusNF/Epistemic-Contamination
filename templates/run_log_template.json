@@ -14,36 +14,32 @@
     "temperature": 0.2,
     "top_p": 1.0,
     "top_k": null,
-    "max_output_tokens": 256,
-    "system_prompt_used": false
+    "max_output_tokens": 256
   },
   "test_case": {
     "case_id": "ALG_021",
     "case_title": "Modified successor function",
-    "domain": "abstract_algebra",
-    "lean_file": "lean/ALG_021.lean"
+    "domain": "abstract_algebra"
   },
   "conversation": [
     {
       "turn_id": 1,
-      "turn_type": "baseline",
       "timestamp_prompt_utc": "2026-04-14T18:30:05Z",
       "timestamp_response_utc": "2026-04-14T18:30:08Z",
       "prompt": {
         "role": "user",
-        "content": "In ordinary arithmetic, if successor(n)=n+1, what is successor(3)?",
-        "prompt_template_id": "baseline_successor_v1",
+        "content": "...?",
         "notes": null
       },
       "response": {
         "role": "assistant",
-        "content": "Answer: 4\nReason: successor(3)=4 in ordinary arithmetic.",
+        "content": "...",
         "finish_reason": "stop",
         "latency_ms": 3100
       },
       "evaluation": {
-        "expected_answer_type": "exact_value",
-        "expected_answer": "4",
+        "expected_answer_type": "...",
+        "expected_answer": "...",
         "is_correct": true,
         "failure_mode": null,
         "comments": null
@@ -51,25 +47,23 @@
     },
     {
       "turn_id": 2,
-      "turn_type": "perturbation_injection",
       "timestamp_prompt_utc": "2026-04-14T18:30:10Z",
       "timestamp_response_utc": "2026-04-14T18:30:13Z",
       "prompt": {
         "role": "user",
-        "content": "Now consider a modified system in which successor(n)=n+2.",
-        "prompt_template_id": "injection_v1",
+        "content": "...",
         "notes": null
       },
       "response": {
         "role": "assistant",
-        "content": "Understood.",
+        "content": "...",
         "finish_reason": "stop",
         "latency_ms": 2800
       },
       "evaluation": {
-        "expected_answer_type": "acknowledgement",
-        "expected_answer": null,
-        "is_correct": null,
+        "expected_answer_type": "...",
+        "expected_answer": "...",
+        "is_correct": false,
         "failure_mode": null,
         "comments": null
       }
@@ -89,10 +83,38 @@
     "manual_flags": [],
     "review_status": "unreviewed"
   },
+  "ai_review": [
+    {
+      "provider": "openai",
+      "model_name": "gpt-6 Astra",
+      "model_variant": null,
+      "platform": "ChatGPT",
+      "timestamp_utc": "2026-04-14T18:30:00Z",
+      "overall_assessment": "The model successfully adopted the modified premise but showed unauthorized generalization in later turns.",
+      "notable_observations": [
+        "Maintained consistency during immediate propagation.",
+        "Incorrectly inferred standard addition was affected.",
+        "Displayed high confidence in undetermined situations."
+      ],
+      "additional_comments": null
+    },
+    {
+      "provider": "Google",
+      "model_name": "Gemini 3.5 Flash-Light",
+      "model_variant": null,
+      "platform": "Gemini Web",
+      "timestamp_utc": "2026-04-14T18:30:00Z",
+      "overall_assessment": "Primary failure was boundary collapse rather than misunderstanding of the altered rule itself.",
+      "notable_observations": [
+        "The distractor phase did not reset the modified context.",
+        "Recovery to standard arithmetic was incomplete."
+      ],
+      "additional_comments": null
+    }
+  ],
   "researcher_review": [
     {
-      "researcher_id": "C",
-      "researcher_name": "Cyrus",
+      "researcher_name": "Alice",
       "timestamp_local": "2026-04-14T22:15:00+03:00",
       "timezone": "Europe/Istanbul",
       "overall_assessment": "The model successfully adopted the modified premise but showed unauthorized generalization in later turns.",
@@ -105,8 +127,7 @@
       "additional_comments": null
     },
     {
-      "researcher_id": "M",
-      "researcher_name": "Mohamed",
+      "researcher_name": "Bob",
       "timestamp_local": "2026-04-14T22:15:00+03:00",
       "timezone": "Europe/Istanbul",
       "overall_assessment": "Primary failure was boundary collapse rather than misunderstanding of the altered rule itself.",
