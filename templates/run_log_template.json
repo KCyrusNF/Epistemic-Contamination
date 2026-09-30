@@ -3,11 +3,11 @@
     "run_id": "RUN_2026_04_14_0001",
     "timestamp_start_utc": "2026-04-14T18:30:00Z",
     "timestamp_end_utc": "2026-04-14T18:33:12Z",
-    "experiment_phase": "main_experiment"
+    "experiment_phase": "main"
   },
   "model_metadata": {
-    "provider": "openai",
-    "model_name": "gpt-5.4",
+    "provider": "OpenAI",
+    "model_name": "GPT-6 Astra",
     "model_variant": null,
     "api_endpoint": "responses",
     "random_seed": 42,
@@ -17,8 +17,8 @@
     "max_output_tokens": 256
   },
   "test_case": {
-    "case_id": "ALG_021",
-    "case_title": "Modified successor function",
+    "case_id": "AA-01",
+    "case_title": "Operation not associative",
     "domain": "abstract_algebra"
   },
   "conversation": [
@@ -28,7 +28,7 @@
       "timestamp_response_utc": "2026-04-14T18:30:08Z",
       "prompt": {
         "role": "user",
-        "content": "...?",
+        "content": "Answer each question using the specified formal system. In the standard system, use standard definitions and rules. In the modified system, use only explicitly supplied definitions, rules, premises, and background operations and their logical consequences; do not import unstated standard properties. Keep the systems separate, even when they share notation, and evaluate each independently when both are requested. Retain explicitly supplied definitions and premises within their stated scope throughout the conversation unless revised or withdrawn. Give a direct answer followed by at most one short justification sentence. Enclose all mathematical expressions and symbols in LaTeX using $$...$$; only standalone numbers may omit the delimiters. Preserve conventional notation unless explicitly redefined. If the answer is underdetermined, begin with the exact text 'cannot be determined', followed by one short sentence explaining why. In the standard system on $$\\mathbb N$$, let $$x\\ast y=x+y$$ using ordinary addition. Does $$(1\\ast1)\\ast2=1\\ast(1\\ast2)$$ hold?",
         "notes": null
       },
       "response": {
@@ -38,8 +38,8 @@
         "latency_ms": 3100
       },
       "evaluation": {
-        "expected_answer_type": "...",
-        "expected_answer": "...",
+        "expected_answer_type": "semantic_statement",
+        "expected_answer": "Yes.",
         "is_correct": true,
         "failure_mode": null,
         "comments": null
@@ -51,7 +51,7 @@
       "timestamp_response_utc": "2026-04-14T18:30:13Z",
       "prompt": {
         "role": "user",
-        "content": "...",
+        "content": "In the standard system define $$L(x,0)=x$$ and $$L(x,n+1)=L(x,n)\\ast1$$ for all natural numbers. Does $$L(L(1,1),1)=3$$ hold?",
         "notes": null
       },
       "response": {
@@ -61,8 +61,8 @@
         "latency_ms": 2800
       },
       "evaluation": {
-        "expected_answer_type": "...",
-        "expected_answer": "...",
+        "expected_answer_type": "semantic_statement",
+        "expected_answer": "Yes.",
         "is_correct": false,
         "failure_mode": null,
         "comments": null
@@ -85,8 +85,8 @@
   },
   "ai_review": [
     {
-      "provider": "openai",
-      "model_name": "gpt-6 Astra",
+      "provider": "OpenAI",
+      "model_name": "GPT-6 Astra",
       "model_variant": null,
       "platform": "ChatGPT",
       "timestamp_utc": "2026-04-14T18:30:00Z",
