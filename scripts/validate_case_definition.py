@@ -10,14 +10,14 @@ Exit codes: 0 = valid structure, 1 = invalid data, 2 = usage/read error.
 Requires check_json_syntax.py beside this file for shared JSON loading.
 Read-only: does not build Lean, scan the repository, or write reports.
 Checks structure, not mathematical correctness, citations, proof validity,
-or existence of the referenced Lean file/theorems. Unknown fields are rejected
-so spelling mistakes cannot silently pass. Update the rules for schema changes.
+or external manifest consistency. Unknown fields are rejected so spelling
+mistakes cannot silently pass. Update the rules for schema changes.
 The sample template's placeholder case ID is not a valid production case ID.
 """
 
 import argparse
 from datetime import datetime, timedelta
-from pathlib import Path, PurePosixPath
+from pathlib import Path
 import re
 import sys
 
@@ -90,10 +90,6 @@ SCHEMA = {
         "created_by": (TEXT,),
         "reviewed_by": (TEXT,),
         "creation_timestamp_utc": TEXT,
-    },
-    "formal_artifacts": {
-        "lean_file": TEXT,
-        "oracle_theorems": (TEXT,)
     },
     "system_instruction": dict(TURN, expected_answer=None),
     "conversation_framework": (TURN,),
@@ -168,33 +164,6 @@ def validate_case(data):
     except ValueError:
         errors.append("$.case_metadata.creation_timestamp_utc: expected a valid UTC timestamp, e.g. 2026-09-18T12:00:00Z")
 
-    artifacts = data["formal_artifacts"]
-
-    lean_path = artifacts["lean_file"]
-    path = PurePosixPath(lean_path)
-    if (
-        path.is_absolute()
-        or ".." in path.parts
-        or "\\" in lean_path
-        or ":" in lean_path
-        or path.suffix != ".lean"
-        ):
-        errors.append("$.formal_artifacts.lean_file: expected a relative .lean path with forward slashes and no '..'")
-
-    names = artifacts["oracle_theorems"]
-
-    case_prefix = case_id.lower().replace("-", "_")
-    expected_names = [
-        f"{case_prefix}_turn_{turn:02d}_oracle"
-        for turn in range(1, 17)
-    ]
-
-    if names != expected_names:
-        errors.append(
-            "$.formal_artifacts.oracle_theorems: theorem names must exactly match "
-            f"{case_prefix}_turn_01_oracle through {case_prefix}_turn_16_oracle, in order"
-        )
-
     turns = data["conversation_framework"]
 
     if len(turns) != 16:
@@ -265,7 +234,7 @@ def main(argv=None):
         return 1
     
     print(f"VALID STRUCTURE: {args.file} (16 turns + system instruction)")
-    print("Mathematical correctness and Lean artifacts were not verified.")
+    print("Mathematical correctness and external manifest consistency were not verified.")
 
     return 0
 

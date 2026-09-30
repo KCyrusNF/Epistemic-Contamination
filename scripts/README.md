@@ -16,7 +16,7 @@ The following sections describe `check_json_syntax.py`, `validate_case_definitio
 
 ### Requirements
 
-The two Python validators require Python 3.9 or later. They use the Python standard library and require no additional packages. Keep both files together in this `scripts/` directory: the case-definition validator imports the shared JSON loader from `check_json_syntax.py`. Each Python script has its own command-line entry point. The batch script requires PowerShell 5.1 or later and must remain beside both Python validators.
+The two Python validators require Python 3.9 or later. They use the Python standard library and require no additional packages. Keep both files together in this `scripts/` directory: the case-definition validator imports the shared JSON loader from `check_json_syntax.py`. Each Python script has its own command-line entry point. The PowerShell script requires PowerShell 5.1 or later and must remain beside both Python validators.
 
 Run the examples below from the repository root. For the Python commands, input paths are resolved relative to the terminal's current working directory; absolute paths are also accepted. Quote paths that contain spaces.
 
@@ -51,8 +51,6 @@ The validator checks:
 - The prescribed phase and turn type for each position in the conversation.
 - Supported prompt formats and expected-answer types.
 - Classification as `undetermined` when the answer is “cannot be determined,” ignoring capitalization, surrounding whitespace, and trailing periods. Exact wording for answers classified as `undetermined` is not currently enforced.
-- A relative `.lean` source path, rejecting absolute paths, parent-directory traversal, colons, and backslashes.
-- Exactly 16 case-specific oracle theorem names in turn order, such as `ba_49_turn_01_oracle` through `ba_49_turn_16_oracle`.
 - Reference structure and duplicate reference IDs within each turn.
 
 The validation rules are defined within the utility. Changes to the test case format or conversation protocol require corresponding changes to those rules. Templates containing placeholder case IDs are not valid production case definitions.
@@ -151,11 +149,11 @@ Get-Help .\scripts\validate-all-test-cases.ps1 -Full
 
 The three validation utilities listed above perform syntax and structural checks only. They do not run Lean, inspect proofs or axiom dependencies, verify mathematical answers, or establish that prompts faithfully represent their intended formal systems.
 
-The case-definition validator does not verify that referenced Lean files or theorem declarations exist, compare entries with the repository manifests, or verify citation accuracy. Those require separate checks.
+The case-definition validator does not compare test case entries with the repository manifests or verify citation accuracy. Those require separate checks.
 
 The Python utilities require an explicit file path. The PowerShell script discovers files directly under `test_cases/` and its subdirectories; none of these utilities checks the completeness or accuracy of `case_paths.json`.
 
-The message `Mathematical correctness and Lean artifacts were not verified.` describes the scope of the case-definition validator. It is informational and does not indicate a validation failure or invalidate separately completed Lean builds and audits.
+The message `Mathematical correctness and external manifest consistency were not verified.` describes the scope of the case-definition validator. It is informational and does not indicate a validation failure or invalidate separately completed Lean builds and audits.
 
 ## File conventions
 
