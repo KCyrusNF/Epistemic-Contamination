@@ -1,0 +1,102 @@
+{
+  "run_metadata": {
+    "run_id": "RUN_2026_04_14_0001",
+    "run_index": 1,
+    "timestamp_start_utc": "2026-04-14T18:30:00Z",
+    "timestamp_end_utc": "2026-04-14T18:33:12Z",
+    "total_latency_ms": 192000.0,
+    "status": "COMPLETED"
+  },
+  "model_metadata": {
+    "provider": "openai",
+    "model_id": "gpt-5.4",
+    "api_endpoint": "chat.completions",
+    "temperature": 0.0,
+    "top_p": null,
+    "max_tokens": 512,
+    "thinking_budget_allocated": null,
+    "system_prompt_used": true
+  },
+  "test_case": {
+    "case_id": "AA-01",
+    "case_title": "Modified successor function",
+    "domain": "abstract_algebra",
+    "lean_file": "lean/ALG_021.lean"
+  },
+  "conversation": [
+    {
+      "turn_id": 1,
+      "phase": "standard_world_baseline",
+      "turn_type": "standard_rule_baseline",
+      "oracle_theorem_ref": "baseline_successor",
+      "prompt": {
+        "role": "user",
+        "content": "In ordinary arithmetic, if successor(n)=n+1, what is successor(3)?"
+      },
+      "response": {
+        "role": "assistant",
+        "content": "Answer: 4\nReason: successor(3)=4 in ordinary arithmetic.",
+        "thinking_content": null,
+        "finish_reason": "stop",
+        "latency_ms": 3100.0,
+        "usage": {
+          "input_tokens": 120,
+          "output_tokens": 24,
+          "cached_tokens": 0
+        }
+      },
+      "evaluation": {
+        "expected_answer_type": "exact_value",
+        "expected_answer_lean": "4",
+        "is_correct": null,
+        "failure_mode": null,
+        "comments": null
+      }
+    },
+    {
+      "turn_id": 2,
+      "phase": "standard_world_baseline",
+      "turn_type": "standard_derived_rule_baseline",
+      "oracle_theorem_ref": "baseline_multiplication",
+      "prompt": {
+        "role": "user",
+        "content": "In ordinary arithmetic, what is 2 times 2?"
+      },
+      "response": {
+        "role": "assistant",
+        "content": "4",
+        "thinking_content": null,
+        "finish_reason": "stop",
+        "latency_ms": 2800.0,
+        "usage": {
+          "input_tokens": 40,
+          "output_tokens": 8,
+          "cached_tokens": 80
+        }
+      },
+      "evaluation": {
+        "expected_answer_type": "exact_value",
+        "expected_answer_lean": "4",
+        "is_correct": null,
+        "failure_mode": null,
+        "comments": null
+      }
+    }
+  ],
+  "evaluation_summary": {
+    "total_turns": 16,
+    "correct_turns": null,
+    "incorrect_turns": null,
+    "failure_modes_observed": [],
+    "comments": null
+  },
+  "researcher_review": [
+    {
+      "researcher_id": "C",
+      "researcher_name": "Cyrus",
+      "review_status": "unreviewed",
+      "overall_assessment": null,
+      "notable_observations": []
+    }
+  ]
+}
