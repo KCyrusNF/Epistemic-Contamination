@@ -7,7 +7,7 @@ This directory contains small helper scripts that support project work outside t
 | Script | Purpose |
 | --- | --- |
 | `check_json_syntax.py` | Checks whether a file contains valid JSON syntax. |
-| `validate_case_definition.py` | Checks test case structure, conversation protocol, canonical system instructions, expected-answer conventions, and prompt format labels. |
+| `validate_case_definition.py` | Checks test case structure, conversation protocol, canonical system instructions, expected-answer conventions, and format labels for prompts and expected answers. |
 | `validate-all-test-cases.ps1` | Runs the case-definition validator sequentially for every JSON file under `test_cases/`, including nested folders, and summarizes failures. |
 
 ## Validation utilities
@@ -50,10 +50,11 @@ The validator checks:
 - A system instruction at turn 0 with no expected answer, followed by exactly 16 ordered, consecutively numbered conversation turns.
 - The prescribed phase and turn type for each position in the conversation.
 - Exact agreement of the complete system-instruction block with `EXPECTED_SYSTEM_INSTRUCTION` in the validator.
+- Expected-answer fields `answer_type`, `content_raw`, and `content_format`.
 - Supported expected-answer types: `exact_value`, `semantic_statement`, and `undetermined`.
-- The exact value `Cannot be determined.` for every expected answer classified as `undetermined`.
-- Classification as `undetermined` when the answer matches “cannot be determined” after trimming surrounding whitespace, converting to lowercase, and removing trailing periods.
-- Prompt format labels restricted to `plain`, `latex`, and `mixed`, with content-based checks for turns 1–16.
+- The exact `content_raw` value `Cannot be determined.` for every expected answer classified as `undetermined`.
+- Classification as `undetermined` when the expected-answer `content_raw` matches “cannot be determined” after trimming surrounding whitespace, converting to lowercase, and removing trailing periods.
+- Prompt and expected-answer format labels restricted to `plain`, `latex`, and `mixed`, with content-based checks for turns 1–16.
 - Paired, nonempty `$$...$$` mathematical blocks; unsupported mathematical delimiters are rejected.
 - Reference structure and duplicate reference IDs within each turn.
 
@@ -69,13 +70,23 @@ The comparison uses parsed JSON values. Object-key order, indentation, and equiv
 
 #### Underdetermined expected answers
 
-An expected answer with `answer_type: "undetermined"` must have exactly `"Cannot be determined."` as its value. Different capitalization, missing punctuation, extra whitespace, or an appended explanation fails validation.
+An expected answer with `answer_type: "undetermined"` must have exactly `"Cannot be determined."` in `content_raw`, with `content_format: "plain"`. Different capitalization, missing punctuation, extra whitespace, or an appended explanation fails validation.
 
 The stored expected value contains the direct answer only. The canonical system instruction separately asks the model to begin its response with that text and add one short explanatory sentence. The validator checks the expected-answer convention; it does not establish mathematical underdetermination or validate actual model responses.
 
-#### Prompt format checks
+#### Prompt and expected-answer format checks
 
-For turns 1–16, the validator scans `content_raw` and compares the detected format with `content_format`:
+For turns 1–16, prompts and expected answers both contain `content_raw` and `content_format`. Expected answers also require `answer_type`:
+
+```json
+"expected_answer": {
+  "answer_type": "exact_value",
+  "content_raw": "$$2$$",
+  "content_format": "latex"
+}
+```
+
+The shared `check_content_format` function scans `content_raw` and compares the detected format with `content_format` using the same rules for both:
 
 | Label | Required content | Example |
 | --- | --- | --- |
@@ -85,11 +96,11 @@ For turns 1–16, the validator scans `content_raw` and compares the detected fo
 
 Punctuation outside a mathematical block counts as surrounding content: `$$2 + 3$$.` is classified as `mixed`. Whitespace between mathematical blocks does not change a `latex` classification.
 
-The scanner rejects unmatched delimiters, empty or whitespace-only blocks, and runs of dollar signs other than exactly `$$`. It also rejects `\(...\)` and `\[...\]` mathematical delimiters. Literal dollar signs must be escaped in the prompt text as `\$` (represented as `"\\$"` in JSON). Delimiter errors are reported before attempting format classification.
+The scanner rejects unmatched delimiters, empty or whitespace-only blocks, and runs of dollar signs other than exactly `$$`. It also rejects `\(...\)` and `\[...\]` mathematical delimiters. Literal dollar signs must be escaped in `content_raw` as `\$` (represented as `"\\$"` in JSON). Delimiter errors are reported before attempting format classification.
 
 The canonical system instruction is exempt from this scan because its `$$...$$` is an instructional example; its required `plain` label is enforced by the exact block comparison.
 
-These delimiter and format-label checks apply to question prompts, not to expected-answer values or actual model responses.
+These delimiter and format-label checks apply to both question prompts and expected answers. They do not validate actual model responses. Turn 0 retains `expected_answer: null`.
 
 Markdown is not a supported format label. The validator does not interpret Markdown, mask code blocks, or detect and prohibit Markdown syntax. It also does not validate LaTeX commands or detect mathematical content missing its delimiters: `Calculate 2 + 3.` is classified as `plain`.
 
@@ -119,7 +130,7 @@ If execution policy blocks the script, run it in a separate PowerShell process w
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\validate-all-test-cases.ps1 -Python py -PythonArguments '-3'
 ```
 
-Every run validates all discovered definitions again using the current Python rules, including checks for the canonical system instruction, underdetermined expected-answer values, and prompt formats. It does not skip unchanged files or enforce a fixed case count.
+Every run validates all discovered definitions again using the current Python rules, including checks for the canonical system instruction, underdetermined expected-answer values, and formats for prompts and expected answers. It does not skip unchanged files or enforce a fixed case count.
 
 The script does not modify test case definitions, create report files, or invoke Lean.
 
@@ -132,7 +143,7 @@ The script does not modify test case definitions, create report files, or invoke
 | `load_json(path, *, reject_duplicate_keys=False)` | Reads a UTF-8 file with an optional BOM and returns parsed data. |
 | `parse_json(text, *, reject_duplicate_keys=False)` | Parses an already-decoded JSON string. |
 | `JsonValidationError` | Raised for invalid syntax, nonstandard constants, or duplicate keys when rejection is enabled. |
-| `validate_case(data)` in `validate_case_definition.py` | Returns a list of structure, protocol, instruction, answer-convention, and prompt-format errors for parsed data; an empty list means those checks passed. |
+| `validate_case(data)` in `validate_case_definition.py` | Returns a list of structure, protocol, instruction, answer-convention, and content-format errors for parsed data; an empty list means those checks passed. |
 
 For another script in this directory:
 
@@ -185,7 +196,7 @@ Get-Help .\scripts\validate-all-test-cases.ps1 -Full
 
 ### Scope and limitations
 
-The three validation utilities listed above check syntax, structure, the canonical system instruction, expected-answer types and required underdetermined values, and prompt formatting. They do not run Lean, inspect proofs or axiom dependencies, verify mathematical answers, or establish that prompts faithfully represent their intended formal systems.
+The three validation utilities listed above check syntax, structure, the canonical system instruction, expected-answer types and required underdetermined values, and formatting of prompts and expected answers. They do not run Lean, inspect proofs or axiom dependencies, verify mathematical answers, or establish that prompts faithfully represent their intended formal systems.
 
 The case-definition validator does not compare test case entries with the repository manifests or verify citation accuracy. Those require separate checks.
 

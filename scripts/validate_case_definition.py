@@ -12,8 +12,9 @@ Read-only: does not build Lean, scan the repository, or write reports.
 Checks structure, not mathematical correctness, citations, proof validity,
 or external manifest consistency. Unknown fields are rejected so spelling
 mistakes cannot silently pass. Update the rules for schema changes.
-Requires the canonical system instruction and exact underdetermined answer text.
-Checks plain/latex/mixed prompt labels using paired $$ math delimiters.
+Requires the canonical system instruction and exact underdetermined expected-answer content.
+Checks plain/latex/mixed labels for prompts and expected answers using paired
+$$ math delimiters.
 Markdown is not interpreted; mathematical LaTeX syntax is not verified.
 The sample template's placeholder case ID is not a valid production case ID.
 """
@@ -97,7 +98,8 @@ TURN = {
     "prompt": PROMPT,
     "expected_answer": {
         "answer_type": TEXT,
-        "value": TEXT
+        "content_raw": TEXT,
+        "content_format": TEXT
     },
     "references": (REFERENCE, "nullable"),
 }
@@ -161,17 +163,18 @@ def check_system_instruction(actual, expected, path, errors):
             errors.append(f"{child}: must exactly match the canonical system instruction; expected {expected_value!r}")
 
 
-def check_prompt_format(prompt, path, errors):
-    """Check plain/latex/mixed labels and paired $$ delimiters.
+def check_content_format(content, path, errors):
+    """Check prompt or expected-answer format labels and paired $$ delimiters.
 
     No Markdown interpretation or LaTeX syntax validation is performed.
     Only the canonical system instruction is exempted by the caller.
     """
-    text = prompt["content_raw"]
-    declared = prompt["content_format"]
+    text = content["content_raw"]
+    declared = content["content_format"]
 
     if declared not in {"plain", "latex", "mixed"}:
-        return  # The caller reports unsupported labels.
+        errors.append(f"{path}.content_format: expected plain, latex, or mixed")
+        return
 
     outside = []
     position = 0
@@ -238,7 +241,7 @@ def check_prompt_format(prompt, path, errors):
     if declared != expected:
         errors.append(
             f"{path}.content_format: detected {expected!r}, got {declared!r}; "
-            "review the label and prompt formatting"
+            "review the label and content formatting"
         )
 
 
@@ -295,21 +298,19 @@ def validate_case(data):
                 if turn[key] != expected:
                     errors.append(f"{location}.{key}: expected {expected!r}")
 
-        if turn["prompt"]["content_format"] not in {"plain", "latex", "mixed"}:
-            errors.append(f"{location}.prompt.content_format: expected plain, latex, or mixed")
-
         if index > 0:
             # Turn 0 is already checked exactly; its $$...$$ is an example.
-            check_prompt_format(turn["prompt"], f"{location}.prompt", errors)
+            check_content_format(turn["prompt"], f"{location}.prompt", errors)
             answer = turn["expected_answer"]
-            kind, value = answer["answer_type"], answer["value"]
+            check_content_format(answer, f"{location}.expected_answer", errors)
+            kind, value = answer["answer_type"], answer["content_raw"]
 
             if kind not in {"exact_value", "semantic_statement", "undetermined"}:
                 errors.append(f"{location}.expected_answer.answer_type: unsupported answer type")
 
             if kind == "undetermined" and value != "Cannot be determined.":
                 errors.append(
-                    f"{location}.expected_answer.value: must be exactly 'Cannot be determined.'"
+                    f"{location}.expected_answer.content_raw: must be exactly 'Cannot be determined.'"
                 )
 
             if value.strip().lower().rstrip(".") == "cannot be determined" and kind != "undetermined":
