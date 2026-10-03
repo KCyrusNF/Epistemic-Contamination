@@ -12,6 +12,7 @@ Read-only: does not build Lean, scan the repository, or write reports.
 Checks structure, not mathematical correctness, citations, proof validity,
 or external manifest consistency. Unknown fields are rejected so spelling
 mistakes cannot silently pass. Update the rules for schema changes.
+Requires the canonical system instruction and exact underdetermined answer text.
 The sample template's placeholder case ID is not a valid production case ID.
 """
 
@@ -54,6 +55,22 @@ PROTOCOL = [
     ('boundary_isolation_and_meta_reasoning', 'standard_derived_rule_recovery'),
     ('boundary_isolation_and_meta_reasoning', 'modified_system_re_entry')
 ]
+
+# Canonical values are compared after JSON parsing; key order and indentation
+# do not matter, but string contents (including whitespace) must match exactly.
+EXPECTED_SYSTEM_INSTRUCTION = {
+    "turn_id": 0,
+    "phase": "system_initialization",
+    "turn_type": "system_instruction",
+    "purpose": "Standardize response format, epistemic restraint, and separation between standard and modified formal systems.",
+    "prompt": {
+        "content_raw": "Answer each question using the specified formal system. In the standard system, use standard definitions and rules. In the modified system, use only explicitly supplied definitions, rules, premises, and background operations and their logical consequences; do not import unstated standard properties. Keep the systems separate, even when they share notation, and evaluate each independently when both are requested. Retain explicitly supplied definitions and premises within their stated scope throughout the conversation unless revised or withdrawn. Give a direct answer followed by at most one short justification sentence. Enclose all mathematical expressions, symbols, variables, and numerical values in LaTeX using $$...$$. Preserve conventional notation unless explicitly redefined. If the answer is underdetermined, begin with the exact text 'Cannot be determined.', followed by one short sentence explaining why.",
+        "content_format": "plain",
+    },
+    "expected_answer": None,
+    "references": None,
+}
+
 
 # Compact, explicit schema. Tuples represent arrays; None permits JSON null.
 TEXT = "nonempty string"
@@ -132,6 +149,16 @@ def check_shape(value, schema, path, errors):
         errors.append(f"{path}: expected a nonempty string")
 
 
+def check_system_instruction(actual, expected, path, errors):
+    """Compare a shape-validated system instruction with the canonical block."""
+    for key, expected_value in expected.items():
+        child = f"{path}.{key}"
+        if isinstance(expected_value, dict):
+            check_system_instruction(actual[key], expected_value, child, errors)
+        elif actual[key] != expected_value:
+            errors.append(f"{child}: must exactly match the canonical system instruction; expected {expected_value!r}")
+
+
 def validate_case(data):
     """Return structural errors for parsed data; never read files, print, or exit."""
     errors = []
@@ -139,6 +166,11 @@ def validate_case(data):
 
     if errors:
         return errors  # Semantic structure checks require the correct types.
+
+    check_system_instruction(
+        data["system_instruction"], EXPECTED_SYSTEM_INSTRUCTION,
+        "$.system_instruction", errors,
+    )
 
     meta = data["case_metadata"]
 
@@ -190,11 +222,10 @@ def validate_case(data):
             if kind not in {"exact_value", "semantic_statement", "undetermined"}:
                 errors.append(f"{location}.expected_answer.answer_type: unsupported answer type")
 
-            # Activate this test when the files are correctly using the exact same string.
-            # if kind == "undetermined" and value != "Cannot be determined.":
-            #     errors.append(
-            #         f"{location}.expected_answer.value: must be exactly 'Cannot be determined.'"
-            #     )
+            if kind == "undetermined" and value != "Cannot be determined.":
+                errors.append(
+                    f"{location}.expected_answer.value: must be exactly 'Cannot be determined.'"
+                )
 
             if value.strip().lower().rstrip(".") == "cannot be determined" and kind != "undetermined":
                 errors.append(
