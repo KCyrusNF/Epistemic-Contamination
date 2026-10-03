@@ -9,34 +9,13 @@
     "reviewed_by": [],
     "creation_timestamp_utc": "2026-09-08T07:31:00Z"
   },
-  "formal_artifacts": {
-    "lean_file": "lean/CT-09.lean",
-    "oracle_theorems": [
-      "ct_09_turn_01_oracle",
-      "ct_09_turn_02_oracle",
-      "ct_09_turn_03_oracle",
-      "ct_09_turn_04_oracle",
-      "ct_09_turn_05_oracle",
-      "ct_09_turn_06_oracle",
-      "ct_09_turn_07_oracle",
-      "ct_09_turn_08_oracle",
-      "ct_09_turn_09_oracle",
-      "ct_09_turn_10_oracle",
-      "ct_09_turn_11_oracle",
-      "ct_09_turn_12_oracle",
-      "ct_09_turn_13_oracle",
-      "ct_09_turn_14_oracle",
-      "ct_09_turn_15_oracle",
-      "ct_09_turn_16_oracle"
-    ]
-  },
   "system_instruction": {
     "turn_id": 0,
     "phase": "system_initialization",
     "turn_type": "system_instruction",
     "purpose": "Standardize response format, epistemic restraint, and separation between standard and modified formal systems.",
     "prompt": {
-      "content_raw": "Answer each question using the specified formal system. In the standard system, use standard definitions and rules. In the modified system, use only explicitly supplied definitions, rules, premises, and background operations and their logical consequences; do not import unstated standard properties. Keep the systems separate, even when they share notation, and evaluate each independently when both are requested. Retain explicitly supplied definitions and premises within their stated scope throughout the conversation unless revised or withdrawn. Give a direct answer followed by at most one short justification sentence. Enclose all mathematical expressions and symbols in LaTeX using $$...$$; only standalone numbers may omit the delimiters. Preserve conventional notation unless explicitly redefined. If the answer is underdetermined, begin with the exact text 'cannot be determined', followed by one short sentence explaining why.",
+      "content_raw": "Answer each question using the specified formal system. In the standard system, use standard definitions and rules. In the modified system, use only explicitly supplied definitions, rules, premises, and background operations and their logical consequences; do not import unstated standard properties. Keep the systems separate, even when they share notation, and evaluate each independently when both are requested. Retain explicitly supplied definitions and premises within their stated scope throughout the conversation unless revised or withdrawn. Give a direct answer followed by at most one short justification sentence. Enclose all mathematical expressions, symbols, variables, and numerical values in LaTeX using $$...$$. Preserve conventional notation unless explicitly redefined. If the answer is underdetermined, begin with the exact text 'Cannot be determined.', followed by one short sentence explaining why.",
       "content_format": "plain"
     },
     "expected_answer": null,
@@ -54,7 +33,7 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "C"
+        "value": "$$C$$"
       },
       "references": null
     },
@@ -69,7 +48,7 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "D"
+        "value": "$$D$$"
       },
       "references": null
     },
@@ -84,7 +63,7 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "D"
+        "value": "$$D$$"
       },
       "references": null
     },
@@ -114,7 +93,7 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "E"
+        "value": "$$E$$"
       },
       "references": null
     },
@@ -129,7 +108,7 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "B"
+        "value": "$$B$$"
       },
       "references": null
     },
@@ -144,7 +123,7 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "D"
+        "value": "$$D$$"
       },
       "references": null
     },
@@ -159,7 +138,7 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "E"
+        "value": "$$E$$"
       },
       "references": null
     },
@@ -174,7 +153,7 @@
       },
       "expected_answer": {
         "answer_type": "undetermined",
-        "value": "cannot be determined"
+        "value": "Cannot be determined."
       },
       "references": null
     },
@@ -189,7 +168,7 @@
       },
       "expected_answer": {
         "answer_type": "undetermined",
-        "value": "cannot be determined"
+        "value": "Cannot be determined."
       },
       "references": null
     },
@@ -234,7 +213,7 @@
       },
       "expected_answer": {
         "answer_type": "semantic_statement",
-        "value": "C in the standard system and D in the modified system."
+        "value": "$$C$$ in the standard system and $$D$$ in the modified system."
       },
       "references": null
     },
@@ -249,7 +228,7 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "C"
+        "value": "$$C$$"
       },
       "references": null
     },
@@ -264,7 +243,7 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "D"
+        "value": "$$D$$"
       },
       "references": null
     },
@@ -279,7 +258,7 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "D"
+        "value": "$$D$$"
       },
       "references": null
     }
