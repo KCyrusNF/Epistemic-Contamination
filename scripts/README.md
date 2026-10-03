@@ -9,6 +9,7 @@ This directory contains small helper scripts that support project work outside t
 | `check_json_syntax.py` | Checks whether a file contains valid JSON syntax. |
 | `validate_case_definition.py` | Checks test case structure, conversation protocol, canonical system instructions, expected-answer conventions, and format labels for prompts and expected answers. |
 | `validate-all-test-cases.ps1` | Runs the case-definition validator sequentially for every JSON file under `test_cases/`, including nested folders, and summarizes failures. |
+| `update-case-hashes.ps1` | Calculates SHA-512 hashes for definitions, Lean sources, audits, and result files listed in `case_paths.json`, then updates the manifest. |
 
 ## Validation utilities
 
@@ -203,6 +204,76 @@ The case-definition validator does not compare test case entries with the reposi
 The Python utilities require an explicit file path. The PowerShell script discovers files directly under `test_cases/` and its subdirectories; none of these utilities checks the completeness or accuracy of `case_paths.json`.
 
 The message `Mathematical correctness and external manifest consistency were not verified.` describes the scope of the case-definition validator. It is informational and does not indicate a validation failure or invalidate separately completed Lean builds and audits.
+
+## Manifest hash updates
+
+`update-case-hashes.ps1` requires PowerShell 5.1 or later and has no Python dependency. Keep it in the repository's `scripts/` directory.
+
+### Usage
+
+From the repository root:
+
+```powershell
+.\scripts\update-case-hashes.ps1
+```
+
+By default, it reads `manifests/case_paths.json`. To specify another manifest with the same structure:
+
+```powershell
+.\scripts\update-case-hashes.ps1 -Manifest manifests/case_paths.json
+```
+
+Relative `-Manifest` paths are resolved from the repository root; absolute paths are also accepted. The repository root is determined from the script's location, independently of the terminal's working directory. File paths inside the manifest are always relative to the repository root.
+
+If execution policy blocks the script, use a separate PowerShell process with a policy override for that process only:
+
+```powershell
+powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\update-case-hashes.ps1
+```
+
+Display its help with:
+
+```powershell
+Get-Help .\scripts\update-case-hashes.ps1 -Full
+```
+
+### Processing and output
+
+Each case must contain `definition`, `lean_source`, and `axiom_audit` objects with `path` and `sha512` fields, plus a `results` array. Use `"results": []` when no result files are listed. The array may contain multiple file objects, each with the same `path` and `sha512` fields; a missing, null, or non-array `results` field is rejected.
+
+For example, a populated `results` field can contain:
+
+```json
+[
+  {
+    "path": "results/AA-01/run-001.json",
+    "sha512": null
+  },
+  {
+    "path": "results/AA-01/run-002.json",
+    "sha512": null
+  }
+]
+```
+
+The script processes each case's definition, Lean source, audit, and result entries sequentially. Empty results arrays add no files to the hashing pass. The same object, path, and file-existence checks apply to every entry, including results.
+
+Every listed `sha512` value, including an existing hash, is replaced with a lowercase SHA-512 string of 128 hexadecimal characters. Progress totals and the final summary include result files as well as the three fixed files per case. Errors for result entries identify the case and array index, such as `AA-01.results[0]`.
+
+The script does not discover additional cases or result files, and it does not modify any referenced file. Add result-file entries to the manifest before running it. It saves the manifest only after all listed files have been hashed successfully, using a temporary file in the manifest's directory. An invalid entry or a missing or unreadable file, including a result file, stops the update without saving partial results. Before replacement, it also checks whether the manifest changed during hashing. Avoid editing the manifest or listed files while the script runs.
+
+The manifest is written as UTF-8 without a BOM, with CRLF line endings and consistent two-space JSON indentation.
+
+| Exit code | Meaning |
+| --- | --- |
+| `0` | All listed files were hashed and the manifest was updated. |
+| `1` | The update failed; the manifest was not replaced. |
+
+### Hash meaning and limitations
+
+Hashes are calculated from exact file bytes. Content, whitespace, encoding, and line-ending changes affect them, even if the mathematical meaning is unchanged.
+
+This script records current hashes; it does not compare them with previously recorded hashes to report unexpected changes. It does not update `oracle_manifest.json`, check manifest completeness, validate test case definitions or result-file contents, compile Lean, or establish mathematical correctness. Run it when the listed files are in the state you intend to record.
 
 ## File conventions
 

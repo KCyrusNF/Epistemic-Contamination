@@ -5,363 +5,1083 @@
   "cases": [
     {
       "case_id": "AA-01",
-      "definition": "test_cases/abstract_algebra/AA-01.json",
-      "lean_source": "lean/oracles/abstract_algebra/AA-01.lean",
-      "axiom_audit": "lean/audits/abstract_algebra/AA-01.lean"
+      "definition": {
+        "path": "test_cases/abstract_algebra/AA-01.json",
+        "sha512": "1e107945b9ced12adc289733e481eb1bfddb4252acf5adf784ef88483873ee16f3c67ecdce1bdd5a962a6697fd0cdd7a998126ca1a7fce59323a1f0a9709b76d"
+      },
+      "lean_source": {
+        "path": "lean/oracles/abstract_algebra/AA-01.lean",
+        "sha512": "5b3268735cb1b6115b35b3f272be0e9eb9b05c55c14dab2302d466d18ec4a5d2993269d3973b8ab36c68a69974393c524a24fbf0f06a9ee71878ad9183ee2865"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/abstract_algebra/AA-01.lean",
+        "sha512": "e510d4cff3278d1c0caef7aeaedf6956dc378553fd403cb8a91346a7d92fdafcb49c9aa4dc8697a613c1a976c024880cd1f9a4745bde22ed2893f46ca66d15ef"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "AA-06",
-      "definition": "test_cases/abstract_algebra/AA-06.json",
-      "lean_source": "lean/oracles/abstract_algebra/AA-06.lean",
-      "axiom_audit": "lean/audits/abstract_algebra/AA-06.lean"
+      "definition": {
+        "path": "test_cases/abstract_algebra/AA-06.json",
+        "sha512": "dd020b0138c41b2b8e520cc8cc352336427eb180e274b6c842ae88c90769296a87e3711c78f7a50b87f72d99c26410b3ee6656bb89e573b38b7bd5c6c58aedfc"
+      },
+      "lean_source": {
+        "path": "lean/oracles/abstract_algebra/AA-06.lean",
+        "sha512": "ffe0b866586c66ab723c653f493e7d1b59389a98eb48b7f57a3f61401020900fbb2b26531a064ddfc07793d76cd4ce26a3dcb38277002321e29f7c79014870a2"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/abstract_algebra/AA-06.lean",
+        "sha512": "a53f5c5f1d3fff26b7983072748864cfe9da1ef9e5e2b67c8261815379fa595cf399693303d6993e31974231c182e1dc3e914b6a9c5e382e44b3c39fa81d8fd1"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "AA-11",
-      "definition": "test_cases/abstract_algebra/AA-11.json",
-      "lean_source": "lean/oracles/abstract_algebra/AA-11.lean",
-      "axiom_audit": "lean/audits/abstract_algebra/AA-11.lean"
+      "definition": {
+        "path": "test_cases/abstract_algebra/AA-11.json",
+        "sha512": "974e5a2391494b20dcec9de599b61162436f4d092cf034a686cd3f8ff0ed6c9a22fd84e3d14bcb8de9dd0b036c5ee326004b98c78716a10529e381f6e9534f38"
+      },
+      "lean_source": {
+        "path": "lean/oracles/abstract_algebra/AA-11.lean",
+        "sha512": "e93f98041ddb37f632446bd7807567fbb7a56ee574013cf44df4291c30c0fffac3d58f87965b324849121146d454503cd171f14c776c6be41c952e7a021b2078"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/abstract_algebra/AA-11.lean",
+        "sha512": "d3db1d036bf84201915b5ab154b0c67cdd5904d5afa4dd2d8db92b952b2cc29f416aa3b386f6330eb3b75f48a91b15e62851d0ced4379f8391e414a020229bc2"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "AA-18",
-      "definition": "test_cases/abstract_algebra/AA-18.json",
-      "lean_source": "lean/oracles/abstract_algebra/AA-18.lean",
-      "axiom_audit": "lean/audits/abstract_algebra/AA-18.lean"
+      "definition": {
+        "path": "test_cases/abstract_algebra/AA-18.json",
+        "sha512": "bbb825c95c6b1cc823bae4a5460e6f3db4b8561d54021127fa6471d714025736ed6601c719de6327f3c7e728c58bf233e732026da129824b8ace13ae4ca172b9"
+      },
+      "lean_source": {
+        "path": "lean/oracles/abstract_algebra/AA-18.lean",
+        "sha512": "4ea89177930b2342905f62b9b7ec8f5060ba7377611b73eac6b3184e12315e6a039f456a9801f40a71b2dc123c00969d0287d540703f71f73a036b976ad621b0"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/abstract_algebra/AA-18.lean",
+        "sha512": "66ad872e39ce159643b7e8962866ed291a296dfa9ee2246d9689b09e3ab33c087d56fdb54dfc8141cb0296cb7ebe5f2b4e9812a65799f6a46f96166a3119ba8d"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "AA-21",
-      "definition": "test_cases/abstract_algebra/AA-21.json",
-      "lean_source": "lean/oracles/abstract_algebra/AA-21.lean",
-      "axiom_audit": "lean/audits/abstract_algebra/AA-21.lean"
+      "definition": {
+        "path": "test_cases/abstract_algebra/AA-21.json",
+        "sha512": "077cd7203830af5ade2257c7477cfaed1c16a29f00178170135103b08eb709734979fb204da604a0cc99548ce34e3c69ac3bb4d52a0d17e2eb586cde2a35f8fd"
+      },
+      "lean_source": {
+        "path": "lean/oracles/abstract_algebra/AA-21.lean",
+        "sha512": "ecada75ecd50bfafd2d29e052e8d68d99be03458668b709eb41896ba2c723467b2fc231c5c0588f8e1304a1673bf170c9baadda2d9c309925016eb530ac85c86"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/abstract_algebra/AA-21.lean",
+        "sha512": "f82da85531536409410757c80875092b487588aed1fbd63ff571facb834c43322bc60788eea564fd67ac0710b2e58441e505bb3dbfae51d08aa6bdb63d6a2108"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "AA-27",
-      "definition": "test_cases/abstract_algebra/AA-27.json",
-      "lean_source": "lean/oracles/abstract_algebra/AA-27.lean",
-      "axiom_audit": "lean/audits/abstract_algebra/AA-27.lean"
+      "definition": {
+        "path": "test_cases/abstract_algebra/AA-27.json",
+        "sha512": "142f1f5ee6968d88b1add56bb6a99c3ec828e38186c41b6da476664a2aabe893ab7395dfd81a9fa8bd89981c22c5f1e2289b50f61689b0f9c65a277db6217373"
+      },
+      "lean_source": {
+        "path": "lean/oracles/abstract_algebra/AA-27.lean",
+        "sha512": "a6effa9bf323af374346bc2421dc65320dd8498f5299a4a6e3a49f24638adc74fa87ca0af2d2db3ca76cceea771b741f85749df86727e187b9472cb6fc8983ba"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/abstract_algebra/AA-27.lean",
+        "sha512": "89328949cb8e8279b1e95f974462d96cd0ab62797b4d3ca9e074e8c1fa207664b5828cc5653a5eb80a3107d51c6f252eb7d516af46ce1565f93b71ca66ca63fb"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "AA-36",
-      "definition": "test_cases/abstract_algebra/AA-36.json",
-      "lean_source": "lean/oracles/abstract_algebra/AA-36.lean",
-      "axiom_audit": "lean/audits/abstract_algebra/AA-36.lean"
+      "definition": {
+        "path": "test_cases/abstract_algebra/AA-36.json",
+        "sha512": "55f08326f5b82fba038223b381e894e31bc7fc313d57fc2efba5391a7ea89b0585c2635634a62226d599ced9bada1ac0502ae36f910c76a0372bc12fc0d00bb6"
+      },
+      "lean_source": {
+        "path": "lean/oracles/abstract_algebra/AA-36.lean",
+        "sha512": "cc1ea139f33150016a3b422e06bdddb1e9cb68fe8af8aee2920a7848dfa57eeeee56537180a11fd5497664f7229119beffc8e9b2eda1d33276ac451f0b8f2b6d"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/abstract_algebra/AA-36.lean",
+        "sha512": "0d4371b0c7cdb78920b92f1afcb53ad05ef1eb1d2e02e319d00bbccb61988e29eb467a8fcb7300d442a38371f9a45d3245b56b69d32f965ced0a1bbc24c30f67"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "AA-41",
-      "definition": "test_cases/abstract_algebra/AA-41.json",
-      "lean_source": "lean/oracles/abstract_algebra/AA-41.lean",
-      "axiom_audit": "lean/audits/abstract_algebra/AA-41.lean"
+      "definition": {
+        "path": "test_cases/abstract_algebra/AA-41.json",
+        "sha512": "514f277d51f8596bbcfae8b59221134f8d695a66121d1dabfc736d24f5b487d31cdc48a2f5a4cc677f9078884dd85e1016da45fe11c05bcbeff5529a40507a66"
+      },
+      "lean_source": {
+        "path": "lean/oracles/abstract_algebra/AA-41.lean",
+        "sha512": "d8400c9c17e6e8f020e4ffbef6036786edb735d376b929746a35c86dfed4e2d981cfc42123fc48f0b71ce17f6d905080681630a2f2d1360047b96bbe1cd2b2e9"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/abstract_algebra/AA-41.lean",
+        "sha512": "bf08919c9e8566a62e00065bcfc350c8f7b63c7ebf7cfa251fb52bb4ed66fe1958d66b1017d84a687e71e1e4aade1a7eab57f3a52f555ddd3c0c9a2c73903156"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "AA-46",
-      "definition": "test_cases/abstract_algebra/AA-46.json",
-      "lean_source": "lean/oracles/abstract_algebra/AA-46.lean",
-      "axiom_audit": "lean/audits/abstract_algebra/AA-46.lean"
+      "definition": {
+        "path": "test_cases/abstract_algebra/AA-46.json",
+        "sha512": "820e7078670d5ecaee3982f34fd438ce5451321f84a3e6ae8ea06e48e44714c82d2f76576c2bbe9bc9f2d541a01a3a4d84c80e0e9fb983570c153562c4a450cb"
+      },
+      "lean_source": {
+        "path": "lean/oracles/abstract_algebra/AA-46.lean",
+        "sha512": "5d99ffd4a9e54d85a2c1708e283d494b83a0ddd9fed934f3ef899c2836c96e1434526b88609bed57eda5866f0c20c2606c387a0da2c58a27b42b4deb7c4f9f86"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/abstract_algebra/AA-46.lean",
+        "sha512": "ec76389939e168616de590fee1ffe3096d973e807cc1e2f031f99ab80b00192d62e92e90f4a4812dc633307960e7118cfca7bc1ccee0c0727d60af962188614c"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "AA-59",
-      "definition": "test_cases/abstract_algebra/AA-59.json",
-      "lean_source": "lean/oracles/abstract_algebra/AA-59.lean",
-      "axiom_audit": "lean/audits/abstract_algebra/AA-59.lean"
+      "definition": {
+        "path": "test_cases/abstract_algebra/AA-59.json",
+        "sha512": "a538448809b7966938101143ede68bf7fe0dd599b8ea056812553c61bd3bf8250195efe2d3a544e84ee4cf5633a5a32ea64163159fddcdfbe9a7054d5c3fa01b"
+      },
+      "lean_source": {
+        "path": "lean/oracles/abstract_algebra/AA-59.lean",
+        "sha512": "9851ea751b9be3ea12ba8e41fdfa0b8b64bab6cc5d9dbed12f16615814b232904a5da8869378ec2e85af633a89ab27cb48753f048df6dd39f6e408a2b5d456df"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/abstract_algebra/AA-59.lean",
+        "sha512": "d43da9f7e94bc7839802c1d8dd92cefa332bdf036ac6969f918c3300e96bef372b7168258d1ffb9eb9b79bd93ef5027a00455eec59b55ffbd560b6b32ea8d6b5"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "AT-03",
-      "definition": "test_cases/automata_theory_and_formal_languages/AT-03.json",
-      "lean_source": "lean/oracles/automata_theory_and_formal_languages/AT-03.lean",
-      "axiom_audit": "lean/audits/automata_theory_and_formal_languages/AT-03.lean"
+      "definition": {
+        "path": "test_cases/automata_theory_and_formal_languages/AT-03.json",
+        "sha512": "9c1245dd887303e89bb210d08f84626d6e3d1f1d64057cb11d05c69e9dc68f46a8e4f10085a6361526c19319a76566241340cfec3351bc0ce9d5c56f08fbb865"
+      },
+      "lean_source": {
+        "path": "lean/oracles/automata_theory_and_formal_languages/AT-03.lean",
+        "sha512": "62aba71b08061f8a9f8875851afcfa78842bdbc8aefd358b81fa7204a7e5ec0d82dcf519682036f91055d8f495645c93214a23946580662e3330c420888e782e"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/automata_theory_and_formal_languages/AT-03.lean",
+        "sha512": "0ec5f98de03bfda8eb3c618934206dc8e5eb2be3c6998ce41f0c777c55037edbe76f42fced73b57c544014bb5f2b2b5f272f0d732f606a325eb560135a4870cc"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "AT-14",
-      "definition": "test_cases/automata_theory_and_formal_languages/AT-14.json",
-      "lean_source": "lean/oracles/automata_theory_and_formal_languages/AT-14.lean",
-      "axiom_audit": "lean/audits/automata_theory_and_formal_languages/AT-14.lean"
+      "definition": {
+        "path": "test_cases/automata_theory_and_formal_languages/AT-14.json",
+        "sha512": "6d98379332d7dc07390fa16ad585546f1a472134d83c9a3a16bc36c0e5dbc0cc431cc63d9d2a94eb062272a1befab09d9eb86a14c1702487a719fe9ddebeecbd"
+      },
+      "lean_source": {
+        "path": "lean/oracles/automata_theory_and_formal_languages/AT-14.lean",
+        "sha512": "af7b5c2a97390b6a04c07a06f08309383ba0b0a9f6dc784f472e041d68eec5d6c1ac4f55eaa0617e893505945025e2f2f04c4c04beac485f689234a03cb269e1"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/automata_theory_and_formal_languages/AT-14.lean",
+        "sha512": "1af38558c45df233b96b68b3011e506bb893311c25058865420723b4c9f4edaf2cb7a0aec805ea4f45a7a88b514a1e29501c5c9fab169ef88509a35e82ac8ca5"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "AT-17",
-      "definition": "test_cases/automata_theory_and_formal_languages/AT-17.json",
-      "lean_source": "lean/oracles/automata_theory_and_formal_languages/AT-17.lean",
-      "axiom_audit": "lean/audits/automata_theory_and_formal_languages/AT-17.lean"
+      "definition": {
+        "path": "test_cases/automata_theory_and_formal_languages/AT-17.json",
+        "sha512": "575c66e41e7b629778c5c1d7e61738fd1d4fc49d3f4e7ec46b9f85af9877e823f4c98cc9d8be175855defed6a38e42bf9e824359012eb1d99d4033bfdfd0e618"
+      },
+      "lean_source": {
+        "path": "lean/oracles/automata_theory_and_formal_languages/AT-17.lean",
+        "sha512": "3b93e806e035c52b3d454dc719409dee64a62642637effb5fbad9b4fbec9768ff407914867a682562a6c4f673e59c38c221824a27a4308e52b2b6424cc6c481d"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/automata_theory_and_formal_languages/AT-17.lean",
+        "sha512": "6bcdcae762d2c665d1102ce99f65730333fc03784d4be8dd56357e8b511c3e71aee88e5cbc0fa839ecee0c1e72fd2d4362cd39b3721493ca47eb6dd0af614bc0"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "AT-22",
-      "definition": "test_cases/automata_theory_and_formal_languages/AT-22.json",
-      "lean_source": "lean/oracles/automata_theory_and_formal_languages/AT-22.lean",
-      "axiom_audit": "lean/audits/automata_theory_and_formal_languages/AT-22.lean"
+      "definition": {
+        "path": "test_cases/automata_theory_and_formal_languages/AT-22.json",
+        "sha512": "be49f2b4982ab3354c2f1e23c440a50af266be0ec3399529514acba9a98ef87ca15a4d0d44f34647f363befacb45bfa9f7c9242b9c9bdf03f37a342c7cf4b3bd"
+      },
+      "lean_source": {
+        "path": "lean/oracles/automata_theory_and_formal_languages/AT-22.lean",
+        "sha512": "0eb877e0ac5d821590d4da2869ac0368df79adb4cfcb6bdd38a47d9913d4448a2e6b5f49ca9a23a139affede0e6dc3d8fb8cbce99696b41f688b55e2be8ad0b2"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/automata_theory_and_formal_languages/AT-22.lean",
+        "sha512": "8fe27d038e2aedbb6dccf8d16150557b4ffd50183f138b1eb059b1bdc07428eafb5732717643133066778bb9ca0d305a281569edb73ac81b5ff9575f2e946a24"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "AT-26",
-      "definition": "test_cases/automata_theory_and_formal_languages/AT-26.json",
-      "lean_source": "lean/oracles/automata_theory_and_formal_languages/AT-26.lean",
-      "axiom_audit": "lean/audits/automata_theory_and_formal_languages/AT-26.lean"
+      "definition": {
+        "path": "test_cases/automata_theory_and_formal_languages/AT-26.json",
+        "sha512": "4c84ea13d9d6d037e0d2774036ef73048e54591a6a5fc01d3b4a3a7619ca2e6af027cbfb151a3da5853563c6298d538a4dabe28ec95cd1576a90410581a72257"
+      },
+      "lean_source": {
+        "path": "lean/oracles/automata_theory_and_formal_languages/AT-26.lean",
+        "sha512": "7a5fc05d0b667daa69ca2001eb6cec34f6efcd8e7a1272e78da326b51a83f3e19d662d91b6fc8fe32d64c2fa216ba1ebe75f589ac9747505fc61ff722abbb0c3"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/automata_theory_and_formal_languages/AT-26.lean",
+        "sha512": "c5f5c9ce1207fbfcc2a28ad381f587afbf6e2d10d2456f784e954f8bad8fc4b2e71e438342f5d174dfe3426c529e1f5f458c1c9e7ecfbf6bc1eba881cad9bc05"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "AT-27",
-      "definition": "test_cases/automata_theory_and_formal_languages/AT-27.json",
-      "lean_source": "lean/oracles/automata_theory_and_formal_languages/AT-27.lean",
-      "axiom_audit": "lean/audits/automata_theory_and_formal_languages/AT-27.lean"
+      "definition": {
+        "path": "test_cases/automata_theory_and_formal_languages/AT-27.json",
+        "sha512": "09a2d687e28437f0af7264a2923cb114dd0ad82a21274236bca938b162254d937ee45fe6f8f21e79048e1ac0816df55d34d43c9076d27ac163c594ae9984b7df"
+      },
+      "lean_source": {
+        "path": "lean/oracles/automata_theory_and_formal_languages/AT-27.lean",
+        "sha512": "10b8d9d54ca41234400c9a69099863b110e0d15402205e8b1377c20b3e93cb1abea71eadd1b524103b1c37a43cf55da7e7352012a1c5558b4a8e91bbfca24545"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/automata_theory_and_formal_languages/AT-27.lean",
+        "sha512": "0ec572597ff72fc1b1d1b9a76a309cbbfd741f7d12c168a58d4f48f9f6baeccea48984ee0c58b03d2d3fe9d6231b270049d32eb8bf8471bc019f199b7f52667e"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "AT-33",
-      "definition": "test_cases/automata_theory_and_formal_languages/AT-33.json",
-      "lean_source": "lean/oracles/automata_theory_and_formal_languages/AT-33.lean",
-      "axiom_audit": "lean/audits/automata_theory_and_formal_languages/AT-33.lean"
+      "definition": {
+        "path": "test_cases/automata_theory_and_formal_languages/AT-33.json",
+        "sha512": "200dee2c74ab6200100bb1e857b85b26af64aca7401cab36650075a2a74e733900e1e223e8ab32b51d3ca2a0e1f7aeaf005bfc68ee281ee7632601afdcfa0517"
+      },
+      "lean_source": {
+        "path": "lean/oracles/automata_theory_and_formal_languages/AT-33.lean",
+        "sha512": "64e910a067edaa39bf4fdfba5bff3e3b7f85cae7f390c52f9fb1d9e610f1540f0900b658ecc34b1a5de1d44dcd0a3877ad911df29501e9b3c33e63784dcfb95b"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/automata_theory_and_formal_languages/AT-33.lean",
+        "sha512": "00921146d86bec383ac6a9ba47be23ca47600841b3e1b95ee90e2cfc810cb9957f98c1a4b7be3430ee2586169916a99741fc581ab7cf590fab5db2938dabc03f"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "AT-42",
-      "definition": "test_cases/automata_theory_and_formal_languages/AT-42.json",
-      "lean_source": "lean/oracles/automata_theory_and_formal_languages/AT-42.lean",
-      "axiom_audit": "lean/audits/automata_theory_and_formal_languages/AT-42.lean"
+      "definition": {
+        "path": "test_cases/automata_theory_and_formal_languages/AT-42.json",
+        "sha512": "95ac6d076e7c2bc93e181f3aa70ade2c8a4012963591167f06d66c0d65d3159e5ee7c5091601954f5240f4b2d9d1729610443c84ffff7081f20ec6bb717afaff"
+      },
+      "lean_source": {
+        "path": "lean/oracles/automata_theory_and_formal_languages/AT-42.lean",
+        "sha512": "fb9b94b1b52dda44c49f8b33b9683fca2f307b78b241820e8007d1e8a3cb46f549391de83dbe9ae66a0c19cd846cee228c1c061e7768795e8eb482a6f6d1ffd9"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/automata_theory_and_formal_languages/AT-42.lean",
+        "sha512": "c2314d3fd309c400fa247b9d97c4d3cbf494407ea7d5ffdc6e69e80cd4b8842445f52c2f6776a96e5d4dd5ff08d9a4229f6101ba6125a444cc3cd287e7e8e533"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "AT-54",
-      "definition": "test_cases/automata_theory_and_formal_languages/AT-54.json",
-      "lean_source": "lean/oracles/automata_theory_and_formal_languages/AT-54.lean",
-      "axiom_audit": "lean/audits/automata_theory_and_formal_languages/AT-54.lean"
+      "definition": {
+        "path": "test_cases/automata_theory_and_formal_languages/AT-54.json",
+        "sha512": "e58e3e165b99aa19b13fa72d4d036e07a6caed30bfa06514aa366b499abe8265061e72cec15143047a367e8e33399212da6e865fc2b916a458ab6d2482aa956d"
+      },
+      "lean_source": {
+        "path": "lean/oracles/automata_theory_and_formal_languages/AT-54.lean",
+        "sha512": "b925c3f41abf1616348f3438fa34ff4f75334665ae4d8c3403bb1789793564c66a04ae393041dd550b96d23a07f75aea8797e4016d5b93e8301df48cf4901919"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/automata_theory_and_formal_languages/AT-54.lean",
+        "sha512": "5793f6eb3ca2dfd2fc1677a9a9b039b6e2e03b394ed6fe6e7f362931ca80917798064aff63000c063d0735c9d2813204435be9f1df164cd00cfce4328d8c9a34"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "AT-58",
-      "definition": "test_cases/automata_theory_and_formal_languages/AT-58.json",
-      "lean_source": "lean/oracles/automata_theory_and_formal_languages/AT-58.lean",
-      "axiom_audit": "lean/audits/automata_theory_and_formal_languages/AT-58.lean"
+      "definition": {
+        "path": "test_cases/automata_theory_and_formal_languages/AT-58.json",
+        "sha512": "94229a11bdcba7aa95ac4491ebe9b02406375e5efb6754731b0cf76001e89b0d085296cbe5832c6b53fbc1b084f453a763e7a74b7f51978a22d5ad5518523ef1"
+      },
+      "lean_source": {
+        "path": "lean/oracles/automata_theory_and_formal_languages/AT-58.lean",
+        "sha512": "bfc1bc8ff1a1881439ad946975620870de3c14737498039caea7afd821b7b91d84896c10355aa86d57ae8103400dc9bc1c8ce56a92d3b5a13e2a32f9372b44db"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/automata_theory_and_formal_languages/AT-58.lean",
+        "sha512": "3905ae74aa7ff67605fdc800299f1753c58f8890a9955cea22f6afbbb2ae202c2398b13d532ee363f75880bdbe38b33c2a6cb7745f25bf5c477963f389a69225"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "BA-09",
-      "definition": "test_cases/boolean_algebra/BA-09.json",
-      "lean_source": "lean/oracles/boolean_algebra/BA-09.lean",
-      "axiom_audit": "lean/audits/boolean_algebra/BA-09.lean"
+      "definition": {
+        "path": "test_cases/boolean_algebra/BA-09.json",
+        "sha512": "e69b45cc1b4e84d3169fb1c75845fdce84b2761eb366ea0f634a5f9b44350567b8067bd19c776a74774d8a669f9091c9892da62d7cd08d60e999aaf375542bf1"
+      },
+      "lean_source": {
+        "path": "lean/oracles/boolean_algebra/BA-09.lean",
+        "sha512": "62f6a3e69c5913fbf08e92d4e6dfd691458e3b4598bd55cdde3f2f69a46bdac56cc5205c0f58872d61208ce1dee5f7bc1367e4c51ff9e570c4e50706678fb10e"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/boolean_algebra/BA-09.lean",
+        "sha512": "34ce09ea5e00d175da00ccc84bc5b2a189c17fd743b28b7fcfaacd2ee0aa6ea651146753431c97e3c0ca66a37161b69565b34bdebe5cff1bb417b851f3ce414d"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "BA-21",
-      "definition": "test_cases/boolean_algebra/BA-21.json",
-      "lean_source": "lean/oracles/boolean_algebra/BA-21.lean",
-      "axiom_audit": "lean/audits/boolean_algebra/BA-21.lean"
+      "definition": {
+        "path": "test_cases/boolean_algebra/BA-21.json",
+        "sha512": "29f7d248ea0e3ebf9a6f7f2da9ad5892a69262fa140b7414e0e32c0b4fb8d7143074903588342875271f04261a854cd65b30cfcbf6914b5f985c8a5dc2cfa3f0"
+      },
+      "lean_source": {
+        "path": "lean/oracles/boolean_algebra/BA-21.lean",
+        "sha512": "1a3113e78c37141d285e3d2819c1af72031b1fefd11494c0d21ee3f56884b6251d09bcb993f3074f475797a1d0e5c8ba92716e534d1ec81227c1653b69f00aac"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/boolean_algebra/BA-21.lean",
+        "sha512": "4ce69347d8934582a2e662a02efcda4920b96690701d459568ff228499352924fda8cd35c3b3f48adb0d8b6cc1d9b4c29bcc2f81142c835cc6ecb7bd999ef368"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "BA-22",
-      "definition": "test_cases/boolean_algebra/BA-22.json",
-      "lean_source": "lean/oracles/boolean_algebra/BA-22.lean",
-      "axiom_audit": "lean/audits/boolean_algebra/BA-22.lean"
+      "definition": {
+        "path": "test_cases/boolean_algebra/BA-22.json",
+        "sha512": "cdd7a85ed95b430b0f0ebd5fd9f66332e377106d1a5aec2074ad75bf1d6e734ed7ad423dd067991e0e38c6d3d05290b6574d769012c6d172a36546ea3236975d"
+      },
+      "lean_source": {
+        "path": "lean/oracles/boolean_algebra/BA-22.lean",
+        "sha512": "eac0cd74fdfc95d052caf94f6d09907b6329b699cc2cfc9bdc86d1ff556c6d08852b14e774dd763be9dd8fdbafd13ad37ee157d88900031ed1c74a4415a2b491"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/boolean_algebra/BA-22.lean",
+        "sha512": "7e6bacf3bc08b32af8b4bd6752093d10517978b9def683ae1e74c451e2c5e4c451892346aa8166bdf67e77a30ac7cd5b27a8ee427a1e2df7f0587dde670926d3"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "BA-25",
-      "definition": "test_cases/boolean_algebra/BA-25.json",
-      "lean_source": "lean/oracles/boolean_algebra/BA-25.lean",
-      "axiom_audit": "lean/audits/boolean_algebra/BA-25.lean"
+      "definition": {
+        "path": "test_cases/boolean_algebra/BA-25.json",
+        "sha512": "7ee9a5f5ce15ee4017b9e06b98031f169464a811cb8677bd52a80d358558f0b825be8869bd5946e759574c3f979ad33c035f422af5b97c179a83656af8fc2bfa"
+      },
+      "lean_source": {
+        "path": "lean/oracles/boolean_algebra/BA-25.lean",
+        "sha512": "2481ebc0ee6274b1b8e9a34e75e38f21934b7698ba12f09c2921e3a43a02ff9df7eaba4598823e191d30b80fe2abd24efa6fbafe75aca505899bcbe67cb6220b"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/boolean_algebra/BA-25.lean",
+        "sha512": "b6094c8f245a954f9ee207f5c3cf0f0661bbde661ec639bb69238e6ab532dfca3767fc50121db882d055b78c2dbda5caec129de159dc67bbcc761fa59062903d"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "BA-27",
-      "definition": "test_cases/boolean_algebra/BA-27.json",
-      "lean_source": "lean/oracles/boolean_algebra/BA-27.lean",
-      "axiom_audit": "lean/audits/boolean_algebra/BA-27.lean"
+      "definition": {
+        "path": "test_cases/boolean_algebra/BA-27.json",
+        "sha512": "40249486be9f99d7cc2c5a8ba1de951b28d6c8b2ad8fc54e6b6299c8c136e2196935176a2aed48890c3b2d6c730ad33afe77bc394b128b6633ec7b4883cc3863"
+      },
+      "lean_source": {
+        "path": "lean/oracles/boolean_algebra/BA-27.lean",
+        "sha512": "d8789333c2e202a762faf4a954b64eca92c5bba23963b85f272c7a0483e5ee9f072e22af2d182b90360a2dcce65a7c76cc0e19903b36e1b272b20fba55dba254"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/boolean_algebra/BA-27.lean",
+        "sha512": "c2103c7d449a2f0b2988df56003968dbf2b88b441b64b46322f32741a842885c0c081c7bdf17395ca948dd74830b56a2a5eb507c77c476efc951d6104963edfd"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "BA-41",
-      "definition": "test_cases/boolean_algebra/BA-41.json",
-      "lean_source": "lean/oracles/boolean_algebra/BA-41.lean",
-      "axiom_audit": "lean/audits/boolean_algebra/BA-41.lean"
+      "definition": {
+        "path": "test_cases/boolean_algebra/BA-41.json",
+        "sha512": "0ad76139f22642864a9c44fbc2c272ee4bcbb7cc61a2c4ae37a21fae4cd034347d52c5eb2a1d4b19bb41bbe4f7b34e1b75040abbe040df57e7111c811ddebc47"
+      },
+      "lean_source": {
+        "path": "lean/oracles/boolean_algebra/BA-41.lean",
+        "sha512": "96681dbcb0c4b3119e1f3327e0378c24d211c083ecfc471eb179b00a3fb151d10b1cfab7c7e94b43871e0f4a51d66e34eebea709e78b711ab9f16b82f15bec5e"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/boolean_algebra/BA-41.lean",
+        "sha512": "5428a4f79ade3cd48309856ed02e0f930a66874361c4f72f5ec95cfe541dc7c1f5d819668a8cddf2bb1796e3d9763b936ba80153a9ef62ea24e2ec80b68af3be"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "BA-49",
-      "definition": "test_cases/boolean_algebra/BA-49.json",
-      "lean_source": "lean/oracles/boolean_algebra/BA-49.lean",
-      "axiom_audit": "lean/audits/boolean_algebra/BA-49.lean"
+      "definition": {
+        "path": "test_cases/boolean_algebra/BA-49.json",
+        "sha512": "f366208820a1ba272e23c0dba453f806bcebeb77561f468b016aeb118324fa86e413f5f7e992377aa0f37e1a54a1204f20bf2f6a301a314eed32ced9ff875a67"
+      },
+      "lean_source": {
+        "path": "lean/oracles/boolean_algebra/BA-49.lean",
+        "sha512": "411d32eae60afbea4be68938f66c585ab730ec420beac9212c6c34e71277c4621275a5ea92ebccc388753818a73ff58d538eaf0bf43821cdf18e4f93787f2e48"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/boolean_algebra/BA-49.lean",
+        "sha512": "19200094dbc3b115bf10e1562f5bd5a60594699537fd5c5e56721566c748c0d8efe96c1780c099b250fded29d3ff6a674c1e8714069263155d16ffd31e667e22"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "BA-55",
-      "definition": "test_cases/boolean_algebra/BA-55.json",
-      "lean_source": "lean/oracles/boolean_algebra/BA-55.lean",
-      "axiom_audit": "lean/audits/boolean_algebra/BA-55.lean"
+      "definition": {
+        "path": "test_cases/boolean_algebra/BA-55.json",
+        "sha512": "a77dd63d9eb81d7d3b2852a8fef329c8338c14b4c1c912e589c1d235b4354384a2c52619ff5fc9d458597c6daa5544adc34e1ae5bb2104dc2955a415522ebaba"
+      },
+      "lean_source": {
+        "path": "lean/oracles/boolean_algebra/BA-55.lean",
+        "sha512": "1d1cdae05c1524ed72ea14d88906288e996823184e28a50e5e91d1efb729f4534b86929953a74a735e870f67cb1585087d71e21f33751d74f3969be9bbda62a6"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/boolean_algebra/BA-55.lean",
+        "sha512": "13954a8e2b4fd555a2dd4cba2d996acb2e71c7aec76669ab9dbfc6fb74b8cf560e7a5899ac80954bfe56c26c06ad01dd01ebb9f40b46923bcfc4efa9f3bfdc43"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "BA-57",
-      "definition": "test_cases/boolean_algebra/BA-57.json",
-      "lean_source": "lean/oracles/boolean_algebra/BA-57.lean",
-      "axiom_audit": "lean/audits/boolean_algebra/BA-57.lean"
+      "definition": {
+        "path": "test_cases/boolean_algebra/BA-57.json",
+        "sha512": "2012e46db416550e7e4dde3e6686c6575fac71d4fd9bd9c0da3e6304de1a35bdf08be7165b9d57a196768e387da0108439af8e808fee431d5ed797bb548fda21"
+      },
+      "lean_source": {
+        "path": "lean/oracles/boolean_algebra/BA-57.lean",
+        "sha512": "ed1b141e3b4f84b8f9b1b0a694c53c78515b8c2bd8fd4f91651d2f705ced2e37e7e9af2a00bc57319fabad81472a5013ec9642a979b6ebc8b4e4bdfbd0a62c49"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/boolean_algebra/BA-57.lean",
+        "sha512": "34c9eb03498ea2f476f8eb980a5e0964b5a04e3d0a99a634327d34a57c6815cca11e84a73ed95478bc88dd831fb665c6042620a847e41c032708a075d92a24db"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "BA-59",
-      "definition": "test_cases/boolean_algebra/BA-59.json",
-      "lean_source": "lean/oracles/boolean_algebra/BA-59.lean",
-      "axiom_audit": "lean/audits/boolean_algebra/BA-59.lean"
+      "definition": {
+        "path": "test_cases/boolean_algebra/BA-59.json",
+        "sha512": "9d649207af3bab4446358838bdfd231095d3e517ed4babf9a4a5233604f38b2da61d6bb0eb29aa585b34bc321006370d4b4cf02b0374f362fa53b23fcb92051d"
+      },
+      "lean_source": {
+        "path": "lean/oracles/boolean_algebra/BA-59.lean",
+        "sha512": "2aff0d12146d11acdd6bcfe1d3e390fa6a69ee963618f7b1efe4c5980a11dc39afcfbcba574bdf81fe35943483717429255be5a4a580883f7969c6844ae15667"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/boolean_algebra/BA-59.lean",
+        "sha512": "46229513227a31fe2cd94dbd62d655f76a0dc5e74f163cd591883fe962e28ee3337e7109d12185e64daeeecd3245708639e34dbac8bd872efa9d29496e6ea173"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "CT-01",
-      "definition": "test_cases/category_theory/CT-01.json",
-      "lean_source": "lean/oracles/category_theory/CT-01.lean",
-      "axiom_audit": "lean/audits/category_theory/CT-01.lean"
+      "definition": {
+        "path": "test_cases/category_theory/CT-01.json",
+        "sha512": "2746611fca2f4ff66adfec649e50f425355e7ddd6f4dc31759927ac62f00bc3216b0b3f0d684fe3a1bf8b214b7981ecc1e9ed4bf157eb9b00e71f2c98ae729b9"
+      },
+      "lean_source": {
+        "path": "lean/oracles/category_theory/CT-01.lean",
+        "sha512": "c6904464ef7db802d0a186db4d22582e1dfb89259f44390793351157702fe977fa78dda4b5a30647ba1fec746e752ec13aa6092b8efeffff738a5caba3bccc83"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/category_theory/CT-01.lean",
+        "sha512": "3a4ec7eca39bf42c0c678cf9bda6b733929f2c15f193d56af4c9e5742cd72b5e9e688b30a1cc140e1714f8ed1923964fb606e540751a53a3f7819ebad557110b"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "CT-06",
-      "definition": "test_cases/category_theory/CT-06.json",
-      "lean_source": "lean/oracles/category_theory/CT-06.lean",
-      "axiom_audit": "lean/audits/category_theory/CT-06.lean"
+      "definition": {
+        "path": "test_cases/category_theory/CT-06.json",
+        "sha512": "d81895063f19b8937777988f348c20015e33d6f31da480e650855bcffa378495d72231a62a5f9c741e8d5d915962da5271fde469245ac3bb66686d05767a16f8"
+      },
+      "lean_source": {
+        "path": "lean/oracles/category_theory/CT-06.lean",
+        "sha512": "cd9fa3d5c917c048a732c45ca9537723e42a459f988149fa681c8257bb11f35f21a7bae6037cdc2b05a1c91c176c7e4230582d69e7518ba1dc737e5ee0900ec7"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/category_theory/CT-06.lean",
+        "sha512": "66a6efe38086722f7ceb743425fe07b14ef0eb4b23ffe6c97818dd4917278f718d6291065d330f640657bb39223bea096fce37ccf877bdddf70ada158db8cc8a"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "CT-09",
-      "definition": "test_cases/category_theory/CT-09.json",
-      "lean_source": "lean/oracles/category_theory/CT-09.lean",
-      "axiom_audit": "lean/audits/category_theory/CT-09.lean"
+      "definition": {
+        "path": "test_cases/category_theory/CT-09.json",
+        "sha512": "4f9750d50bf0ead056692e1ef728df8f4731e43b8dbf9b6850163e6d4f05fae810bbe296b5d3b74ad2496d07d81e0a7dbd5bfd34b2e354e927270c667425fac0"
+      },
+      "lean_source": {
+        "path": "lean/oracles/category_theory/CT-09.lean",
+        "sha512": "47a5be9557513c1e93e188188dde8714cef7984e04bf13abc2c26757bbb08df49469852b375ffa0beea5de3c8f5c5bf49d792313eea17233e629bfa912929ac4"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/category_theory/CT-09.lean",
+        "sha512": "5f6051613b7a88cadf66d9dcb90ab2ef55551f67e49967b7c277a81548da5d022d5a6f2d6cb22cad60b8beb9e7909d17b93a44c9ab89c000a1242f6e58d44769"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "CT-25",
-      "definition": "test_cases/category_theory/CT-25.json",
-      "lean_source": "lean/oracles/category_theory/CT-25.lean",
-      "axiom_audit": "lean/audits/category_theory/CT-25.lean"
+      "definition": {
+        "path": "test_cases/category_theory/CT-25.json",
+        "sha512": "5e830cc99d338c70669ec3940c8854d293d432224b2c378c18788dbf4fe67911ec413796a0fc7c63adffbe00c38aab63f41b2d9fa09e62e933448e0676ecb71a"
+      },
+      "lean_source": {
+        "path": "lean/oracles/category_theory/CT-25.lean",
+        "sha512": "c2d5106c680aa534b2fb978b34d007df3e0365b89863dab0aec4d8e970c4352ab2d3f201314e17f8399f09903b384b5b7138ade229e66d35ecf3ce17ffb25c6d"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/category_theory/CT-25.lean",
+        "sha512": "4cf59d0558f3de456f8846d93cb9d0c7619bf9d4663bd75a18afec4c5fd4a7f33f1cd133cce72c772e288cb153e4862e33469f96c3a25fa69d81006527127bc2"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "CT-29",
-      "definition": "test_cases/category_theory/CT-29.json",
-      "lean_source": "lean/oracles/category_theory/CT-29.lean",
-      "axiom_audit": "lean/audits/category_theory/CT-29.lean"
+      "definition": {
+        "path": "test_cases/category_theory/CT-29.json",
+        "sha512": "547b4b6c72fc344ec0f6174a107814a0404e0fa1c8d08abe7c0965ac8a141c017a1b2540566c433037debb48422ced72581f6166263769b6e7764c2aa14ed21a"
+      },
+      "lean_source": {
+        "path": "lean/oracles/category_theory/CT-29.lean",
+        "sha512": "17d1e5092af45ecaf4fe4213e49bf36049a7427eab36498a5db4ea017afdcb2a149bc80364f6675dfcf16d055a09f6c0e14a7b379de708f83f7d2844bbac8cb3"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/category_theory/CT-29.lean",
+        "sha512": "52ca87073d1f18799c99de82c48380298b9a220a2e1263ac8641f9a43455e97709c5b69c9aea915810ec2c9783f6763384b3144a576a3c86e727df130f0faaff"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "CT-37",
-      "definition": "test_cases/category_theory/CT-37.json",
-      "lean_source": "lean/oracles/category_theory/CT-37.lean",
-      "axiom_audit": "lean/audits/category_theory/CT-37.lean"
+      "definition": {
+        "path": "test_cases/category_theory/CT-37.json",
+        "sha512": "3b4924b8fad49f992058e217f0cc2f228aaab981a95e6124dc9a9b566422d8f2513b596390857054147765d6b1849103509c99ed1987479b5f4552a064946830"
+      },
+      "lean_source": {
+        "path": "lean/oracles/category_theory/CT-37.lean",
+        "sha512": "56e4696a31c9a269ce3347d47e0ca6e0461b4d4aefef358b95c61ad9555265a55e6266578af3fb8994a37d3caeac33404254e39b08b90a1a98b25553cdb542f1"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/category_theory/CT-37.lean",
+        "sha512": "79eef37c75354603c84079cb53353aa1b2fc9eb75d2fec903c267a5d119f4a4577c46a6ec38ab457f5d6c02549c309e1816c75651c05801be61061a912ec59ea"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "CT-48",
-      "definition": "test_cases/category_theory/CT-48.json",
-      "lean_source": "lean/oracles/category_theory/CT-48.lean",
-      "axiom_audit": "lean/audits/category_theory/CT-48.lean"
+      "definition": {
+        "path": "test_cases/category_theory/CT-48.json",
+        "sha512": "5fa3a3ae19b62a90bc8d016a476f9ce88617954932cc0a5222f9c0a8cb24646d135471a778405caa8c1063f1772414aaa9040fda995fa347254d817d1468195b"
+      },
+      "lean_source": {
+        "path": "lean/oracles/category_theory/CT-48.lean",
+        "sha512": "8cf68ff051340440881e44ffc65c2ca49460e114d2010cc5d876773b451eef373b062a1e5563f5b4d032f6b48d647c4e6b94dd80161521931608d9e7eab8dccc"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/category_theory/CT-48.lean",
+        "sha512": "ad0226e5c35c43c0d512175f556c93a065985e0612847e7b744e5a74ece9d59e512d899b2c4488e3f46f15816328b113c6acdf24db1c228847962bad4b807ae5"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "CT-52",
-      "definition": "test_cases/category_theory/CT-52.json",
-      "lean_source": "lean/oracles/category_theory/CT-52.lean",
-      "axiom_audit": "lean/audits/category_theory/CT-52.lean"
+      "definition": {
+        "path": "test_cases/category_theory/CT-52.json",
+        "sha512": "c205def4fe44476114470ce0a74dcc8d62e4a559d105dd55688099d4442ecbc6ecc5e406e31c1db94f02781548ae5fe494d4896a45251dcbd047c3c61e015911"
+      },
+      "lean_source": {
+        "path": "lean/oracles/category_theory/CT-52.lean",
+        "sha512": "130ee28e9b1129037078c5a796942e236ed826054b6b18c3c2de7c2a86c2319d099420b354ae5544dbe943f44a3ecb26df7cd3c4eb54c212b6480dbaa69fc2e4"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/category_theory/CT-52.lean",
+        "sha512": "5aad2cf806c59f571c8950aa6af5b86a760af8e8273344792546bb3b7c9a5b2142fe2fd59ac912ec5c7a462043e7e5498dc277ffdefbb4e9e1a0a930daae47ea"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "CT-57",
-      "definition": "test_cases/category_theory/CT-57.json",
-      "lean_source": "lean/oracles/category_theory/CT-57.lean",
-      "axiom_audit": "lean/audits/category_theory/CT-57.lean"
+      "definition": {
+        "path": "test_cases/category_theory/CT-57.json",
+        "sha512": "dfccebaad4ee03bd6eca7935edf503763c43db7c8412d59929ea671a63014194b357ea643d2f8ae4dd15a0e0b454697ab5acb203c2d6481074e6c7af7b93a7f7"
+      },
+      "lean_source": {
+        "path": "lean/oracles/category_theory/CT-57.lean",
+        "sha512": "234dffa79db29f85175d914e42fdacb0cdfe53f844c17e25d4128e6fa7e366d9df6d120d040b1790df839169588cdc2c5843858a207eda21dce67c16c2499c0f"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/category_theory/CT-57.lean",
+        "sha512": "fd29bc87dc346f332fdb7bb07d6ec98ed89e355e631ee46c283720c099bd8fe4e600e743b46d4de5c37636a670d5045190f0c2aaf87f26ebeb0d081e3db03a4c"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "CT-60",
-      "definition": "test_cases/category_theory/CT-60.json",
-      "lean_source": "lean/oracles/category_theory/CT-60.lean",
-      "axiom_audit": "lean/audits/category_theory/CT-60.lean"
+      "definition": {
+        "path": "test_cases/category_theory/CT-60.json",
+        "sha512": "55abb676a1ba82b1ff066dec8bb9d6d7021c6c60d6be219ded506f47054e6d033b4037920b39ea83623fa6352645ec912e9ae4fd5aac39a550226fbb170e0855"
+      },
+      "lean_source": {
+        "path": "lean/oracles/category_theory/CT-60.lean",
+        "sha512": "d8e34375d95285d418c47d3c78c3f99a1ac7010b98e610982b4bbcf3482eb24a21a2d5cdcc011eb5a128f312901c95bb35965057dc7f6370d61f641c2df63721"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/category_theory/CT-60.lean",
+        "sha512": "007f09ad58b01a379a1d4ec381055ac32214ea21f98a94e3ec3686a229b05cefa663612eb9b7e7d6fad038062957b026059ef425b93a2e6e9b8986a6c01def6f"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "FL-01",
-      "definition": "test_cases/formal_logics_and_proof_systems/FL-01.json",
-      "lean_source": "lean/oracles/formal_logics_and_proof_systems/FL-01.lean",
-      "axiom_audit": "lean/audits/formal_logics_and_proof_systems/FL-01.lean"
+      "definition": {
+        "path": "test_cases/formal_logics_and_proof_systems/FL-01.json",
+        "sha512": "96be5b5960883fd6458a57c311f3356f195ede1108e1a2a7e3ff3848d0c54078f20149d67c3679db02e0c3c33554fa0f17cea91629b4770959976743569e2b46"
+      },
+      "lean_source": {
+        "path": "lean/oracles/formal_logics_and_proof_systems/FL-01.lean",
+        "sha512": "a30a0d7f5325672f38db8663b9347a25265f9c99f73ece887ebc7604624ee277c6b929dfd9abb7292b23db86a1b611c2b26d2d371678a3b244fcab18a1d1dee5"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/formal_logics_and_proof_systems/FL-01.lean",
+        "sha512": "826d04a6d2af25bd2bd90750387b4ab4e57bbbde212848c197914c4c13ec197b7dafdcc81e50d02b3cf12616286da72d6ffb9c35638fa9acb0aafaad3e212c9d"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "FL-10",
-      "definition": "test_cases/formal_logics_and_proof_systems/FL-10.json",
-      "lean_source": "lean/oracles/formal_logics_and_proof_systems/FL-10.lean",
-      "axiom_audit": "lean/audits/formal_logics_and_proof_systems/FL-10.lean"
+      "definition": {
+        "path": "test_cases/formal_logics_and_proof_systems/FL-10.json",
+        "sha512": "381a5247dcce160360369381b3eb6624284cc63ad15468c81c1d34a3ede98256d3e40304a46888b2882be515c93674d545507d8d3e7615c33ccfb4023d859421"
+      },
+      "lean_source": {
+        "path": "lean/oracles/formal_logics_and_proof_systems/FL-10.lean",
+        "sha512": "98686727f2ca5a1ccc35c39715770dfefb5f4286cfce170a0d7cb1f709d0fde9118faa004efaa5a1ad8b825c7aa2d2e14bb8ced5738d58ed522d7c82d9462f0b"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/formal_logics_and_proof_systems/FL-10.lean",
+        "sha512": "35b3b246c1d2d3ad02be31cbca43d1caa013ac87e4cc06b1ef882dc09799e78138312c197fd25db01bc7caf822040a0dba018af50dfb1778a951243dd335ab18"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "FL-14",
-      "definition": "test_cases/formal_logics_and_proof_systems/FL-14.json",
-      "lean_source": "lean/oracles/formal_logics_and_proof_systems/FL-14.lean",
-      "axiom_audit": "lean/audits/formal_logics_and_proof_systems/FL-14.lean"
+      "definition": {
+        "path": "test_cases/formal_logics_and_proof_systems/FL-14.json",
+        "sha512": "a3ff67e0ff80ac4da8a113606eb87354e4c3995abf633ce446d54acca2d1b2620c2b094069a534ca6ab3f79bc02411da52aacf82a03af23f8341d23abf459bd8"
+      },
+      "lean_source": {
+        "path": "lean/oracles/formal_logics_and_proof_systems/FL-14.lean",
+        "sha512": "47ddf0ae029255eef3165ec3b5aa0bcbe5248d85e896475e8b6e6910448d65fab3c4a80c72242d8a50d97b02b2e90af3d1f76ba3ec81e5bc0f23394b989d1692"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/formal_logics_and_proof_systems/FL-14.lean",
+        "sha512": "b61a4b12cf2d00b351919b9fd137137b1c8387ef50a4e3c032fc0002fc0d32168933092f2f189e58ec3b15b0f59aba6336f53f57860b74675ed850377cc40fa8"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "FL-21",
-      "definition": "test_cases/formal_logics_and_proof_systems/FL-21.json",
-      "lean_source": "lean/oracles/formal_logics_and_proof_systems/FL-21.lean",
-      "axiom_audit": "lean/audits/formal_logics_and_proof_systems/FL-21.lean"
+      "definition": {
+        "path": "test_cases/formal_logics_and_proof_systems/FL-21.json",
+        "sha512": "aa973dae0147fe220ea2c3bfefa514b984d07900945ca459366a84c4924617374dcc87b988bbab90d9cdcad57caaab54c6759d0147039b24355d46b02dd2ef4e"
+      },
+      "lean_source": {
+        "path": "lean/oracles/formal_logics_and_proof_systems/FL-21.lean",
+        "sha512": "8581708377a4a36e310f877d46cf6a656499d16006884160acb1aa50541b3fa1087b8f88d26351cdbd930d806132170b2a6d5a5cdd105e3e626ff99cf8b15de7"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/formal_logics_and_proof_systems/FL-21.lean",
+        "sha512": "1616752e1ca49d22fae4ec539743d24a5d9ebf722c690d9849687e3f748ef2beca0cd8496a91107fa12e62692b4d3b25754a58775ee3814d728df4c94f7ca5b6"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "FL-26",
-      "definition": "test_cases/formal_logics_and_proof_systems/FL-26.json",
-      "lean_source": "lean/oracles/formal_logics_and_proof_systems/FL-26.lean",
-      "axiom_audit": "lean/audits/formal_logics_and_proof_systems/FL-26.lean"
+      "definition": {
+        "path": "test_cases/formal_logics_and_proof_systems/FL-26.json",
+        "sha512": "9bee4ae148011ed5c87e3b5750673ea4931577a2b567499d9611abcd60d1c4161ae397402a361c7dc98edd47900240a1bf9380907f52cc4f1b841dbc4431e23b"
+      },
+      "lean_source": {
+        "path": "lean/oracles/formal_logics_and_proof_systems/FL-26.lean",
+        "sha512": "ea2e3b2da485e462a12c47ef9d49a139e053d856cd08dce8b0440e59d37bad43ae032f912951cb205402dc14d05f7d97b4aabe35a1364afabf8442123d45255e"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/formal_logics_and_proof_systems/FL-26.lean",
+        "sha512": "30f29dd49dd77946723bd5b7749129b9f3114801dc5d95d02d4b0067d46b7eeb2cbf6c07d6b4c1f72d0359d2dc19078cf6d17ddec20f1188b736a2a8024daaee"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "FL-33",
-      "definition": "test_cases/formal_logics_and_proof_systems/FL-33.json",
-      "lean_source": "lean/oracles/formal_logics_and_proof_systems/FL-33.lean",
-      "axiom_audit": "lean/audits/formal_logics_and_proof_systems/FL-33.lean"
+      "definition": {
+        "path": "test_cases/formal_logics_and_proof_systems/FL-33.json",
+        "sha512": "22b94627d24fdfcca7f1ef9fc077114b43e9d58c47f7f26142c99b0909318c78d329fbb73f79146ee8b708ecaec839950ef6878ff64d86f0f21fdf6094b198f5"
+      },
+      "lean_source": {
+        "path": "lean/oracles/formal_logics_and_proof_systems/FL-33.lean",
+        "sha512": "d130ed24df527a79d5b227e7302a50f4c09f1b125da52df2badeeb4a9472a0626c9f5913a62ef43885a583094edb84e0877ae3ae30c9a723f91a2a4c433d4f62"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/formal_logics_and_proof_systems/FL-33.lean",
+        "sha512": "e402d5443d0aff78857a1fc83c4b614c68bac40514776c6c78b6c9c316e60484e7da03c663f2832dec9cfbc79f8eac0a52431a506cc1dfeab29ec305de31a5e9"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "FL-37",
-      "definition": "test_cases/formal_logics_and_proof_systems/FL-37.json",
-      "lean_source": "lean/oracles/formal_logics_and_proof_systems/FL-37.lean",
-      "axiom_audit": "lean/audits/formal_logics_and_proof_systems/FL-37.lean"
+      "definition": {
+        "path": "test_cases/formal_logics_and_proof_systems/FL-37.json",
+        "sha512": "d5950f5253503ad6ab79d829ab60ff90e7ca48feb547654f26a84dae41a85f2dcc8cce87e68fd2b70f7a16d1120b863f6333145bcb66c9ab2bfaae425dcf4f9f"
+      },
+      "lean_source": {
+        "path": "lean/oracles/formal_logics_and_proof_systems/FL-37.lean",
+        "sha512": "9183218606ab0dc518b73a4ac820bb155b6136680122f6cd7363cdc6971551eaefe69711e1b8f9c2ed2c88f45ab5301c8c67a54aaf7e25f2d34718856ba73ddb"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/formal_logics_and_proof_systems/FL-37.lean",
+        "sha512": "754da0e2ec0323aed9f5b4672c161dcc0304c7558cb9cca670f12901f3a4d33b958e92374a8a566fd168d566693925c031a47fe03b62356882138d4c2751ce51"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "FL-43",
-      "definition": "test_cases/formal_logics_and_proof_systems/FL-43.json",
-      "lean_source": "lean/oracles/formal_logics_and_proof_systems/FL-43.lean",
-      "axiom_audit": "lean/audits/formal_logics_and_proof_systems/FL-43.lean"
+      "definition": {
+        "path": "test_cases/formal_logics_and_proof_systems/FL-43.json",
+        "sha512": "a681097538044e4a0b293502f3de0b8d8c85d042e3bdc5f681b94aeeb9da0912602a39227ee934efc6fffb731ced36804ee72562c2b6aabae662a82f2243d846"
+      },
+      "lean_source": {
+        "path": "lean/oracles/formal_logics_and_proof_systems/FL-43.lean",
+        "sha512": "32d123a6f5a0d7f46d61fada3a7ea202c9f0333d61fd4a9b6518216ddf36c20280a512f9f346f49d39c5064fdc8fdc5a0ffce1467ae411fedacd7555120515a3"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/formal_logics_and_proof_systems/FL-43.lean",
+        "sha512": "6d5526a44e378a558b35d1374e66a53aab036556adbf95a0cfb09f3b7860252f31cc2c2b0a1589a7665c4a5069c1c59e78f2e7789e20433ed6171e0580c192aa"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "FL-45",
-      "definition": "test_cases/formal_logics_and_proof_systems/FL-45.json",
-      "lean_source": "lean/oracles/formal_logics_and_proof_systems/FL-45.lean",
-      "axiom_audit": "lean/audits/formal_logics_and_proof_systems/FL-45.lean"
+      "definition": {
+        "path": "test_cases/formal_logics_and_proof_systems/FL-45.json",
+        "sha512": "6ad72fc4b1cc9d263badd143e64842a692fd97d0d6ee85621d7486cc5d3ce20f2d210580c63a53723799380ef91f4f7cd42d8421fbf42e800298be084eabda42"
+      },
+      "lean_source": {
+        "path": "lean/oracles/formal_logics_and_proof_systems/FL-45.lean",
+        "sha512": "58927d643a97a03bc8f9d69884b9805c248c9f3c446c69e72a95465e25cf3428489d63527a95380e3dd9cbbeb4172ff93f288a6d4a2dd2a0584041dcc4a06ff5"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/formal_logics_and_proof_systems/FL-45.lean",
+        "sha512": "6e6205df250a5440e308c0f2501975aacc2f6e971ab3c880c1d44eb8b7186cacc57aaca349109ba7b7ac09b4f9c402a1ba12b761a533d13c3637b53bf8832af2"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "FL-52",
-      "definition": "test_cases/formal_logics_and_proof_systems/FL-52.json",
-      "lean_source": "lean/oracles/formal_logics_and_proof_systems/FL-52.lean",
-      "axiom_audit": "lean/audits/formal_logics_and_proof_systems/FL-52.lean"
+      "definition": {
+        "path": "test_cases/formal_logics_and_proof_systems/FL-52.json",
+        "sha512": "84a83e271efacbb296980f256263c0494d72c643fe9b31056c05076589b82d58072180a4e43822f5277b0f7dc0036552bfe1d605be204a5e68b4f663be4e779e"
+      },
+      "lean_source": {
+        "path": "lean/oracles/formal_logics_and_proof_systems/FL-52.lean",
+        "sha512": "94ce47e0052a459ab894cbfebd2b016f765db3c951b269480d00b63582100c20f207308204a40bc4cbb83185ced247835d1558cac2a65bafb681b5ef6b1aeaa7"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/formal_logics_and_proof_systems/FL-52.lean",
+        "sha512": "253d745a0e25ef2d8c3bb3e35d2be39a1455fcd87631e1798f9a2d3494a8bfc8b7e1787f676d37a0e93125e9baed96f3dde9b5b3e6e4ca50839327c5ca73e0ca"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "LA-13",
-      "definition": "test_cases/linear_algebra/LA-13.json",
-      "lean_source": "lean/oracles/linear_algebra/LA-13.lean",
-      "axiom_audit": "lean/audits/linear_algebra/LA-13.lean"
+      "definition": {
+        "path": "test_cases/linear_algebra/LA-13.json",
+        "sha512": "91a1d549a884b1e58d3132f2ae997c65bfa9992020cc35cc0e9edc41b09423d83bf261bd8f684f2ce9d56409657c5129b46820ccf05bfbfb7a2a7837e1b4cefc"
+      },
+      "lean_source": {
+        "path": "lean/oracles/linear_algebra/LA-13.lean",
+        "sha512": "84c830dee20452865672ee8a77da08d37117d4f58af0aeb040d07f59ab6d777ab27a1cad97c156453e38559dbd699c25f5cfff958e87f7e566c2896ecb3c4fac"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/linear_algebra/LA-13.lean",
+        "sha512": "9f0ec7abb9a60cccf67fe870c3b80cae5d868e7daafbd7692350585f980e3cfe71dfd141c41646b3957b95be5a5029ca89db6d27ac5065c4ceecf1b26ad8a57f"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "LA-15",
-      "definition": "test_cases/linear_algebra/LA-15.json",
-      "lean_source": "lean/oracles/linear_algebra/LA-15.lean",
-      "axiom_audit": "lean/audits/linear_algebra/LA-15.lean"
+      "definition": {
+        "path": "test_cases/linear_algebra/LA-15.json",
+        "sha512": "eed3d92616948c37b6d0ff253679555e09ed1a6f140944b2a31ff619a5e41b6e7859d848b15909830c58afad409259ede0b82b87a71b4adedcc9638245953a81"
+      },
+      "lean_source": {
+        "path": "lean/oracles/linear_algebra/LA-15.lean",
+        "sha512": "030802c635156d793389472276d9abeea8019bd6526b94f48d6725511e64213764594e31fdadb25e1110ae23bac0d7a646faa92586c3d2e3dd94064927ef3876"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/linear_algebra/LA-15.lean",
+        "sha512": "bd8eea7e81612dba6b845fee3eaba79f125c299bf4e79cbfce139061e9d387e1f7636b685e23d93a99b6d5821edcf1d0bf32310f1017a357c08589931db2add4"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "LA-29",
-      "definition": "test_cases/linear_algebra/LA-29.json",
-      "lean_source": "lean/oracles/linear_algebra/LA-29.lean",
-      "axiom_audit": "lean/audits/linear_algebra/LA-29.lean"
+      "definition": {
+        "path": "test_cases/linear_algebra/LA-29.json",
+        "sha512": "a65763fb8e39c249ddcb918eec444274c03271c80c9642aa71c630c7eeb35c4ea70589c84ef37ef83bb56bf120aa5cbd8d3ceabe5548114cfd681de84ff2d752"
+      },
+      "lean_source": {
+        "path": "lean/oracles/linear_algebra/LA-29.lean",
+        "sha512": "bdedfa3385d438076a6b3c2c7702bf8e651d548e7cf568f1bfa8cc26b362a2376d7dd1061c284a48f5a1e2e3b2ea7f5b71e3edb7d4e341206bce7c0132edf9dc"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/linear_algebra/LA-29.lean",
+        "sha512": "4435989e673f2dff858ef5b9af0e4a6a98c81a9bbd16d341021a4ba9819b0896458294eeed897430976b0228deca858891d67ea7e30f4275e892fcb5fd03b93e"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "LA-30",
-      "definition": "test_cases/linear_algebra/LA-30.json",
-      "lean_source": "lean/oracles/linear_algebra/LA-30.lean",
-      "axiom_audit": "lean/audits/linear_algebra/LA-30.lean"
+      "definition": {
+        "path": "test_cases/linear_algebra/LA-30.json",
+        "sha512": "3e4bc6d2216c908d509b9e94cf71e8d1fa64503699209498cdd35755efd21c40d47848f8271503c70c6388ccc3dd90ac8aed3006d41bb24a4b8297c0aa9d015a"
+      },
+      "lean_source": {
+        "path": "lean/oracles/linear_algebra/LA-30.lean",
+        "sha512": "ef07750b587d856cd4096e98e9437d4700a0feaaf46a23465343901109a8037b53ab9cb3e4b3fd85dc0ba0b86211478ff6a543a76caf865fed10acec548d9db3"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/linear_algebra/LA-30.lean",
+        "sha512": "1646c7095d6ae4b4b6738eaaffcbdd2e7f8f0027995d1de2df83713b1a149ff0ae8ff10da4342be88611aca837b9f83b4940310f706a5be60a4a923ff2efb113"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "LA-33",
-      "definition": "test_cases/linear_algebra/LA-33.json",
-      "lean_source": "lean/oracles/linear_algebra/LA-33.lean",
-      "axiom_audit": "lean/audits/linear_algebra/LA-33.lean"
+      "definition": {
+        "path": "test_cases/linear_algebra/LA-33.json",
+        "sha512": "b3e1f43167577944dcf78ba7afd3c10a7a2cd38f79e0d7741bfc7a0ad1e041eba621d71b088c21b9dc6924a76ca9d16d8b6865cbc686aaa765c10298e7cbaf21"
+      },
+      "lean_source": {
+        "path": "lean/oracles/linear_algebra/LA-33.lean",
+        "sha512": "482eba8f86e69ad1c7e89c64d5c63ae474edaf87aef98a68f542d807a2598871d87c84ebb7fc854fca17eba0a85327667a7188d5a42d3ed840d61140991c66d1"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/linear_algebra/LA-33.lean",
+        "sha512": "2e7044b51c9db68582563ce87108c24020eb89eece0f091491c3d8d7042bbbebf60be29a6ae7a753ee4a1fc55f20d6c5a6ac8779e42d1e865f19fb35dea776ef"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "LA-42",
-      "definition": "test_cases/linear_algebra/LA-42.json",
-      "lean_source": "lean/oracles/linear_algebra/LA-42.lean",
-      "axiom_audit": "lean/audits/linear_algebra/LA-42.lean"
+      "definition": {
+        "path": "test_cases/linear_algebra/LA-42.json",
+        "sha512": "fdf305a317ea5a98606698b3ce7bf71fd87216382d714cce921c44cc6520cda5d72b118e2d91f7b47fd49e3b3d716308dbd1314f94e98d4a6235c4fc742485d1"
+      },
+      "lean_source": {
+        "path": "lean/oracles/linear_algebra/LA-42.lean",
+        "sha512": "0366a57aebc6dbaf0d7517ecb846785b390c4676b8aeba593bbc5bc57264ff7da779f94e4da33eb7c710ce3ab61e353653bcf9e002cada9a0662a31be16f89c3"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/linear_algebra/LA-42.lean",
+        "sha512": "ed6d68ff6c31aeed43dcab31a9f3eeec36773cfa7fb1d9bf253873c21a7aa7ac1700b91ae7d26e4ac4b23451554f7f66e6a7c8c3b1c75f429397aa12a4191e50"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "LA-45",
-      "definition": "test_cases/linear_algebra/LA-45.json",
-      "lean_source": "lean/oracles/linear_algebra/LA-45.lean",
-      "axiom_audit": "lean/audits/linear_algebra/LA-45.lean"
+      "definition": {
+        "path": "test_cases/linear_algebra/LA-45.json",
+        "sha512": "a7a4704943767bdcf6d2473dba67af92cc01c1b93ef229f691c91b116ac977598399311338ea7b4fda20d649ec1cbdadaf33f5478c776e62b9651c0334daea5b"
+      },
+      "lean_source": {
+        "path": "lean/oracles/linear_algebra/LA-45.lean",
+        "sha512": "e7ea72d8577d0cc1421e56595e5f2a0ec6b8919818cc17a9839be55db8927128ac40b5e8d6c309977a29ec344b9dae6426f585fc1f2f129adda3013f8c29212a"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/linear_algebra/LA-45.lean",
+        "sha512": "72fa585339c2c9c4ffd8433757a7c0072ecefd409f499ecf7a73c2f3ab16bc16a0bff76ce66a535b02b5ceac7fb8c3ba71dffe293c6a6dd7c815f1971b453c07"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "LA-49",
-      "definition": "test_cases/linear_algebra/LA-49.json",
-      "lean_source": "lean/oracles/linear_algebra/LA-49.lean",
-      "axiom_audit": "lean/audits/linear_algebra/LA-49.lean"
+      "definition": {
+        "path": "test_cases/linear_algebra/LA-49.json",
+        "sha512": "223c310176548543650a996f5fe131a6e698794f070db12ca404294bba1669d2222c00ff39c8b86bbc75ba7c376944aebac2de9e4801d1996dfe6494fc3fd295"
+      },
+      "lean_source": {
+        "path": "lean/oracles/linear_algebra/LA-49.lean",
+        "sha512": "ecd4e7356f2e1f1f4c280bbf1015d3a27fc6467d4026528368aa10e808d0fe37b8ba71687f8788f71d01f2cc4f55f14b80e67880aa9466dcf0a997d0f398a376"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/linear_algebra/LA-49.lean",
+        "sha512": "0c3604f28f4650a1ae80a2a8283033cacca93833645fa7fd8ed3289560817871637f98cb90607f603c2f848094fe9c445e4de3b33a4236133aabb628c8735c99"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "LA-59",
-      "definition": "test_cases/linear_algebra/LA-59.json",
-      "lean_source": "lean/oracles/linear_algebra/LA-59.lean",
-      "axiom_audit": "lean/audits/linear_algebra/LA-59.lean"
+      "definition": {
+        "path": "test_cases/linear_algebra/LA-59.json",
+        "sha512": "9ddb703f4d787434b105f7d26735d0231cebbee29160de9d642aec3a7c4808b39dc5c23649b1fe0c44e698971cd3727b73e07e5693f9425285323347bdd2f1dc"
+      },
+      "lean_source": {
+        "path": "lean/oracles/linear_algebra/LA-59.lean",
+        "sha512": "32c2593d07f864f0a63855a48d2e4055b13a40283aa884f5b692d9247758fed2dd5f3e58b2d599cab26fedaf1de2e86d1e3a60a987e0ef75192e9b774d35fc1d"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/linear_algebra/LA-59.lean",
+        "sha512": "4b24ef3d1afa6b82a8c69dfbb56c372419d8dd6b435c29a974983c12d1375f0f8767d3eda232f0617d42aa45847d26be63c646bf4168017427ceba056ebb9c14"
+      },
+      "results": [
+        
+      ]
     },
     {
       "case_id": "LA-60",
-      "definition": "test_cases/linear_algebra/LA-60.json",
-      "lean_source": "lean/oracles/linear_algebra/LA-60.lean",
-      "axiom_audit": "lean/audits/linear_algebra/LA-60.lean"
+      "definition": {
+        "path": "test_cases/linear_algebra/LA-60.json",
+        "sha512": "231a831d9ab453530daa33388a3e75928adaf735f0dd258eb32cf4e48d9245f4316a465b8e4d4a72a845ded86f312aa439ccce56e2cb40a73bb3dca835eae2d8"
+      },
+      "lean_source": {
+        "path": "lean/oracles/linear_algebra/LA-60.lean",
+        "sha512": "5e7b8d65c85243a2157dffe2d6f70c7661c2f29d72f7da2ed917ed4337a8b968f5f167e82be2519558eea2cc09dbd641ac85b1dbacf6fb2e495e199619d91c0a"
+      },
+      "axiom_audit": {
+        "path": "lean/audits/linear_algebra/LA-60.lean",
+        "sha512": "eb2ada6a3d578dcd39849c2706071144a17514a2de0136e0dd0dbfe13107107cf791c2f601dee7dd8dde224d59dbbc770df2b3c51998d7df164b43cf485bec7d"
+      },
+      "results": [
+        
+      ]
     }
   ]
 }
