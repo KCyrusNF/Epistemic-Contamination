@@ -13,6 +13,8 @@ Checks structure, not mathematical correctness, citations, proof validity,
 or external manifest consistency. Unknown fields are rejected so spelling
 mistakes cannot silently pass. Update the rules for schema changes.
 Requires the canonical system instruction and exact underdetermined answer text.
+Checks plain/latex/mixed prompt labels using paired $$ math delimiters.
+Markdown is not interpreted; mathematical LaTeX syntax is not verified.
 The sample template's placeholder case ID is not a valid production case ID.
 """
 
@@ -159,6 +161,87 @@ def check_system_instruction(actual, expected, path, errors):
             errors.append(f"{child}: must exactly match the canonical system instruction; expected {expected_value!r}")
 
 
+def check_prompt_format(prompt, path, errors):
+    """Check plain/latex/mixed labels and paired $$ delimiters.
+
+    No Markdown interpretation or LaTeX syntax validation is performed.
+    Only the canonical system instruction is exempted by the caller.
+    """
+    text = prompt["content_raw"]
+    declared = prompt["content_format"]
+
+    if declared not in {"plain", "latex", "mixed"}:
+        return  # The caller reports unsupported labels.
+
+    outside = []
+    position = 0
+    opening = None
+    math_count = 0
+    malformed = False
+
+    while position < len(text):
+        char = text[position]
+
+        if char == "\\":
+            # Escaped characters, including dollars, are literal. Alternative
+            # math delimiters are rejected under the project's $$ convention.
+            if position + 1 < len(text) and text[position + 1] in "()[]":
+                errors.append(f"{path}.content_raw: use $$...$$ instead of backslash math delimiters")
+                malformed = True
+
+            if opening is None:
+                outside.append(text[position:position + 2])
+
+            position += 2
+            continue
+
+        if char == "$":
+            end = position
+            while end < len(text) and text[end] == "$":
+                end += 1
+
+            if end - position != 2:
+                errors.append(f"{path}.content_raw: expected paired $$ delimiters at character {position + 1}; escape literal dollars")
+                malformed = True
+            elif opening is None:
+                opening = end
+            else:
+                if not text[opening:position].strip():
+                    errors.append(f"{path}.content_raw: empty LaTeX block")
+                    malformed = True
+
+                math_count += 1
+                opening = None
+
+            position = end
+            continue
+
+        if opening is None:
+            outside.append(char)
+
+        position += 1
+
+    if opening is not None:
+        errors.append(f"{path}.content_raw: unmatched opening $$ delimiter")
+        malformed = True
+
+    if malformed:
+        return  # Avoid guessing a format from malformed delimiters.
+
+    surrounding = "".join(outside)
+
+    if math_count:
+        expected = "mixed" if surrounding.strip() else "latex"
+    else:
+        expected = "plain"
+        
+    if declared != expected:
+        errors.append(
+            f"{path}.content_format: detected {expected!r}, got {declared!r}; "
+            "review the label and prompt formatting"
+        )
+
+
 def validate_case(data):
     """Return structural errors for parsed data; never read files, print, or exit."""
     errors = []
@@ -212,10 +295,12 @@ def validate_case(data):
                 if turn[key] != expected:
                     errors.append(f"{location}.{key}: expected {expected!r}")
 
-        if turn["prompt"]["content_format"] not in {"plain", "markdown", "latex", "mixed"}:
-            errors.append(f"{location}.prompt.content_format: expected plain, markdown, latex, or mixed")
+        if turn["prompt"]["content_format"] not in {"plain", "latex", "mixed"}:
+            errors.append(f"{location}.prompt.content_format: expected plain, latex, or mixed")
 
         if index > 0:
+            # Turn 0 is already checked exactly; its $$...$$ is an example.
+            check_prompt_format(turn["prompt"], f"{location}.prompt", errors)
             answer = turn["expected_answer"]
             kind, value = answer["answer_type"], answer["value"]
 

@@ -7,7 +7,7 @@ This directory contains small helper scripts that support project work outside t
 | Script | Purpose |
 | --- | --- |
 | `check_json_syntax.py` | Checks whether a file contains valid JSON syntax. |
-| `validate_case_definition.py` | Checks a test case definition against the benchmark's required structure and conversation protocol. |
+| `validate_case_definition.py` | Checks test case structure, conversation protocol, canonical system instructions, expected-answer conventions, and prompt format labels. |
 | `validate-all-test-cases.ps1` | Runs the case-definition validator sequentially for every JSON file under `test_cases/`, including nested folders, and summarizes failures. |
 
 ## Validation utilities
@@ -49,13 +49,49 @@ The validator checks:
 - UTC creation timestamp format and date validity.
 - A system instruction at turn 0 with no expected answer, followed by exactly 16 ordered, consecutively numbered conversation turns.
 - The prescribed phase and turn type for each position in the conversation.
-- Supported prompt formats and expected-answer types.
-- Classification as `undetermined` when the answer is “cannot be determined,” ignoring capitalization, surrounding whitespace, and trailing periods. Exact wording for answers classified as `undetermined` is not currently enforced.
+- Exact agreement of the complete system-instruction block with `EXPECTED_SYSTEM_INSTRUCTION` in the validator.
+- Supported expected-answer types: `exact_value`, `semantic_statement`, and `undetermined`.
+- The exact value `Cannot be determined.` for every expected answer classified as `undetermined`.
+- Classification as `undetermined` when the answer matches “cannot be determined” after trimming surrounding whitespace, converting to lowercase, and removing trailing periods.
+- Prompt format labels restricted to `plain`, `latex`, and `mixed`, with content-based checks for turns 1–16.
+- Paired, nonempty `$$...$$` mathematical blocks; unsupported mathematical delimiters are rejected.
 - Reference structure and duplicate reference IDs within each turn.
 
 The validation rules are defined within the utility. Changes to the test case format or conversation protocol require corresponding changes to those rules. Templates containing placeholder case IDs are not valid production case definitions.
 
 The validator calls the shared JSON loader once, with duplicate-key rejection enabled, then checks the parsed case structure. Running the syntax checker separately beforehand is unnecessary.
+
+#### Canonical system instruction
+
+Every case must match the complete reference block stored in `EXPECTED_SYSTEM_INSTRUCTION`, including the purpose, full prompt text, `content_format: "plain"`, and `null` values for `expected_answer` and `references`. Errors identify the differing field.
+
+The comparison uses parsed JSON values. Object-key order, indentation, and equivalent JSON escape representations do not matter; capitalization, punctuation, and whitespace within strings must match exactly. Changes to the shared instruction require updating both the reference constant and the case definitions.
+
+#### Underdetermined expected answers
+
+An expected answer with `answer_type: "undetermined"` must have exactly `"Cannot be determined."` as its value. Different capitalization, missing punctuation, extra whitespace, or an appended explanation fails validation.
+
+The stored expected value contains the direct answer only. The canonical system instruction separately asks the model to begin its response with that text and add one short explanatory sentence. The validator checks the expected-answer convention; it does not establish mathematical underdetermination or validate actual model responses.
+
+#### Prompt format checks
+
+For turns 1–16, the validator scans `content_raw` and compares the detected format with `content_format`:
+
+| Label | Required content | Example |
+| --- | --- | --- |
+| `plain` | No mathematical blocks. | `Is the operation associative?` |
+| `latex` | One or more `$$...$$` blocks, with only whitespace outside them. | `$$2 + 3$$` |
+| `mixed` | Mathematical blocks combined with other text or punctuation. | `Calculate $$2 + 3$$.` |
+
+Punctuation outside a mathematical block counts as surrounding content: `$$2 + 3$$.` is classified as `mixed`. Whitespace between mathematical blocks does not change a `latex` classification.
+
+The scanner rejects unmatched delimiters, empty or whitespace-only blocks, and runs of dollar signs other than exactly `$$`. It also rejects `\(...\)` and `\[...\]` mathematical delimiters. Literal dollar signs must be escaped in the prompt text as `\$` (represented as `"\\$"` in JSON). Delimiter errors are reported before attempting format classification.
+
+The canonical system instruction is exempt from this scan because its `$$...$$` is an instructional example; its required `plain` label is enforced by the exact block comparison.
+
+These delimiter and format-label checks apply to question prompts, not to expected-answer values or actual model responses.
+
+Markdown is not a supported format label. The validator does not interpret Markdown, mask code blocks, or detect and prohibit Markdown syntax. It also does not validate LaTeX commands or detect mathematical content missing its delimiters: `Calculate 2 + 3.` is classified as `plain`.
 
 ### Validate all test case definitions
 
@@ -83,6 +119,8 @@ If execution policy blocks the script, run it in a separate PowerShell process w
 powershell.exe -NoProfile -ExecutionPolicy Bypass -File .\scripts\validate-all-test-cases.ps1 -Python py -PythonArguments '-3'
 ```
 
+Every run validates all discovered definitions again using the current Python rules, including checks for the canonical system instruction, underdetermined expected-answer values, and prompt formats. It does not skip unchanged files or enforce a fixed case count.
+
 The script does not modify test case definitions, create report files, or invoke Lean.
 
 ### Reuse from other scripts
@@ -94,7 +132,7 @@ The script does not modify test case definitions, create report files, or invoke
 | `load_json(path, *, reject_duplicate_keys=False)` | Reads a UTF-8 file with an optional BOM and returns parsed data. |
 | `parse_json(text, *, reject_duplicate_keys=False)` | Parses an already-decoded JSON string. |
 | `JsonValidationError` | Raised for invalid syntax, nonstandard constants, or duplicate keys when rejection is enabled. |
-| `validate_case(data)` in `validate_case_definition.py` | Returns a list of structural errors for parsed data; an empty list means those checks passed. |
+| `validate_case(data)` in `validate_case_definition.py` | Returns a list of structure, protocol, instruction, answer-convention, and prompt-format errors for parsed data; an empty list means those checks passed. |
 
 For another script in this directory:
 
@@ -128,7 +166,7 @@ For `validate-all-test-cases.ps1`, exit codes summarize the entire run:
 | Exit code | Meaning |
 | --- | --- |
 | `0` | All discovered test case definitions passed. |
-| `1` | At least one definition failed syntax or structural validation, with no execution or read errors. |
+| `1` | At least one definition failed validation, with no execution or read errors. |
 | `2` | A setup, execution, or read error occurred. This takes precedence over validation failures. |
 
 In PowerShell, inspect the exit code immediately after running a command:
@@ -147,7 +185,7 @@ Get-Help .\scripts\validate-all-test-cases.ps1 -Full
 
 ### Scope and limitations
 
-The three validation utilities listed above perform syntax and structural checks only. They do not run Lean, inspect proofs or axiom dependencies, verify mathematical answers, or establish that prompts faithfully represent their intended formal systems.
+The three validation utilities listed above check syntax, structure, the canonical system instruction, expected-answer types and required underdetermined values, and prompt formatting. They do not run Lean, inspect proofs or axiom dependencies, verify mathematical answers, or establish that prompts faithfully represent their intended formal systems.
 
 The case-definition validator does not compare test case entries with the repository manifests or verify citation accuracy. Those require separate checks.
 
