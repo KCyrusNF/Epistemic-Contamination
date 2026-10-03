@@ -33,7 +33,8 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "$$4$$"
+        "content_raw": "$$4$$",
+        "content_format": "latex"
       },
       "references": [
         {
@@ -58,7 +59,8 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "$$4$$"
+        "content_raw": "$$4$$",
+        "content_format": "latex"
       },
       "references": [
         {
@@ -83,7 +85,8 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "$$5$$"
+        "content_raw": "$$5$$",
+        "content_format": "latex"
       },
       "references": null
     },
@@ -98,7 +101,8 @@
       },
       "expected_answer": {
         "answer_type": "semantic_statement",
-        "value": "No."
+        "content_raw": "No.",
+        "content_format": "plain"
       },
       "references": null
     },
@@ -113,7 +117,8 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "$$14$$"
+        "content_raw": "$$14$$",
+        "content_format": "latex"
       },
       "references": null
     },
@@ -128,7 +133,8 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "$$0$$"
+        "content_raw": "$$0$$",
+        "content_format": "latex"
       },
       "references": null
     },
@@ -143,7 +149,8 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "$$2$$"
+        "content_raw": "$$2$$",
+        "content_format": "latex"
       },
       "references": null
     },
@@ -158,7 +165,8 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "$$6$$"
+        "content_raw": "$$6$$",
+        "content_format": "latex"
       },
       "references": null
     },
@@ -173,7 +181,8 @@
       },
       "expected_answer": {
         "answer_type": "undetermined",
-        "value": "Cannot be determined."
+        "content_raw": "Cannot be determined.",
+        "content_format": "plain"
       },
       "references": null
     },
@@ -188,7 +197,8 @@
       },
       "expected_answer": {
         "answer_type": "undetermined",
-        "value": "Cannot be determined."
+        "content_raw": "Cannot be determined.",
+        "content_format": "plain"
       },
       "references": null
     },
@@ -199,11 +209,12 @@
       "purpose": "Verify recognition of higher-level consequences of the modified foundational rule.",
       "prompt": {
         "content_raw": "In this modified system, does each application of the successor function increase a number by $$1$$ or by $$2$$?",
-        "content_format": "plain"
+        "content_format": "mixed"
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "$$2$$"
+        "content_raw": "$$2$$",
+        "content_format": "latex"
       },
       "references": null
     },
@@ -218,7 +229,8 @@
       },
       "expected_answer": {
         "answer_type": "semantic_statement",
-        "value": "Only in the modified system."
+        "content_raw": "Only in the modified system.",
+        "content_format": "plain"
       },
       "references": null
     },
@@ -233,7 +245,8 @@
       },
       "expected_answer": {
         "answer_type": "semantic_statement",
-        "value": "$$5$$ in ordinary arithmetic and $$6$$ in the modified system."
+        "content_raw": "$$5$$ in ordinary arithmetic and $$6$$ in the modified system.",
+        "content_format": "mixed"
       },
       "references": null
     },
@@ -248,7 +261,8 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "$$5$$"
+        "content_raw": "$$5$$",
+        "content_format": "latex"
       },
       "references": null
     },
@@ -263,7 +277,8 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "$$4$$"
+        "content_raw": "$$4$$",
+        "content_format": "latex"
       },
       "references": null
     },
@@ -278,7 +293,8 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "$$6$$"
+        "content_raw": "$$6$$",
+        "content_format": "latex"
       },
       "references": null
     }

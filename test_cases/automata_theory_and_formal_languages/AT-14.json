@@ -36,7 +36,8 @@
       },
       "expected_answer": {
         "answer_type": "semantic_statement",
-        "value": "Yes."
+        "content_raw": "Yes.",
+        "content_format": "plain"
       },
       "references": null
     },
@@ -51,7 +52,8 @@
       },
       "expected_answer": {
         "answer_type": "semantic_statement",
-        "value": "Yes."
+        "content_raw": "Yes.",
+        "content_format": "plain"
       },
       "references": null
     },
@@ -66,7 +68,8 @@
       },
       "expected_answer": {
         "answer_type": "semantic_statement",
-        "value": "No."
+        "content_raw": "No.",
+        "content_format": "plain"
       },
       "references": null
     },
@@ -81,7 +84,8 @@
       },
       "expected_answer": {
         "answer_type": "semantic_statement",
-        "value": "No."
+        "content_raw": "No.",
+        "content_format": "plain"
       },
       "references": null
     },
@@ -96,7 +100,8 @@
       },
       "expected_answer": {
         "answer_type": "semantic_statement",
-        "value": "Yes."
+        "content_raw": "Yes.",
+        "content_format": "plain"
       },
       "references": null
     },
@@ -111,7 +116,8 @@
       },
       "expected_answer": {
         "answer_type": "semantic_statement",
-        "value": "No."
+        "content_raw": "No.",
+        "content_format": "plain"
       },
       "references": null
     },
@@ -126,7 +132,8 @@
       },
       "expected_answer": {
         "answer_type": "semantic_statement",
-        "value": "No."
+        "content_raw": "No.",
+        "content_format": "plain"
       },
       "references": null
     },
@@ -141,7 +148,8 @@
       },
       "expected_answer": {
         "answer_type": "semantic_statement",
-        "value": "No."
+        "content_raw": "No.",
+        "content_format": "plain"
       },
       "references": null
     },
@@ -156,7 +164,8 @@
       },
       "expected_answer": {
         "answer_type": "undetermined",
-        "value": "Cannot be determined."
+        "content_raw": "Cannot be determined.",
+        "content_format": "plain"
       },
       "references": null
     },
@@ -171,7 +180,8 @@
       },
       "expected_answer": {
         "answer_type": "undetermined",
-        "value": "Cannot be determined."
+        "content_raw": "Cannot be determined.",
+        "content_format": "plain"
       },
       "references": null
     },
@@ -186,7 +196,8 @@
       },
       "expected_answer": {
         "answer_type": "semantic_statement",
-        "value": "No."
+        "content_raw": "No.",
+        "content_format": "plain"
       },
       "references": null
     },
@@ -201,7 +212,8 @@
       },
       "expected_answer": {
         "answer_type": "semantic_statement",
-        "value": "Only in the standard system."
+        "content_raw": "Only in the standard system.",
+        "content_format": "plain"
       },
       "references": null
     },
@@ -216,7 +228,8 @@
       },
       "expected_answer": {
         "answer_type": "semantic_statement",
-        "value": "Yes in the standard system and no in the modified system."
+        "content_raw": "Yes in the standard system and no in the modified system.",
+        "content_format": "plain"
       },
       "references": null
     },
@@ -231,7 +244,8 @@
       },
       "expected_answer": {
         "answer_type": "semantic_statement",
-        "value": "Yes."
+        "content_raw": "Yes.",
+        "content_format": "plain"
       },
       "references": null
     },
@@ -246,7 +260,8 @@
       },
       "expected_answer": {
         "answer_type": "semantic_statement",
-        "value": "Yes."
+        "content_raw": "Yes.",
+        "content_format": "plain"
       },
       "references": null
     },
@@ -261,7 +276,8 @@
       },
       "expected_answer": {
         "answer_type": "semantic_statement",
-        "value": "No."
+        "content_raw": "No.",
+        "content_format": "plain"
       },
       "references": null
     }
