@@ -113,7 +113,7 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "content_raw": "$${}$$",
+        "content_raw": "$$\\{\\}$$",
         "content_format": "latex"
       },
       "references": null
@@ -129,7 +129,7 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "content_raw": "$${A\\land B}$$",
+        "content_raw": "$$\\{A\\land B\\}$$",
         "content_format": "latex"
       },
       "references": null
@@ -145,7 +145,7 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "content_raw": "$${A}$$",
+        "content_raw": "$$\\{A\\}$$",
         "content_format": "latex"
       },
       "references": null
@@ -273,7 +273,7 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "content_raw": "$${A}$$",
+        "content_raw": "$$\\{A\\}$$",
         "content_format": "latex"
       },
       "references": null
