@@ -24,11 +24,10 @@ from datetime import datetime, timedelta
 from pathlib import Path
 import re
 import sys
+from typing import Any, Optional
 
-if __package__:
-    from .check_json_syntax import JsonValidationError, load_json
-else:
-    from check_json_syntax import JsonValidationError, load_json
+from check_json_syntax import JsonValidationError, load_json
+
 
 DOMAINS = {
     "AA": "abstract_algebra",
@@ -61,7 +60,7 @@ PROTOCOL = [
 
 # Canonical values are compared after JSON parsing; key order and indentation
 # do not matter, but string contents (including whitespace) must match exactly.
-EXPECTED_SYSTEM_INSTRUCTION = {
+EXPECTED_SYSTEM_INSTRUCTION: dict[str, Any] = {
     "turn_id": 0,
     "phase": "system_initialization",
     "turn_type": "system_instruction",
@@ -77,11 +76,13 @@ EXPECTED_SYSTEM_INSTRUCTION = {
 
 # Compact, explicit schema. Tuples represent arrays; None permits JSON null.
 TEXT = "nonempty string"
+
 PROMPT = {
     "content_raw": TEXT,
     "content_format": TEXT
 }
-REFERENCE = {
+
+REFERENCE: dict[str, Any] = {
     "reference_id": TEXT,
     "citation": TEXT,
     "identifier": {
@@ -90,7 +91,8 @@ REFERENCE = {
     },
     "locator": "nullable string",
 }
-TURN = {
+
+TURN: dict[str, Any] = {
     "turn_id": "integer",
     "phase": TEXT,
     "turn_type": TEXT,
@@ -103,7 +105,8 @@ TURN = {
     },
     "references": (REFERENCE, "nullable"),
 }
-SCHEMA = {
+
+SCHEMA: dict[str, Any] = {
     "case_metadata": {
         "case_id": TEXT,
         "case_title": TEXT,
@@ -112,58 +115,83 @@ SCHEMA = {
         "reviewed_by": (TEXT,),
         "creation_timestamp_utc": TEXT,
     },
-    "system_instruction": dict(TURN, expected_answer=None),
+    "system_instruction": {**TURN, "expected_answer": None},
     "conversation_framework": (TURN,),
 }
 
 
-def check_shape(value, schema, path, errors):
+def check_shape(
+    value: Any,
+    schema: Any,
+    path: str,
+    errors: list[str],
+) -> None:
     """Validate types and required/unknown keys with precise JSON paths."""
     if isinstance(schema, dict):
         if not isinstance(value, dict):
             errors.append(f"{path}: expected an object")
             return
+
         for key in schema:
             child = f"{path}.{key}"
+
             if key not in value:
                 errors.append(f"{child}: missing required field")
             else:
                 check_shape(value[key], schema[key], child, errors)
+
         for key in value.keys() - schema.keys():
             errors.append(f"{path}.{key}: unknown field")
+
     elif isinstance(schema, tuple):
         if value is None and len(schema) == 2:
             return
+
         if not isinstance(value, list):
             errors.append(f"{path}: expected an array" +
                           (" or null" if len(schema) == 2 else ""))
             return
+
         for index, item in enumerate(value):
             check_shape(item, schema[0], f"{path}[{index}]", errors)
+
     elif schema is None:
         if value is not None:
             errors.append(f"{path}: expected null (turn 0 has no oracle answer)")
+
     elif schema == "integer":
         if type(value) is not int:
             errors.append(f"{path}: expected an integer, not a boolean or decimal")
+
     elif schema == "nullable string":
         if value is not None and not isinstance(value, str):
             errors.append(f"{path}: expected a string or null")
+
     elif not isinstance(value, str) or not value.strip():
         errors.append(f"{path}: expected a nonempty string")
 
 
-def check_system_instruction(actual, expected, path, errors):
+def check_system_instruction(
+    actual: dict[str, Any],
+    expected: dict[str, Any],
+    path: str,
+    errors: list[str],
+) -> None:
     """Compare a shape-validated system instruction with the canonical block."""
     for key, expected_value in expected.items():
         child = f"{path}.{key}"
+
         if isinstance(expected_value, dict):
             check_system_instruction(actual[key], expected_value, child, errors)
         elif actual[key] != expected_value:
             errors.append(f"{child}: must exactly match the canonical system instruction; expected {expected_value!r}")
 
 
-def check_content_format(content, path, errors):
+def check_content_format(
+    content: dict[str, Any],
+    path: str,
+    errors: list[str],
+) -> None:
     """Check prompt or expected-answer format labels and paired $$ delimiters.
 
     No Markdown interpretation or LaTeX syntax validation is performed.
@@ -176,9 +204,9 @@ def check_content_format(content, path, errors):
         errors.append(f"{path}.content_format: expected plain, latex, or mixed")
         return
 
-    outside = []
+    outside: list[str] = []
     position = 0
-    opening = None
+    opening: Optional[int] = None
     math_count = 0
     malformed = False
 
@@ -200,6 +228,7 @@ def check_content_format(content, path, errors):
 
         if char == "$":
             end = position
+
             while end < len(text) and text[end] == "$":
                 end += 1
 
@@ -237,7 +266,7 @@ def check_content_format(content, path, errors):
         expected = "mixed" if surrounding.strip() else "latex"
     else:
         expected = "plain"
-        
+
     if declared != expected:
         errors.append(
             f"{path}.content_format: detected {expected!r}, got {declared!r}; "
@@ -245,9 +274,9 @@ def check_content_format(content, path, errors):
         )
 
 
-def validate_case(data):
+def validate_case(data: Any) -> list[str]:
     """Return structural errors for parsed data; never read files, print, or exit."""
-    errors = []
+    errors: list[str] = []
     check_shape(data, SCHEMA, "$", errors)
 
     if errors:
@@ -264,6 +293,7 @@ def validate_case(data):
         errors.append("$.case_metadata.domain: unsupported benchmark domain")
 
     case_id = meta["case_id"]
+
     if not re.fullmatch(r"(?:AA|AT|BA|CT|FL|LA)-[0-9]{2}", case_id):
         errors.append("$.case_metadata.case_id: expected a case ID such as BA-49")
     elif meta["domain"] != DOMAINS[case_id[:2]]:
@@ -271,14 +301,18 @@ def validate_case(data):
 
     if not meta["created_by"]:
         errors.append("$.case_metadata.created_by: supply at least one author")
-    
+
     stamp = meta["creation_timestamp_utc"]
+
     try:
         if not re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|\+00:00)", stamp):
             raise ValueError
+
         parsed = datetime.fromisoformat(stamp.replace("Z", "+00:00"))
+
         if parsed.utcoffset() != timedelta(0):
             raise ValueError
+
     except ValueError:
         errors.append("$.case_metadata.creation_timestamp_utc: expected a valid UTC timestamp, e.g. 2026-09-18T12:00:00Z")
 
@@ -286,7 +320,7 @@ def validate_case(data):
 
     if len(turns) != 16:
         errors.append("$.conversation_framework: expected exactly 16 turns")
-    
+
     for index, turn in enumerate([data["system_instruction"]] + turns):
         location = "$.system_instruction" if index == 0 else f"$.conversation_framework[{index - 1}]"
 
@@ -301,8 +335,10 @@ def validate_case(data):
         if index > 0:
             # Turn 0 is already checked exactly; its $$...$$ is an example.
             check_content_format(turn["prompt"], f"{location}.prompt", errors)
+
             answer = turn["expected_answer"]
             check_content_format(answer, f"{location}.expected_answer", errors)
+
             kind, value = answer["answer_type"], answer["content_raw"]
 
             if kind not in {"exact_value", "semantic_statement", "undetermined"}:
@@ -319,37 +355,45 @@ def validate_case(data):
                 )
 
         refs = turn["references"]
+
         if refs is not None:
             ids = [ref["reference_id"] for ref in refs]
+
             if len(ids) != len(set(ids)):
                 errors.append(f"{location}.references: duplicate reference IDs within this turn")
-    
+
     return errors
 
 
-def main(argv=None):
+def main(argv: Optional[list[str]] = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("file", type=Path, help="one test case JSON file")
+
     args = parser.parse_args(argv)
 
     try:
         data = load_json(args.file, reject_duplicate_keys=True)
         errors = validate_case(data)
+
     except (OSError, UnicodeError) as exc:
         print(f"READ ERROR: {exc}", file=sys.stderr)
         return 2
+
     except JsonValidationError as exc:
         errors = [str(exc)]
+
     except RecursionError:
         print("ERROR: JSON nesting exceeds this interpreter's processing limit", file=sys.stderr)
         return 2
-    
+
     if errors:
         print(f"INVALID: {args.file}", file=sys.stderr)
+
         for error in errors:
             print(f"  - {error}", file=sys.stderr)
+
         return 1
-    
+
     print(f"VALID STRUCTURE: {args.file} (16 turns + system instruction)")
     print("Mathematical correctness and external manifest consistency were not verified.")
 
