@@ -6,7 +6,9 @@
     "created_by": [
       "Koorosh Nobakhtfar"
     ],
-    "reviewed_by": [],
+    "reviewed_by": [
+      "Koorosh Nobakhtfar"
+    ],
     "creation_timestamp_utc": "2026-09-08T07:31:00Z"
   },
   "system_instruction": {
@@ -76,7 +78,7 @@
       "turn_type": "standard_rule_rejection_test",
       "purpose": "Verify rejection of the superseded standard rule within the modified system.",
       "prompt": {
-        "content_raw": "In the modified system, does the standard two-repetition membership of $$(ab)^2$$ hold?",
+        "content_raw": "In the modified system, does the standard two-repetition membership of $$(ab)^2\\in L^*$$ hold?",
         "content_format": "mixed"
       },
       "expected_answer": {

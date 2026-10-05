@@ -6,7 +6,9 @@
     "created_by": [
       "Koorosh Nobakhtfar"
     ],
-    "reviewed_by": [],
+    "reviewed_by": [
+      "Koorosh Nobakhtfar"
+    ],
     "creation_timestamp_utc": "2026-09-08T07:31:00Z"
   },
   "system_instruction": {
@@ -44,7 +46,7 @@
       "turn_type": "standard_derived_rule_baseline",
       "purpose": "Verify competence with the corresponding standard derived rule before modification.",
       "prompt": {
-        "content_raw": "In the standard concatenation construction, let $$R(P,w)$$ be the states reachable in the second automaton by taking a bridge from some first-automaton accepting state in $$P$$ and reading $$w$$. Its start is $$s_2$$, with $$s_2\\xrightarrow{a}t\\xrightarrow{b}u$$. For an accepting state $$f_2$$, does $$u\\in R(\\{f_2\\},ab)$$ hold?",
+        "content_raw": "In the standard concatenation construction, let $$R(P,w)$$ be the states reachable in the second automaton by taking a bridge from some first-automaton accepting state in $$P$$ and reading $$w$$. The second automaton's start is $$s_2$$, with $$s_2\\xrightarrow{a}t\\xrightarrow{b}u$$. For an accepting state $$f_2\\in P$$, does $$u\\in R(\\{f_2\\},ab)$$ hold?",
         "content_format": "mixed"
       },
       "expected_answer": {
