@@ -1,7 +1,7 @@
 """Core data models — one class per block of the two SRS schemas.
 
 * Test case  (SRS 3.1) -> ``templates/test_case_template.json``
-* Run log    (SRS 3.2) -> ``results/{Model}-run-{N}/{domain}/{Case}-{Model}-R{N}.json``
+* Run log    (SRS 3.2) -> ``results/{domain}/{Case}/{Case}-{Model}-Run-{N}.json``
 
 The models are written for **round-trip fidelity**: ``from_dict`` followed by
 ``to_dict`` reproduces the document exactly, keys emitted in schema order and
@@ -14,9 +14,10 @@ Two consequences of the specification are visible throughout this module:
   string normalizers from the framework, so ``evaluation.is_correct``,
   ``failure_mode`` and ``comments`` are written as ``null`` and reserved for
   post-hoc human audit. ``evaluation_summary`` counts are likewise ``null``.
-* **The oracle is static.** ``formal_artifacts.oracle_theorems`` maps 1:1 onto
-  turns 1–16, and each logged turn carries its ``oracle_theorem_ref``
-  (REQ-RUN-003). No Lean binary is invoked at run time.
+* **The oracle is static.** No Lean binary is invoked at run time. Test cases no
+  longer carry a ``formal_artifacts`` block — the Lean file and the sixteen
+  oracle theorem names now live in ``manifests/oracle_manifest.json`` — so
+  ``oracle_theorem_ref`` is only filled for cases that still supply one.
 """
 
 from __future__ import annotations
@@ -51,7 +52,8 @@ DOMAINS = (
     "linear_algebra",
 )
 
-CONTENT_FORMATS = ("plain", "mixed")
+#: ``plain`` = no math, ``latex`` = entirely math, ``mixed`` = math plus prose.
+CONTENT_FORMATS = ("plain", "latex", "mixed")
 ROLE_USER = "user"
 ROLE_ASSISTANT = "assistant"
 
@@ -156,12 +158,14 @@ class CaseMetadata:
     creation_timestamp_utc: str | None = None
 
     @classmethod
-    def from_dict(cls, data: Mapping[str, Any], source: str) -> CaseMetadata:
+    def from_dict(
+        cls, data: Mapping[str, Any], source: str, *, strict_case_id: bool = True
+    ) -> CaseMetadata:
         where = f"{source}.case_metadata"
         data = _mapping(data, where)
 
         case_id = _req_str(data, "case_id", where)
-        if not CASE_ID_PATTERN.match(case_id):
+        if strict_case_id and not CASE_ID_PATTERN.match(case_id):
             raise SchemaError(
                 f"'case_id' must match {CASE_ID_PATTERN.pattern} (got '{case_id}')",
                 source=where,
@@ -194,7 +198,12 @@ class CaseMetadata:
 
 @dataclass(frozen=True)
 class FormalArtifacts:
-    """``formal_artifacts``: the Lean 4 file and its sixteen oracle theorems."""
+    """``formal_artifacts``: the Lean 4 file and its sixteen oracle theorems.
+
+    Current test cases no longer carry this block; the Lean file and oracle
+    theorem names moved out to ``manifests/oracle_manifest.json``. It is still
+    parsed when present so older case files keep loading.
+    """
 
     lean_file: str | None = None
     oracle_theorems: list[str] = field(default_factory=list)
@@ -250,7 +259,7 @@ class Prompt:
 
     @property
     def contains_latex(self) -> bool:
-        return self.content_format == "mixed"
+        return self.content_format in ("latex", "mixed")
 
 
 @dataclass(frozen=True)
@@ -262,7 +271,8 @@ class ExpectedAnswer:
     """
 
     answer_type: str
-    value: str | None = None
+    content_raw: str | None = None
+    content_format: str = "plain"
 
     @classmethod
     def from_dict(cls, data: Mapping[str, Any] | None, source: str) -> ExpectedAnswer | None:
@@ -276,10 +286,30 @@ class ExpectedAnswer:
                 f"'answer_type' must be one of {ANSWER_TYPES} (got '{answer_type}')",
                 source=where,
             )
-        return cls(answer_type=answer_type, value=_opt_str(data, "value"))
+        content_format = _opt_str(data, "content_format") or "plain"
+        if content_format not in CONTENT_FORMATS:
+            raise SchemaError(
+                f"'content_format' must be one of {CONTENT_FORMATS}, got '{content_format}'",
+                source=where,
+            )
+        return cls(
+            answer_type=answer_type,
+            # ``value`` is the older spelling of the same field.
+            content_raw=_opt_str(data, "content_raw") or _opt_str(data, "value"),
+            content_format=content_format,
+        )
 
     def to_dict(self) -> dict[str, Any]:
-        return {"answer_type": self.answer_type, "value": self.value}
+        return {
+            "answer_type": self.answer_type,
+            "content_raw": self.content_raw,
+            "content_format": self.content_format,
+        }
+
+    @property
+    def value(self) -> str | None:
+        """The ground-truth text, whichever spelling the file used."""
+        return self.content_raw
 
     @property
     def is_undetermined(self) -> bool:
@@ -405,7 +435,7 @@ class TestCase:
     """A complete test case document."""
 
     case_metadata: CaseMetadata
-    formal_artifacts: FormalArtifacts = field(default_factory=FormalArtifacts)
+    formal_artifacts: FormalArtifacts | None = None
     system_instruction: Turn | None = None
     conversation_framework: list[Turn] = field(default_factory=list)
     source_path: str | None = None
@@ -413,7 +443,13 @@ class TestCase:
 
     # -- parsing ------------------------------------------------------------ #
     @classmethod
-    def from_dict(cls, data: Mapping[str, Any], source: str = "<test case>") -> TestCase:
+    def from_dict(
+        cls,
+        data: Mapping[str, Any],
+        source: str = "<test case>",
+        *,
+        strict_case_id: bool = True,
+    ) -> TestCase:
         data = _mapping(data, source)
 
         framework_raw = data.get("conversation_framework")
@@ -432,8 +468,12 @@ class TestCase:
                 source=source,
             )
 
-        artifacts = FormalArtifacts.from_dict(data.get("formal_artifacts"), source)
-        if len(artifacts.oracle_theorems) != TURNS_PER_CASE:
+        artifacts = (
+            FormalArtifacts.from_dict(data.get("formal_artifacts"), source)
+            if data.get("formal_artifacts") is not None
+            else None
+        )
+        if artifacts is not None and len(artifacts.oracle_theorems) != TURNS_PER_CASE:
             raise SchemaError(
                 f"'formal_artifacts.oracle_theorems' must hold exactly {TURNS_PER_CASE} "
                 f"identifiers, one per turn (got {len(artifacts.oracle_theorems)})",
@@ -448,7 +488,9 @@ class TestCase:
         )
 
         return cls(
-            case_metadata=CaseMetadata.from_dict(data.get("case_metadata") or {}, source),
+            case_metadata=CaseMetadata.from_dict(
+                data.get("case_metadata") or {}, source, strict_case_id=strict_case_id
+            ),
             formal_artifacts=artifacts,
             system_instruction=system_instruction,
             conversation_framework=turns,
@@ -456,25 +498,27 @@ class TestCase:
         )
 
     @classmethod
-    def from_file(cls, path: str | Path) -> TestCase:
+    def from_file(cls, path: str | Path, *, strict_case_id: bool = True) -> TestCase:
         file_path = Path(path)
         try:
             raw = json.loads(file_path.read_text(encoding="utf-8"))
         except json.JSONDecodeError as exc:
             raise SchemaError(f"invalid JSON ({exc})", source=str(file_path)) from exc
-        case = cls.from_dict(raw, source=str(file_path))
+        case = cls.from_dict(raw, source=str(file_path), strict_case_id=strict_case_id)
         return replace(case, source_path=paths.as_project_relative(file_path))
 
     # -- emitting ----------------------------------------------------------- #
     def to_dict(self) -> dict[str, Any]:
-        return {
-            "case_metadata": self.case_metadata.to_dict(),
-            "formal_artifacts": self.formal_artifacts.to_dict(),
-            "system_instruction": (
-                self.system_instruction.to_dict() if self.system_instruction else None
-            ),
-            "conversation_framework": [turn.to_dict() for turn in self.conversation_framework],
-        }
+        payload: dict[str, Any] = {"case_metadata": self.case_metadata.to_dict()}
+        if self.formal_artifacts is not None:
+            payload["formal_artifacts"] = self.formal_artifacts.to_dict()
+        payload["system_instruction"] = (
+            self.system_instruction.to_dict() if self.system_instruction else None
+        )
+        payload["conversation_framework"] = [
+            turn.to_dict() for turn in self.conversation_framework
+        ]
+        return payload
 
     # -- convenience -------------------------------------------------------- #
     @property
@@ -516,7 +560,13 @@ class TestCase:
         return None
 
     def oracle_theorem_for(self, turn_id: int) -> str | None:
-        """REQ-RUN-003: the Lean theorem paired with *turn_id* (1-based)."""
+        """REQ-RUN-003: the Lean theorem paired with *turn_id* (1-based).
+
+        ``None`` when the case carries no formal artifacts, which is now the
+        normal shape; the oracle names live in the oracle manifest instead.
+        """
+        if self.formal_artifacts is None:
+            return None
         index = turn_id - 1
         if 0 <= index < len(self.formal_artifacts.oracle_theorems):
             return self.formal_artifacts.oracle_theorems[index]
@@ -528,7 +578,9 @@ class TestCase:
             case_id=self.case_metadata.case_id,
             case_title=self.case_metadata.case_title,
             domain=self.case_metadata.domain,
-            lean_file=self.formal_artifacts.lean_file,
+            lean_file=(
+                self.formal_artifacts.lean_file if self.formal_artifacts else None
+            ),
         )
 
 
@@ -591,11 +643,13 @@ class ModelMetadata:
         data = _mapping(data, where)
         return cls(
             provider=_opt_str(data, "provider") or "",
-            model_id=_opt_str(data, "model_id") or "",
+            # ``model_name``/``max_output_tokens`` are the spellings used by the
+            # templates in ``templates/``; accept either.
+            model_id=_opt_str(data, "model_id") or _opt_str(data, "model_name") or "",
             api_endpoint=_opt_str(data, "api_endpoint"),
             temperature=_opt_float(data, "temperature"),
             top_p=_opt_float(data, "top_p"),
-            max_tokens=_opt_int(data, "max_tokens"),
+            max_tokens=_opt_int(data, "max_tokens") or _opt_int(data, "max_output_tokens"),
             thinking_budget_allocated=_opt_int(data, "thinking_budget_allocated"),
             system_prompt_used=bool(data.get("system_prompt_used", False)),
         )

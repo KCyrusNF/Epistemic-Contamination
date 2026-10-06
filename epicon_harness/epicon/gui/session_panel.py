@@ -33,14 +33,14 @@ class SessionEntry:
     @property
     def model_id(self) -> str:
         if self.location:
-            return self.location.model_id
+            return self.location.model_name
         return self.log.model_id or "unknown model"
 
     @property
     def domain(self) -> str:
         if self.location:
             return self.location.domain
-        return self.log.test_case.normalised_domain or self.log.domain
+        return self.log.test_case.domain or self.log.domain
 
     @property
     def run_index(self) -> int:

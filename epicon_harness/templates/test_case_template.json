@@ -1,6 +1,6 @@
 {
   "case_metadata": {
-    "case_id": "AA-00",
+    "case_id": "Sample Test-Case",
     "case_title": "Modified Successor Function",
     "domain": "abstract_algebra",
     "created_by": [
@@ -9,34 +9,13 @@
     "reviewed_by": [],
     "creation_timestamp_utc": "2026-04-15T12:00:00Z"
   },
-  "formal_artifacts": {
-    "lean_file": "lean/sample.lean",
-    "oracle_theorems": [
-      "baseline_successor",
-      "baseline_multiplication",
-      "modified_successor",
-      "standard_rule_rejection",
-      "modified_successor_repeated",
-      "modified_multiplication_base",
-      "modified_multiplication_single_step",
-      "modified_multiplication_multi_step",
-      "modified_multiplication_underdetermined",
-      "predecessor_underdetermined",
-      "modified_successor_implication",
-      "boundary_world_distinction",
-      "parallel_world_evaluation",
-      "recovery_standard_successor",
-      "recovery_standard_multiplication",
-      "modified_system_reentry"
-    ]
-  },
   "system_instruction": {
     "turn_id": 0,
     "phase": "system_initialization",
     "turn_type": "system_instruction",
     "purpose": "Standardize response format, epistemic restraint, and separation between standard and modified formal systems.",
     "prompt": {
-      "content_raw": "Answer each question using the specified formal system. In the standard system, use standard definitions and rules. In the modified system, use only explicitly supplied definitions, rules, premises, and background operations and their logical consequences; do not import unstated standard properties. Keep the systems separate, even when they share notation, and evaluate each independently when both are requested. Retain explicitly supplied definitions and premises within their stated scope throughout the conversation unless revised or withdrawn. Give a direct answer followed by at most one short justification sentence. Enclose all mathematical expressions and symbols in LaTeX using $$...$$; only standalone numbers may omit the delimiters. Preserve conventional notation unless explicitly redefined. If the answer is underdetermined, begin with the exact text 'cannot be determined', followed by one short sentence explaining why.",
+      "content_raw": "Answer each question using the specified formal system. In the standard system, use standard definitions and rules. In the modified system, use only explicitly supplied definitions, rules, premises, and background operations and their logical consequences; do not import unstated standard properties. Keep the systems separate, even when they share notation, and evaluate each independently when both are requested. Retain explicitly supplied definitions and premises within their stated scope throughout the conversation unless revised or withdrawn. Give a direct answer followed by at most one short justification sentence. Enclose all mathematical expressions, symbols, variables, and numerical values in LaTeX using $$...$$. Preserve conventional notation unless explicitly redefined. If the answer is underdetermined, begin with the exact text 'Cannot be determined.', followed by one short sentence explaining why.",
       "content_format": "plain"
     },
     "expected_answer": null,
@@ -54,7 +33,8 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "4"
+        "content_raw": "$$4$$",
+        "content_format": "latex"
       },
       "references": [
         {
@@ -79,12 +59,13 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "4"
+        "content_raw": "$$4$$",
+        "content_format": "latex"
       },
       "references": [
         {
           "reference_id": "REF-002",
-          "citation": "Replace with a source supporting the recursive definition of addition used in this prompt.",
+          "citation": "Replace with a source supporting the recursive definition of multiplication used in this prompt.",
           "identifier": {
             "type": "isbn",
             "value": "978-0-00-000000-0"
@@ -104,7 +85,8 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "5"
+        "content_raw": "$$5$$",
+        "content_format": "latex"
       },
       "references": null
     },
@@ -119,7 +101,8 @@
       },
       "expected_answer": {
         "answer_type": "semantic_statement",
-        "value": "No."
+        "content_raw": "No.",
+        "content_format": "plain"
       },
       "references": null
     },
@@ -134,7 +117,8 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "14"
+        "content_raw": "$$14$$",
+        "content_format": "latex"
       },
       "references": null
     },
@@ -149,7 +133,8 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "0"
+        "content_raw": "$$0$$",
+        "content_format": "latex"
       },
       "references": null
     },
@@ -164,7 +149,8 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "2"
+        "content_raw": "$$2$$",
+        "content_format": "latex"
       },
       "references": null
     },
@@ -179,7 +165,8 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "6"
+        "content_raw": "$$6$$",
+        "content_format": "latex"
       },
       "references": null
     },
@@ -194,7 +181,8 @@
       },
       "expected_answer": {
         "answer_type": "undetermined",
-        "value": "cannot be determined"
+        "content_raw": "Cannot be determined.",
+        "content_format": "plain"
       },
       "references": null
     },
@@ -209,7 +197,8 @@
       },
       "expected_answer": {
         "answer_type": "undetermined",
-        "value": "cannot be determined"
+        "content_raw": "Cannot be determined.",
+        "content_format": "plain"
       },
       "references": null
     },
@@ -219,12 +208,13 @@
       "turn_type": "higher_level_implication_test",
       "purpose": "Verify recognition of higher-level consequences of the modified foundational rule.",
       "prompt": {
-        "content_raw": "In this modified system, does each application of the successor function increase a number by 1 or by 2?",
-        "content_format": "plain"
+        "content_raw": "In this modified system, does each application of the successor function increase a number by $$1$$ or by $$2$$?",
+        "content_format": "mixed"
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "2"
+        "content_raw": "$$2$$",
+        "content_format": "latex"
       },
       "references": null
     },
@@ -239,7 +229,8 @@
       },
       "expected_answer": {
         "answer_type": "semantic_statement",
-        "value": "Only in the modified system."
+        "content_raw": "Only in the modified system.",
+        "content_format": "plain"
       },
       "references": null
     },
@@ -254,7 +245,8 @@
       },
       "expected_answer": {
         "answer_type": "semantic_statement",
-        "value": "5 in ordinary arithmetic and 6 in the modified system."
+        "content_raw": "$$5$$ in ordinary arithmetic and $$6$$ in the modified system.",
+        "content_format": "mixed"
       },
       "references": null
     },
@@ -269,7 +261,8 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "5"
+        "content_raw": "$$5$$",
+        "content_format": "latex"
       },
       "references": null
     },
@@ -284,7 +277,8 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "4"
+        "content_raw": "$$4$$",
+        "content_format": "latex"
       },
       "references": null
     },
@@ -299,7 +293,8 @@
       },
       "expected_answer": {
         "answer_type": "exact_value",
-        "value": "6"
+        "content_raw": "$$6$$",
+        "content_format": "latex"
       },
       "references": null
     }

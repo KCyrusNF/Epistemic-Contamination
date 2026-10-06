@@ -10,10 +10,10 @@ the CLI and the GUI all read and write the same tree:
     <root>/results      Session logs (SRS 1.2 three-tier hierarchy)
     <root>/.journals    In-flight turn journals (SRS REQ-RUN-015)
 
-``results/`` is the root output directory mandated by SRS 1.2; the runner creates
-``results/{ModelName}-run-{RunIndex}/{normalised-domain}/`` beneath it. Journals are
-scratch state for crash recovery, kept outside ``results/`` so that a partially
-written session never looks like a finished one.
+``results/`` is the root output directory; the runner creates
+``results/{domain}/{CaseID}/`` beneath it. Journals are scratch state for crash
+recovery, kept outside ``results/`` so that a partially written session never
+looks like a finished one.
 
 The root is the directory that contains the ``epicon`` package
 (``epicon_harness/``). It is an absolute path derived from this file, so a parent

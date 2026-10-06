@@ -5,7 +5,8 @@ Two programs over one pair of JSON schemas:
 - **Automated testing program (bench-runner)** — reads test cases from
   `test_cases/`, replays each one as a sixteen-turn conversation against an LLM,
   and writes an independent run log under
-  `results/{ModelName}-run-{N}/{domain}/{CaseID}-{Model}-R{N}.json`.
+  `results/{domain}/{CaseID}/{CaseID}-{ModelName}-Run-{N}.json`, so every model
+  and run for one case sits side by side in a single directory.
 - **Assistant GUI (bench-assistant)** — hierarchical inspector
   (`Model → Domain → Case → Run`) with the ingested prompt and Lean oracle on the
   left, the raw completion (and collapsible thinking) on the right.

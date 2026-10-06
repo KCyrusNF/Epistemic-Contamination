@@ -2,13 +2,14 @@
 
 Two storage concerns live here.
 
-**The results hierarchy (SRS 1.2, REQ-RUN-012/013).** Every session log lands at::
+**The results hierarchy ("Option 2").** Every session log lands at::
 
-    results/{ModelName}-run-{RunIndex}/{normalised-domain}/{CaseID}-{ModelID}-R{RunIndex}.json
+    results/{domain}/{CaseID}/{CaseID}-{ModelName}-Run-{RunIndex}.json
 
-Level 1 uses the model identifier as configured, Level 2 the domain with
-underscores converted to hyphens, Level 3 the sanitised model id. The exporter and
-the GUI rediscover sessions by walking the same two levels.
+Level 1 is the domain exactly as the test case spells it (underscores retained),
+Level 2 the case id, and the filename carries the model name and run index. One
+case therefore collects every model and every run side by side in a single
+directory, which is what the exporter and the GUI walk.
 
 **The in-flight journal (REQ-RUN-015/016).** Each completed turn is appended to a
 JSON-Lines file under ``.journals/`` and flushed with :func:`os.fsync`, so a
@@ -32,16 +33,16 @@ from typing import Any
 
 from . import paths
 from .errors import SchemaError
-from .models import ConversationTurn, RunLog, TestCase, normalise_domain
+from .models import ConversationTurn, RunLog, TestCase
 
 _SAFE_NAME = re.compile(r"[^A-Za-z0-9._-]+")
 
 #: Run id format from the schema, e.g. ``RUN_2026_04_14_0001``.
 RUN_ID_PATTERN = re.compile(r"^RUN_(\d{4})_(\d{2})_(\d{2})_(\d{4})$")
-#: Level 1 directory: ``{ModelName}-run-{RunIndex}``.
-SESSION_DIR_PATTERN = re.compile(r"^(?P<model>.+)-run-(?P<index>\d+)$")
-#: Level 3 file stem: ``{CaseID}-{SanitizedModelID}-R{RunIndex}``.
-RESULT_STEM_PATTERN = re.compile(r"^(?P<case>[A-Z]{2}-\d{2})-(?P<model>.+)-R(?P<index>\d+)$")
+#: File stem: ``{CaseID}-{ModelName}-Run-{RunIndex}``.
+RESULT_STEM_PATTERN = re.compile(
+    r"^(?P<case>[A-Z]{2}-\d{2})-(?P<model>.+)-Run-(?P<index>\d+)$"
+)
 
 _run_id_lock = threading.Lock()
 _issued_run_ids: set[str] = set()
@@ -129,32 +130,30 @@ def load_test_cases(
 # --------------------------------------------------------------------------- #
 # the results hierarchy
 # --------------------------------------------------------------------------- #
-def session_dirname(model_id: str, run_index: int) -> str:
-    """Level 1 component: ``{ModelName}-run-{RunIndex}``."""
-    return f"{safe_dirname(model_id)}-run-{run_index}"
+def result_filename(case_id: str, model_name: str, run_index: int) -> str:
+    """Filename component: ``{CaseID}-{ModelName}-Run-{RunIndex}.json``.
 
-
-def result_filename(case_id: str, sanitised_model_id: str, run_index: int) -> str:
-    """Level 3 component: ``{CaseID}-{SanitizedModelID}-R{RunIndex}.json``."""
-    return f"{safe_filename(case_id)}-{safe_filename(sanitised_model_id)}-R{run_index}.json"
+    The model name keeps its own punctuation (``GPT-6 Astra`` becomes
+    ``GPT-6-Astra``) so a file name still reads as the model a human asked for.
+    """
+    return f"{safe_filename(case_id)}-{safe_dirname(model_name)}-Run-{run_index}.json"
 
 
 def session_path(
     *,
-    model_id: str,
-    sanitised_model_id: str,
+    model_name: str,
     run_index: int,
     domain: str,
     case_id: str,
     results_dir: Path | None = None,
 ) -> Path:
-    """The full REQ-RUN-013 destination for one session."""
+    """The full destination for one session: ``results/{domain}/{CaseID}/{file}``."""
     base = results_dir or paths.RESULTS_DIR
     return (
         base
-        / session_dirname(model_id, run_index)
-        / normalise_domain(domain)
-        / result_filename(case_id, sanitised_model_id, run_index)
+        / safe_filename(domain, fallback="unknown_domain")
+        / safe_filename(case_id)
+        / result_filename(case_id, model_name, run_index)
     )
 
 
@@ -163,47 +162,39 @@ class ResultLocation:
     """What a result path says about the session it holds."""
 
     path: Path
-    model_id: str
+    model_name: str
     run_index: int
     domain: str
     case_id: str
-    sanitised_model_id: str
 
     @property
-    def group_key(self) -> tuple[str, str, str]:
-        """REQ-EXP-002 composite key: ``(domain, case_id, model_id)``."""
-        return (self.domain, self.case_id, self.model_id)
+    def group_key(self) -> tuple[str, str]:
+        """REQ-EXP-002 composite key: ``(case_id, model_name)``."""
+        return (self.case_id, self.model_name)
 
 
 def parse_result_path(path: Path) -> ResultLocation | None:
-    """Recover model, run index, domain and case id from a result path.
+    """Recover model name, run index, domain and case id from a result path.
 
-    Returns ``None`` for anything that does not sit at the specified depth, so a
-    stray file in ``results/`` is ignored rather than breaking a batch export.
+    Returns ``None`` for anything whose name does not encode a case, model and
+    run, so a stray file under ``results/`` is ignored rather than breaking a
+    batch export.
     """
-    domain_dir = path.parent
-    session_dir = domain_dir.parent
-    session_match = SESSION_DIR_PATTERN.match(session_dir.name)
-    if session_match is None:
-        return None
-
-    run_index = int(session_match.group("index"))
     stem_match = RESULT_STEM_PATTERN.match(path.stem)
-    case_id = stem_match.group("case") if stem_match else path.stem
-    sanitised = stem_match.group("model") if stem_match else ""
+    if stem_match is None:
+        return None
 
     return ResultLocation(
         path=path,
-        model_id=session_match.group("model"),
-        run_index=run_index,
-        domain=domain_dir.name,
-        case_id=case_id,
-        sanitised_model_id=sanitised,
+        model_name=stem_match.group("model"),
+        run_index=int(stem_match.group("index")),
+        domain=path.parent.parent.name,
+        case_id=stem_match.group("case"),
     )
 
 
 def discover_result_files(results_dir: Path | None = None) -> list[Path]:
-    """REQ-EXP-001: recursive scan of ``results/*-run-*/*/*.json``."""
+    """REQ-EXP-001: recursive scan of ``results/{domain}/{CaseID}/*.json``."""
     base = results_dir or paths.RESULTS_DIR
     if base.is_file():
         return [base]
@@ -211,7 +202,7 @@ def discover_result_files(results_dir: Path | None = None) -> list[Path]:
         return []
     return sorted(
         path
-        for path in base.glob("*-run-*/*/*.json")
+        for path in base.glob("*/*/*.json")
         if path.is_file() and not path.name.startswith(".")
     )
 
@@ -240,7 +231,7 @@ def load_results(
         key=lambda pair: (
             pair[0].test_case.domain or pair[1].domain,
             pair[0].case_id,
-            pair[0].model_id or pair[1].model_id,
+            pair[0].model_id or pair[1].model_name,
             pair[0].run_index,
         )
     )
@@ -291,13 +282,11 @@ def next_run_id(results_dir: Path | None = None, *, now: datetime | None = None)
 # persistence
 # --------------------------------------------------------------------------- #
 def run_log_path(
-    log: RunLog, results_dir: Path | None = None, *, sanitised_model_id: str | None = None
+    log: RunLog, results_dir: Path | None = None, *, model_name: str | None = None
 ) -> Path:
     """Where *log* belongs under ``results/``."""
     return session_path(
-        model_id=log.model_metadata.model_id or "model",
-        sanitised_model_id=sanitised_model_id
-        or safe_filename(log.model_metadata.model_id or "model"),
+        model_name=model_name or log.model_metadata.model_id or "model",
         run_index=log.run_index,
         domain=log.test_case.domain,
         case_id=log.case_id,
@@ -334,10 +323,10 @@ def write_run_log(
     results_dir: Path | None = None,
     path: Path | None = None,
     *,
-    sanitised_model_id: str | None = None,
+    model_name: str | None = None,
 ) -> Path:
     """Persist *log* into the results hierarchy and stamp its ``log_path``."""
-    target = path or run_log_path(log, results_dir, sanitised_model_id=sanitised_model_id)
+    target = path or run_log_path(log, results_dir, model_name=model_name)
     write_json_atomic(target, log.to_dict())
     log.log_path = paths.as_project_relative(target)
     return target
@@ -353,8 +342,7 @@ JOURNAL_TURN = "turn"
 
 def journal_path(
     *,
-    model_id: str,
-    sanitised_model_id: str,
+    model_name: str,
     run_index: int,
     domain: str,
     case_id: str,
@@ -364,9 +352,9 @@ def journal_path(
     base = journal_dir or paths.JOURNAL_DIR
     return (
         base
-        / session_dirname(model_id, run_index)
-        / normalise_domain(domain)
-        / result_filename(case_id, sanitised_model_id, run_index).replace(".json", ".jsonl")
+        / safe_filename(domain, fallback="unknown_domain")
+        / safe_filename(case_id)
+        / result_filename(case_id, model_name, run_index).replace(".json", ".jsonl")
     )
 
 
@@ -487,7 +475,7 @@ def discover_journals(journal_dir: Path | None = None) -> list[Path]:
     base = journal_dir or paths.JOURNAL_DIR
     if not base.exists():
         return []
-    return sorted(path for path in base.glob("*-run-*/*/*.jsonl") if path.is_file())
+    return sorted(path for path in base.glob("*/*/*.jsonl") if path.is_file())
 
 
 # --------------------------------------------------------------------------- #

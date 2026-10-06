@@ -94,8 +94,7 @@ def _print_dry_run(cases: list[TestCase], model: ModelSpec, config: RunnerConfig
     results_dir = config.results_dir or paths.RESULTS_DIR
     for case in cases:
         dest = storage.session_path(
-            model_id=model.model_id,
-            sanitised_model_id=model.sanitised_id,
+            model_name=model.model_name,
             run_index=config.run_index,
             domain=case.domain,
             case_id=case.case_id,
@@ -144,19 +143,22 @@ def cmd_validate(args: argparse.Namespace) -> int:
 
     for case in cases:
         system = "system+" if case.system_instruction else ""
+        artifacts = case.formal_artifacts
+        oracles = len(artifacts.oracle_theorems) if artifacts else 0
         print(
             f"  OK   {case.case_id:10} {case.domain:20} "
-            f"{system}{case.turn_count} turn(s)  oracle={len(case.formal_artifacts.oracle_theorems)}"
+            f"{system}{case.turn_count} turn(s)  oracle={oracles}"
         )
+        if artifacts is None:
+            continue
         try:
-            lean_path = case.formal_artifacts.resolved_lean_path()
+            lean_path = artifacts.resolved_lean_path()
         except EpiconError as exc:
             print(f"       warning: {exc}", file=sys.stderr)
         else:
             if lean_path is not None and not lean_path.exists():
                 print(
-                    f"       warning: lean_file '{case.formal_artifacts.lean_file}' "
-                    f"does not exist",
+                    f"       warning: lean_file '{artifacts.lean_file}' does not exist",
                     file=sys.stderr,
                 )
 

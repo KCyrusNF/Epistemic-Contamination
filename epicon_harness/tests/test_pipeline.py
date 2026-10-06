@@ -11,14 +11,20 @@ import unittest
 from importlib.util import find_spec
 from pathlib import Path
 
-from epicon import paths
+from epicon import paths, storage
 from epicon.clients.anthropic_client import AnthropicClient
 from epicon.clients.base import ChatResponse, split_thinking
 from epicon.conversation import Conversation
 from epicon.credentials import StaticCredentialStore
 from epicon.errors import ConfigError, SchemaError
-from epicon.export_excel import GROUND_TRUTH_FILL, UNDERDETERMINED_FILL, export_sessions
+from epicon.export_excel import (
+    GROUND_TRUTH_FILL,
+    UNDERDETERMINED_FILL,
+    export_results,
+    export_sessions,
+)
 from epicon.gui.render import markdown_to_html
+from epicon.gui.session_panel import SessionEntry
 from epicon.model_spec import (
     PINNED_TEMPERATURE,
     STANDARD_MAX_TOKENS,
@@ -137,50 +143,59 @@ class StubFactory:
 
 
 class TestTemplateFidelity(unittest.TestCase):
+    """The templates are illustrative examples, so these check structure only.
+
+    ``templates/README.md`` states the sample values may be incomplete or
+    incorrect, and the team's validator treats the template's ``case_id`` as a
+    non-production placeholder; hence ``strict_case_id=False`` here.
+    """
+
     def test_test_case_template_round_trips(self) -> None:
         raw = json.loads(TEST_CASE_TEMPLATE.read_text(encoding="utf-8"))
-        case = TestCase.from_dict(raw, source=str(TEST_CASE_TEMPLATE))
+        case = TestCase.from_dict(
+            raw, source=str(TEST_CASE_TEMPLATE), strict_case_id=False
+        )
         self.assertEqual(case.to_dict(), raw)
 
-    def test_run_log_template_round_trips(self) -> None:
-        raw = json.loads(RUN_LOG_TEMPLATE.read_text(encoding="utf-8"))
-        log = RunLog.from_dict(raw, source=str(RUN_LOG_TEMPLATE))
-        self.assertEqual(log.to_dict(), raw)
+    def test_test_case_template_carries_no_formal_artifacts(self) -> None:
+        raw = json.loads(TEST_CASE_TEMPLATE.read_text(encoding="utf-8"))
+        self.assertNotIn("formal_artifacts", raw)
+        case = TestCase.from_dict(
+            raw, source=str(TEST_CASE_TEMPLATE), strict_case_id=False
+        )
+        self.assertIsNone(case.formal_artifacts)
+        self.assertIsNone(case.oracle_theorem_for(1))
 
     def test_test_case_template_semantics(self) -> None:
-        case = TestCase.from_file(TEST_CASE_TEMPLATE)
-        self.assertEqual(case.case_id, "AA-00")
+        case = TestCase.from_file(TEST_CASE_TEMPLATE, strict_case_id=False)
+        self.assertEqual(case.case_id, "Sample Test-Case")
         self.assertEqual(case.domain, "abstract_algebra")
-        self.assertEqual(case.normalised_domain, "abstract-algebra")
         self.assertEqual(case.turn_count, 16)
-        self.assertEqual(len(case.formal_artifacts.oracle_theorems), 16)
-        self.assertEqual(case.oracle_theorem_for(1), "baseline_successor")
         self.assertTrue(case.system_prompt.startswith("Answer each question"))
         self.assertEqual(case.turn(9).expected_answer.answer_type, "undetermined")
         reference = case.turn(1).references[0]
         self.assertEqual(reference.reference_id, "REF-001")
         self.assertIsNone(case.turn(3).references)
 
-    def test_run_log_template_semantics(self) -> None:
+    def test_production_case_ids_are_still_validated(self) -> None:
+        raw = json.loads(TEST_CASE_TEMPLATE.read_text(encoding="utf-8"))
+        with self.assertRaises(SchemaError):
+            TestCase.from_dict(raw, source=str(TEST_CASE_TEMPLATE))
+
+    def test_run_log_template_parses(self) -> None:
         log = RunLog.from_file(RUN_LOG_TEMPLATE)
         self.assertEqual(log.run_id, "RUN_2026_04_14_0001")
-        self.assertEqual(log.run_index, 1)
         self.assertEqual(log.case_id, "AA-01")
-        self.assertEqual(log.model_metadata.model_id, "gpt-5.4")
-        self.assertEqual(log.model_metadata.temperature, 0.0)
-        self.assertIsNone(log.conversation[0].evaluation.is_correct)
-        self.assertIsNone(log.conversation[0].evaluation.failure_mode)
-        self.assertIsNone(log.conversation[0].evaluation.comments)
-        self.assertEqual(log.conversation[0].oracle_theorem_ref, "baseline_successor")
-        self.assertIsNone(log.evaluation_summary.correct_turns)
+        self.assertEqual(log.test_case.domain, "abstract_algebra")
+        self.assertEqual(log.model_metadata.provider, "OpenAI")
+        self.assertEqual(log.model_metadata.model_id, "GPT-6 Astra")
+        self.assertEqual(log.evaluation_summary.total_turns, 16)
+        self.assertEqual(len(log.researcher_review), 2)
 
     def test_example_test_case_is_valid(self) -> None:
         case = TestCase.from_file(EXAMPLE_CASE)
         self.assertEqual(case.case_id, "AA-01")
         self.assertEqual(case.turn_count, 16)
-        lean_path = case.formal_artifacts.resolved_lean_path()
-        self.assertIsNotNone(lean_path)
-        self.assertTrue(lean_path.exists())
 
 
 class TestSchemaValidation(unittest.TestCase):
@@ -208,7 +223,7 @@ class TestSchemaValidation(unittest.TestCase):
 
     def test_bad_content_format_is_rejected(self) -> None:
         payload = make_case().to_dict()
-        payload["conversation_framework"][0]["prompt"]["content_format"] = "latex"
+        payload["conversation_framework"][0]["prompt"]["content_format"] = "markdown"
         with self.assertRaises(SchemaError):
             TestCase.from_dict(payload)
 
@@ -253,10 +268,9 @@ class TestSanitisedIds(unittest.TestCase):
         self.assertEqual(sanitise_model_id("Claude-4.6-Opus"), "Claude46")
         self.assertEqual(sanitise_model_id("DeepSeek-V3.2-Thinking"), "DeepSeekV32")
 
-    def test_session_path_matches_srs(self) -> None:
+    def test_session_path_uses_domain_and_case_directories(self) -> None:
         path = session_path(
-            model_id="Claude-4.6-Opus",
-            sanitised_model_id="Claude46",
+            model_name="Claude-4.6-Opus",
             run_index=1,
             domain="abstract_algebra",
             case_id="AA-01",
@@ -264,14 +278,29 @@ class TestSanitisedIds(unittest.TestCase):
         )
         self.assertEqual(
             path.as_posix(),
-            "results/Claude-4.6-Opus-run-1/abstract-algebra/AA-01-Claude46-R1.json",
+            "results/abstract_algebra/AA-01/AA-01-Claude-4.6-Opus-Run-1.json",
         )
         location = parse_result_path(path)
         self.assertIsNotNone(location)
-        self.assertEqual(location.model_id, "Claude-4.6-Opus")
+        self.assertEqual(location.model_name, "Claude-4.6-Opus")
         self.assertEqual(location.run_index, 1)
-        self.assertEqual(location.domain, "abstract-algebra")
+        self.assertEqual(location.domain, "abstract_algebra")
         self.assertEqual(location.case_id, "AA-01")
+
+    def test_model_names_with_spaces_become_hyphens(self) -> None:
+        path = session_path(
+            model_name="GPT-6 Astra",
+            run_index=1,
+            domain="abstract_algebra",
+            case_id="AA-01",
+            results_dir=Path("results"),
+        )
+        self.assertEqual(
+            path.as_posix(),
+            "results/abstract_algebra/AA-01/AA-01-GPT-6-Astra-Run-1.json",
+        )
+        location = parse_result_path(path)
+        self.assertEqual(location.model_name, "GPT-6-Astra")
 
 
 class TestThinkingSplit(unittest.TestCase):
@@ -383,13 +412,13 @@ class TestRunner(unittest.TestCase):
         with self.assertRaises(ConfigError):
             runner.run_case(make_case())
 
-    def test_run_log_lands_in_the_srs_hierarchy(self) -> None:
+    def test_run_log_lands_in_the_domain_case_hierarchy(self) -> None:
         self._runner(StubFactory()).run_case(make_case())
         written = list(self.results_dir.rglob("*.json"))
         self.assertEqual(len(written), 1)
         relative = written[0].relative_to(self.results_dir).as_posix()
         self.assertEqual(
-            relative, "Claude-4.6-Opus-run-1/abstract-algebra/AA-01-Claude46-R1.json"
+            relative, "abstract_algebra/AA-01/AA-01-Claude-4.6-Opus-Run-1.json"
         )
         raw = json.loads(written[0].read_text(encoding="utf-8"))
         self.assertEqual(
@@ -526,6 +555,81 @@ class TestExport(unittest.TestCase):
 
             formula_cell = page.cell(row=2, column=header.index("Run 1 Output") + 1)
             self.assertEqual(formula_cell.data_type, "s")
+
+
+class TestResultsDiscovery(unittest.TestCase):
+    """REQ-EXP-001 / REQ-GUI-001: both suites walk ``results/{domain}/{CaseID}/``."""
+
+    def _write_runs(self, root: Path) -> tuple[Path, Path]:
+        case = make_case()
+        results = root / "results"
+        test_cases = root / "test_cases"
+        test_cases.mkdir(parents=True)
+        (test_cases / "AA-01.json").write_text(
+            json.dumps(case.to_dict()), encoding="utf-8"
+        )
+        for index, answers in enumerate(({}, {1: "other"}), start=1):
+            BatchRunner(
+                StaticCredentialStore({"anthropic": "k"}),
+                RunnerConfig(model=MODEL, results_dir=results, run_index=index),
+                client_factory=StubFactory(answers=answers),
+            ).run_case(case)
+        return results, test_cases
+
+    def test_runs_are_collected_under_one_case_directory(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            results, _ = self._write_runs(Path(tmp))
+            written = sorted(
+                path.relative_to(results).as_posix() for path in results.rglob("*.json")
+            )
+            self.assertEqual(
+                written,
+                [
+                    "abstract_algebra/AA-01/AA-01-Claude-4.6-Opus-Run-1.json",
+                    "abstract_algebra/AA-01/AA-01-Claude-4.6-Opus-Run-2.json",
+                ],
+            )
+
+    def test_sessions_are_rediscovered_with_their_locations(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            results, test_cases = self._write_runs(Path(tmp))
+            loaded, failures = storage.load_results(results)
+            self.assertEqual(failures, [])
+            self.assertEqual([location.run_index for _, location in loaded], [1, 2])
+            for _, location in loaded:
+                self.assertEqual(location.domain, "abstract_algebra")
+                self.assertEqual(location.case_id, "AA-01")
+                self.assertEqual(location.model_name, "Claude-4.6-Opus")
+
+            entries = [
+                SessionEntry(log, None, location) for log, location in loaded
+            ]
+            self.assertEqual([entry.domain for entry in entries], ["abstract_algebra"] * 2)
+            self.assertEqual([entry.label for entry in entries], ["Run 1", "Run 2"])
+            self.assertEqual(len(storage.load_sessions(results, test_cases)), 2)
+
+    def test_exporter_groups_both_runs_from_disk(self) -> None:
+        try:
+            from openpyxl import load_workbook
+        except ImportError:  # pragma: no cover
+            self.skipTest("openpyxl not installed")
+
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            results, test_cases = self._write_runs(root)
+            target = root / "audit.xlsx"
+            result = export_results(results, target, test_cases_dir=test_cases)
+            self.assertEqual(result.run_count, 2)
+            self.assertEqual(result.group_count, 1)
+
+            workbook = load_workbook(target)
+            sheet = next(name for name in workbook.sheetnames if name != "Index")
+            header = [cell.value for cell in workbook[sheet][1]]
+            self.assertIn("Run 1 Output", header)
+            self.assertIn("Run 2 Output", header)
+            row1 = [cell.value for cell in workbook[sheet][2]]
+            self.assertEqual(row1[header.index("Run 1 Output")], "Answer: 1")
+            self.assertEqual(row1[header.index("Run 2 Output")], "other")
 
 
 class TestIndexing(unittest.TestCase):

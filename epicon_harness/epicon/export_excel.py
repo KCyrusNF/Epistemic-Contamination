@@ -71,7 +71,7 @@ def _sheet_name(case_id: str, model_id: str, used: set[str]) -> str:
 
 def _group_key(log: RunLog, location: ResultLocation | None = None) -> tuple[str, str]:
     """REQ-EXP-002: ``(case_id, model_name)``."""
-    model = log.model_id or (location.model_id if location else "")
+    model = log.model_id or (location.model_name if location else "")
     return (log.case_id, model)
 
 

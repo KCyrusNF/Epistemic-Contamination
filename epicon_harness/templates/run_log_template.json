@@ -1,83 +1,69 @@
 {
   "run_metadata": {
     "run_id": "RUN_2026_04_14_0001",
-    "run_index": 1,
     "timestamp_start_utc": "2026-04-14T18:30:00Z",
     "timestamp_end_utc": "2026-04-14T18:33:12Z",
-    "total_latency_ms": 192000.0,
-    "status": "COMPLETED"
+    "experiment_phase": "main"
   },
   "model_metadata": {
-    "provider": "openai",
-    "model_id": "gpt-5.4",
-    "api_endpoint": "chat.completions",
-    "temperature": 0.0,
-    "top_p": null,
-    "max_tokens": 512,
-    "thinking_budget_allocated": null,
-    "system_prompt_used": true
+    "provider": "OpenAI",
+    "model_name": "GPT-6 Astra",
+    "model_variant": null,
+    "api_endpoint": "responses",
+    "random_seed": 42,
+    "temperature": 0.2,
+    "top_p": 1.0,
+    "top_k": null,
+    "max_output_tokens": 256
   },
   "test_case": {
     "case_id": "AA-01",
-    "case_title": "Modified successor function",
-    "domain": "abstract_algebra",
-    "lean_file": "lean/ALG_021.lean"
+    "case_title": "Operation not associative",
+    "domain": "abstract_algebra"
   },
   "conversation": [
     {
       "turn_id": 1,
-      "phase": "standard_world_baseline",
-      "turn_type": "standard_rule_baseline",
-      "oracle_theorem_ref": "baseline_successor",
+      "timestamp_prompt_utc": "2026-04-14T18:30:05Z",
+      "timestamp_response_utc": "2026-04-14T18:30:08Z",
       "prompt": {
         "role": "user",
-        "content": "In ordinary arithmetic, if successor(n)=n+1, what is successor(3)?"
+        "content": "Answer each question using the specified formal system. In the standard system, use standard definitions and rules. In the modified system, use only explicitly supplied definitions, rules, premises, and background operations and their logical consequences; do not import unstated standard properties. Keep the systems separate, even when they share notation, and evaluate each independently when both are requested. Retain explicitly supplied definitions and premises within their stated scope throughout the conversation unless revised or withdrawn. Give a direct answer followed by at most one short justification sentence. Enclose all mathematical expressions and symbols in LaTeX using $$...$$; only standalone numbers may omit the delimiters. Preserve conventional notation unless explicitly redefined. If the answer is underdetermined, begin with the exact text 'cannot be determined', followed by one short sentence explaining why. In the standard system on $$\\mathbb N$$, let $$x\\ast y=x+y$$ using ordinary addition. Does $$(1\\ast1)\\ast2=1\\ast(1\\ast2)$$ hold?",
+        "notes": null
       },
       "response": {
         "role": "assistant",
-        "content": "Answer: 4\nReason: successor(3)=4 in ordinary arithmetic.",
-        "thinking_content": null,
+        "content": "...",
         "finish_reason": "stop",
-        "latency_ms": 3100.0,
-        "usage": {
-          "input_tokens": 120,
-          "output_tokens": 24,
-          "cached_tokens": 0
-        }
+        "latency_ms": 3100
       },
       "evaluation": {
-        "expected_answer_type": "exact_value",
-        "expected_answer_lean": "4",
-        "is_correct": null,
+        "expected_answer_type": "semantic_statement",
+        "expected_answer": "Yes.",
+        "is_correct": true,
         "failure_mode": null,
         "comments": null
       }
     },
     {
       "turn_id": 2,
-      "phase": "standard_world_baseline",
-      "turn_type": "standard_derived_rule_baseline",
-      "oracle_theorem_ref": "baseline_multiplication",
+      "timestamp_prompt_utc": "2026-04-14T18:30:10Z",
+      "timestamp_response_utc": "2026-04-14T18:30:13Z",
       "prompt": {
         "role": "user",
-        "content": "In ordinary arithmetic, what is 2 times 2?"
+        "content": "In the standard system define $$L(x,0)=x$$ and $$L(x,n+1)=L(x,n)\\ast1$$ for all natural numbers. Does $$L(L(1,1),1)=3$$ hold?",
+        "notes": null
       },
       "response": {
         "role": "assistant",
-        "content": "4",
-        "thinking_content": null,
+        "content": "...",
         "finish_reason": "stop",
-        "latency_ms": 2800.0,
-        "usage": {
-          "input_tokens": 40,
-          "output_tokens": 8,
-          "cached_tokens": 80
-        }
+        "latency_ms": 2800
       },
       "evaluation": {
-        "expected_answer_type": "exact_value",
-        "expected_answer_lean": "4",
-        "is_correct": null,
+        "expected_answer_type": "semantic_statement",
+        "expected_answer": "Yes.",
+        "is_correct": false,
         "failure_mode": null,
         "comments": null
       }
@@ -85,18 +71,72 @@
   ],
   "evaluation_summary": {
     "total_turns": 16,
-    "correct_turns": null,
-    "incorrect_turns": null,
-    "failure_modes_observed": [],
-    "comments": null
+    "correct_turns": 14,
+    "incorrect_turns": 2,
+    "failure_modes_observed": [
+      "unauthorized_generalization"
+    ],
+    "overall_notes": null
   },
+  "notes": {
+    "research_notes": null,
+    "manual_flags": [],
+    "review_status": "unreviewed"
+  },
+  "ai_review": [
+    {
+      "provider": "OpenAI",
+      "model_name": "GPT-6 Astra",
+      "model_variant": null,
+      "platform": "ChatGPT",
+      "timestamp_utc": "2026-04-14T18:30:00Z",
+      "overall_assessment": "The model successfully adopted the modified premise but showed unauthorized generalization in later turns.",
+      "notable_observations": [
+        "Maintained consistency during immediate propagation.",
+        "Incorrectly inferred standard addition was affected.",
+        "Displayed high confidence in undetermined situations."
+      ],
+      "additional_comments": null
+    },
+    {
+      "provider": "Google",
+      "model_name": "Gemini 3.5 Flash-Light",
+      "model_variant": null,
+      "platform": "Gemini Web",
+      "timestamp_utc": "2026-04-14T18:30:00Z",
+      "overall_assessment": "Primary failure was boundary collapse rather than misunderstanding of the altered rule itself.",
+      "notable_observations": [
+        "The distractor phase did not reset the modified context.",
+        "Recovery to standard arithmetic was incomplete."
+      ],
+      "additional_comments": null
+    }
+  ],
   "researcher_review": [
     {
-      "researcher_id": "C",
-      "researcher_name": "Cyrus",
-      "review_status": "unreviewed",
-      "overall_assessment": null,
-      "notable_observations": []
+      "researcher_name": "Alice",
+      "timestamp_local": "2026-04-14T22:15:00+03:00",
+      "timezone": "Europe/Istanbul",
+      "overall_assessment": "The model successfully adopted the modified premise but showed unauthorized generalization in later turns.",
+      "notable_observations": [
+        "Maintained consistency during immediate propagation.",
+        "Incorrectly inferred standard addition was affected.",
+        "Displayed high confidence in undetermined situations."
+      ],
+      "agrees_with_prior_reviewer_assessments": true,
+      "additional_comments": null
+    },
+    {
+      "researcher_name": "Bob",
+      "timestamp_local": "2026-04-14T22:15:00+03:00",
+      "timezone": "Europe/Istanbul",
+      "overall_assessment": "Primary failure was boundary collapse rather than misunderstanding of the altered rule itself.",
+      "notable_observations": [
+        "The distractor phase did not reset the modified context.",
+        "Recovery to standard arithmetic was incomplete."
+      ],
+      "agrees_with_prior_reviewer_assessments": true,
+      "additional_comments": null
     }
   ]
 }

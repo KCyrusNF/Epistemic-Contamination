@@ -317,7 +317,7 @@ class BatchRunner:
         )
         if self.config.write_logs:
             storage.write_run_log(
-                log, self.config.results_dir, sanitised_model_id=model.sanitised_id
+                log, self.config.results_dir, model_name=model.model_name
             )
         return log
 
@@ -325,8 +325,7 @@ class BatchRunner:
     def journal_for(self, case: TestCase, model: ModelSpec) -> Path:
         """Where this session's in-flight journal lives (REQ-RUN-015)."""
         return storage.journal_path(
-            model_id=model.model_id,
-            sanitised_model_id=model.sanitised_id,
+            model_name=model.model_name,
             run_index=self.config.run_index,
             domain=case.domain,
             case_id=case.case_id,
@@ -470,7 +469,7 @@ class BatchRunner:
 
             if self.config.write_logs:
                 storage.write_run_log(
-                    log, self.config.results_dir, sanitised_model_id=resolved.sanitised_id
+                    log, self.config.results_dir, model_name=resolved.model_name
                 )
                 if log.completed and not self.config.keep_journal:
                     journal.discard()
