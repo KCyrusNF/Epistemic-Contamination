@@ -545,7 +545,10 @@ class BatchRunner:
             turn_type=spec_turn.turn_type,
             oracle_theorem_ref=case.oracle_theorem_for(spec_turn.turn_id),
             prompt=LoggedPrompt(content=content),
-            evaluation=TurnEvaluation.unscored_for(spec_turn.expected_answer),
+            evaluation=TurnEvaluation.unscored_for(
+                spec_turn.expected_answer,
+                lean_value=case.expected_answer_for(spec_turn.turn_id),
+            ),
         )
         started = time.monotonic()
 
@@ -596,7 +599,10 @@ class BatchRunner:
                     oracle_theorem_ref=case.oracle_theorem_for(spec_turn.turn_id),
                     prompt=LoggedPrompt(content=spec_turn.content),
                     response=LoggedResponse(content=""),
-                    evaluation=TurnEvaluation.unscored_for(spec_turn.expected_answer),
+                    evaluation=TurnEvaluation.unscored_for(
+                        spec_turn.expected_answer,
+                        lean_value=case.expected_answer_for(spec_turn.turn_id),
+                    ),
                 )
             )
         log.conversation.sort(key=lambda turn: turn.turn_id)

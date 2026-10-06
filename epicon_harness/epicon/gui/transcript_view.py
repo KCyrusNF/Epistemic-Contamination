@@ -109,6 +109,8 @@ class TranscriptRenderer:
             case.oracle_theorem_for(turn.turn_id) if case else None
         )
         ground = turn.evaluation.expected_answer_lean
+        if ground is None and case:
+            ground = case.expected_answer_for(turn.turn_id)
         if ground is None and spec_turn and spec_turn.expected_answer:
             ground = spec_turn.expected_answer.value
         answer_type = turn.evaluation.expected_answer_type or (

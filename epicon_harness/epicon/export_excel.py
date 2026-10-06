@@ -196,6 +196,10 @@ def export_grouped(
                 else None
             )
             ground = (
+                case.expected_answer_for(turn_id)
+                if case
+                else None
+            ) or (
                 expected.value
                 if expected
                 else (sample_turn.evaluation.expected_answer_lean if sample_turn else None)

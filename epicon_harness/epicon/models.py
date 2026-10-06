@@ -15,9 +15,10 @@ Two consequences of the specification are visible throughout this module:
   ``failure_mode`` and ``comments`` are written as ``null`` and reserved for
   post-hoc human audit. ``evaluation_summary`` counts are likewise ``null``.
 * **The oracle is static.** No Lean binary is invoked at run time. Test cases no
-  longer carry a ``formal_artifacts`` block — the Lean file and the sixteen
-  oracle theorem names now live in ``manifests/oracle_manifest.json`` — so
-  ``oracle_theorem_ref`` is only filled for cases that still supply one.
+  longer carry a ``formal_artifacts`` block; the Lean file, sixteen theorem
+  names, and verified answers are read from the repository-root
+  ``manifests/oracle_manifest.json`` and attached by case id. Each logged turn
+  still carries ``oracle_theorem_ref``.
 """
 
 from __future__ import annotations
@@ -33,6 +34,7 @@ from typing import Any
 
 from . import paths
 from .errors import SchemaError
+from .oracle import OracleCase
 
 #: The system instruction occupies turn 0; conversation turns start at 1.
 SYSTEM_TURN_ID = 0
@@ -440,6 +442,10 @@ class TestCase:
     conversation_framework: list[Turn] = field(default_factory=list)
     source_path: str | None = None
     content_hash: str = ""
+    #: Oracle data matched by case id from ``manifests/oracle_manifest.json``.
+    #: Attached after parsing (see :func:`epicon.oracle.attach`) and never part
+    #: of the case document itself, so ``to_dict`` round trips unchanged.
+    oracle: OracleCase | None = None
 
     # -- parsing ------------------------------------------------------------ #
     @classmethod
@@ -562,14 +568,39 @@ class TestCase:
     def oracle_theorem_for(self, turn_id: int) -> str | None:
         """REQ-RUN-003: the Lean theorem paired with *turn_id* (1-based).
 
-        ``None`` when the case carries no formal artifacts, which is now the
-        normal shape; the oracle names live in the oracle manifest instead.
+        The repository-root oracle manifest wins when it has an entry for this
+        case; otherwise a leftover ``formal_artifacts`` block is used.
         """
-        if self.formal_artifacts is None:
-            return None
-        index = turn_id - 1
-        if 0 <= index < len(self.formal_artifacts.oracle_theorems):
-            return self.formal_artifacts.oracle_theorems[index]
+        if self.oracle is not None:
+            name = self.oracle.theorem_for(turn_id)
+            if name:
+                return name
+        if self.formal_artifacts is not None:
+            index = turn_id - 1
+            if 0 <= index < len(self.formal_artifacts.oracle_theorems):
+                return self.formal_artifacts.oracle_theorems[index]
+        return None
+
+    def expected_answer_for(self, turn_id: int) -> str | None:
+        """The ground-truth answer shown to the auditor for *turn_id*.
+
+        The manifest holds the Lean-verified answer, so it wins over the copy
+        embedded in the case file.
+        """
+        if self.oracle is not None:
+            answer = self.oracle.expected_answer_for(turn_id)
+            if answer is not None:
+                return answer
+        turn = self.turn(turn_id)
+        return turn.expected_answer.value if turn and turn.expected_answer else None
+
+    @property
+    def lean_file(self) -> str | None:
+        """The Lean source backing this case, from the manifest or the case."""
+        if self.oracle is not None and self.oracle.lean_file:
+            return self.oracle.lean_file
+        if self.formal_artifacts is not None and self.formal_artifacts.lean_file:
+            return self.formal_artifacts.lean_file
         return None
 
     def test_case_ref(self) -> TestCaseRef:
@@ -578,9 +609,7 @@ class TestCase:
             case_id=self.case_metadata.case_id,
             case_title=self.case_metadata.case_title,
             domain=self.case_metadata.domain,
-            lean_file=(
-                self.formal_artifacts.lean_file if self.formal_artifacts else None
-            ),
+            lean_file=self.lean_file,
         )
 
 
@@ -840,11 +869,19 @@ class TurnEvaluation:
         }
 
     @classmethod
-    def unscored_for(cls, expected: ExpectedAnswer | None) -> TurnEvaluation:
-        """The placeholder written at run time."""
+    def unscored_for(
+        cls, expected: ExpectedAnswer | None, *, lean_value: str | None = None
+    ) -> TurnEvaluation:
+        """The placeholder written at run time.
+
+        *lean_value* is the oracle manifest's verified answer; it overrides the
+        copy embedded in the case file when supplied.
+        """
         return cls(
             expected_answer_type=expected.answer_type if expected else None,
-            expected_answer_lean=expected.value if expected else None,
+            expected_answer_lean=(
+                lean_value if lean_value is not None else (expected.value if expected else None)
+            ),
         )
 
     @property

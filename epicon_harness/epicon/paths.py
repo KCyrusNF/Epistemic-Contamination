@@ -30,6 +30,21 @@ from .errors import PathOutsideProject
 # epicon/paths.py -> epicon/ -> epicon_harness/
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
 
+#: The repository that contains the harness, one level above :data:`PROJECT_ROOT`.
+#:
+#: This is the *only* sanctioned step outside the harness, and it exists for a
+#: single purpose: the Lean oracle manifest and the Lean sources it names are
+#: maintained at the repository root, not inside ``epicon_harness/``. Reads go
+#: through :func:`resolve_oracle_path`; nothing is ever written here, and every
+#: other path still resolves through :func:`resolve_data_path`.
+REPOSITORY_ROOT = PROJECT_ROOT.parent
+
+#: Repository-relative location of the oracle manifest.
+ORACLE_MANIFEST_RELPATH = "manifests/oracle_manifest.json"
+
+#: Override for tests and for checkouts that keep the manifest elsewhere.
+ORACLE_MANIFEST_ENV = "EPICON_ORACLE_MANIFEST"
+
 LEAN_DIR = PROJECT_ROOT / "lean"
 MANIFESTS_DIR = PROJECT_ROOT / "manifests"
 TEMPLATES_DIR = PROJECT_ROOT / "templates"
@@ -66,6 +81,38 @@ def resolve_data_path(raw: str | os.PathLike[str], base: Path | None = None) -> 
     root = PROJECT_ROOT.resolve()
     if path != root and root not in path.parents:
         raise PathOutsideProject(f"{path} is outside the project root {root}")
+    return path
+
+
+def oracle_manifest_path() -> Path:
+    """Absolute path of the repository's oracle manifest.
+
+    The file is not guaranteed to exist; callers degrade gracefully so the
+    harness still runs in a checkout without it.
+    """
+    override = os.environ.get(ORACLE_MANIFEST_ENV)
+    if override:
+        return Path(override).expanduser().resolve()
+    return (REPOSITORY_ROOT / ORACLE_MANIFEST_RELPATH).resolve()
+
+
+def resolve_oracle_path(raw: str | os.PathLike[str], base: Path | None = None) -> Path:
+    """Resolve an oracle-side path, confined to the repository root.
+
+    The oracle manifest names Lean sources relative to the repository root
+    (``lean/oracles/abstract_algebra/AA-01.lean``), which sits one level above
+    the harness. Resolution is still bounded: anything climbing past the
+    repository root is rejected, so a tampered manifest cannot reach arbitrary
+    files on the machine.
+    """
+    path = Path(raw).expanduser()
+    if not path.is_absolute():
+        path = (base or REPOSITORY_ROOT) / path
+    path = path.resolve()
+
+    root = REPOSITORY_ROOT.resolve()
+    if path != root and root not in path.parents:
+        raise PathOutsideProject(f"{path} is outside the repository root {root}")
     return path
 
 

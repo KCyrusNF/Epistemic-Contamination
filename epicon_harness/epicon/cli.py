@@ -105,6 +105,9 @@ def _print_dry_run(cases: list[TestCase], model: ModelSpec, config: RunnerConfig
             f"{'yes' if case.system_prompt.strip() else 'no ':3}  "
             f"{paths.as_project_relative(dest)}"
         )
+        theorem = case.oracle_theorem_for(1)
+        if theorem:
+            print(f"             oracle  turn 1 -> {theorem}  lean={case.lean_file or '-'}")
 
     sample = cases[0]
     print(f"\nmodel_metadata (as it would be recorded, shown for {sample.case_id}):")
@@ -143,22 +146,32 @@ def cmd_validate(args: argparse.Namespace) -> int:
 
     for case in cases:
         system = "system+" if case.system_instruction else ""
+        oracle_case = case.oracle
         artifacts = case.formal_artifacts
-        oracles = len(artifacts.oracle_theorems) if artifacts else 0
+        theorems = (
+            oracle_case.oracle_theorems
+            if oracle_case is not None
+            else (artifacts.oracle_theorems if artifacts else [])
+        )
         print(
             f"  OK   {case.case_id:10} {case.domain:20} "
-            f"{system}{case.turn_count} turn(s)  oracle={oracles}"
+            f"{system}{case.turn_count} turn(s)  oracle={len(theorems)}"
         )
-        if artifacts is None:
+        lean_file = case.lean_file
+        if not lean_file:
             continue
         try:
-            lean_path = artifacts.resolved_lean_path()
+            lean_path = (
+                oracle_case.resolved_lean_path()
+                if oracle_case is not None
+                else artifacts.resolved_lean_path() if artifacts else None
+            )
         except EpiconError as exc:
             print(f"       warning: {exc}", file=sys.stderr)
         else:
             if lean_path is not None and not lean_path.exists():
                 print(
-                    f"       warning: lean_file '{artifacts.lean_file}' does not exist",
+                    f"       warning: lean_file '{lean_file}' does not exist",
                     file=sys.stderr,
                 )
 

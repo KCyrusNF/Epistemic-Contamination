@@ -31,7 +31,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
-from . import paths
+from . import oracle, paths
 from .errors import SchemaError
 from .models import ConversationTurn, RunLog, TestCase
 
@@ -83,12 +83,16 @@ def discover_test_case_files(root: Path | None = None, *, recursive: bool = True
 
 
 def load_test_cases(
-    targets: Sequence[Path | str] | None = None, *, strict: bool = True
+    targets: Sequence[Path | str] | None = None,
+    *,
+    strict: bool = True,
+    with_oracle: bool = True,
 ) -> tuple[list[TestCase], list[tuple[Path, Exception]]]:
     """Load test cases from files and/or directories.
 
     Returns the successfully parsed cases plus a list of ``(path, error)`` pairs.
-    With ``strict=True`` the first parse error is raised instead.
+    With ``strict=True`` the first parse error is raised instead. Each case is
+    matched against the oracle manifest by case id unless *with_oracle* is off.
     """
     if targets is None:
         files = discover_test_case_files()
@@ -124,6 +128,8 @@ def load_test_cases(
         seen[case.case_id] = path
         cases.append(case)
 
+    if with_oracle:
+        cases = oracle.attach_all(cases)
     return cases, failures
 
 

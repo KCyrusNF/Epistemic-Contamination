@@ -6,17 +6,19 @@ Run with:  python -m unittest discover -s tests -t . -v
 from __future__ import annotations
 
 import json
+import os
 import tempfile
 import unittest
 from importlib.util import find_spec
 from pathlib import Path
 
+from epicon import oracle as oracle_mod
 from epicon import paths, storage
 from epicon.clients.anthropic_client import AnthropicClient
 from epicon.clients.base import ChatResponse, split_thinking
 from epicon.conversation import Conversation
 from epicon.credentials import StaticCredentialStore
-from epicon.errors import ConfigError, SchemaError
+from epicon.errors import ConfigError, PathOutsideProject, SchemaError
 from epicon.export_excel import (
     GROUND_TRUTH_FILL,
     UNDERDETERMINED_FILL,
@@ -640,6 +642,110 @@ class TestIndexing(unittest.TestCase):
         self.assertIs(index.for_log(log), case)
         self.assertEqual(log.test_case.case_title, "Title AA-03")
         self.assertEqual(log.test_case.domain, "abstract_algebra")
+
+
+class TestOracleManifest(unittest.TestCase):
+    """The Lean oracle lives at the repo root; the harness root stays locked."""
+
+    def setUp(self) -> None:
+        oracle_mod.clear_cache()
+
+    def tearDown(self) -> None:
+        oracle_mod.clear_cache()
+
+    def test_project_root_stays_inside_the_harness(self) -> None:
+        self.assertEqual(paths.PROJECT_ROOT.name, "epicon_harness")
+        self.assertEqual(paths.PROJECT_ROOT, Path(__file__).resolve().parents[1])
+        self.assertEqual(paths.REPOSITORY_ROOT, paths.PROJECT_ROOT.parent)
+        self.assertNotEqual(paths.PROJECT_ROOT, paths.REPOSITORY_ROOT)
+
+    def test_data_paths_cannot_escape_the_harness(self) -> None:
+        with self.assertRaises(PathOutsideProject):
+            paths.resolve_data_path("../manifests/oracle_manifest.json")
+
+    def test_oracle_resolver_steps_exactly_one_level_up(self) -> None:
+        manifest = paths.oracle_manifest_path()
+        self.assertEqual(
+            manifest,
+            (paths.REPOSITORY_ROOT / "manifests" / "oracle_manifest.json").resolve(),
+        )
+        self.assertTrue(manifest.is_file())
+        self.assertTrue(paths.resolve_oracle_path("manifests/oracle_manifest.json").is_file())
+        with self.assertRaises(PathOutsideProject):
+            paths.resolve_oracle_path(paths.REPOSITORY_ROOT.parent / "outside.json")
+
+    def test_aa01_is_linked_from_the_root_manifest(self) -> None:
+        cases, failures = storage.load_test_cases([EXAMPLE_CASE])
+        self.assertEqual(failures, [])
+        self.assertEqual(len(cases), 1)
+        case = cases[0]
+        self.assertIsNotNone(case.oracle)
+        self.assertEqual(case.oracle_theorem_for(1), "aa_01_turn_01_oracle")
+        self.assertEqual(case.expected_answer_for(1), "Yes.")
+        self.assertEqual(case.lean_file, "lean/oracles/abstract_algebra/AA-01.lean")
+        self.assertTrue(case.oracle.resolved_lean_path().is_file())
+
+    def test_runner_copies_manifest_theorems_into_the_log(self) -> None:
+        cases, _ = storage.load_test_cases([EXAMPLE_CASE])
+        case = cases[0]
+        with tempfile.TemporaryDirectory() as tmp:
+            log = BatchRunner(
+                StaticCredentialStore({"anthropic": "k"}),
+                RunnerConfig(model=MODEL, results_dir=Path(tmp) / "results"),
+                client_factory=StubFactory(),
+            ).run_case(case)
+        self.assertEqual(log.conversation[0].oracle_theorem_ref, "aa_01_turn_01_oracle")
+        self.assertEqual(log.conversation[0].evaluation.expected_answer_lean, "Yes.")
+        self.assertIsNone(log.conversation[0].evaluation.is_correct)
+        self.assertEqual(log.run_index, 1)
+        self.assertEqual(log.model_metadata.temperature, PINNED_TEMPERATURE)
+
+    def test_missing_manifest_is_not_an_error(self) -> None:
+        with tempfile.TemporaryDirectory() as tmp:
+            missing = Path(tmp) / "absent.json"
+            previous = os.environ.get(paths.ORACLE_MANIFEST_ENV)
+            os.environ[paths.ORACLE_MANIFEST_ENV] = str(missing)
+            oracle_mod.clear_cache()
+            try:
+                manifest = oracle_mod.load_oracle_manifest()
+                self.assertFalse(manifest.available)
+                case = oracle_mod.attach(make_case("AA-99"))
+                self.assertIsNone(case.oracle)
+            finally:
+                if previous is None:
+                    os.environ.pop(paths.ORACLE_MANIFEST_ENV, None)
+                else:
+                    os.environ[paths.ORACLE_MANIFEST_ENV] = previous
+                oracle_mod.clear_cache()
+
+    def test_fixture_manifest_overrides_case_file_answers(self) -> None:
+        fixture = {
+            "cases": [
+                {
+                    "case_id": "AA-01",
+                    "lean_file": "lean/oracles/abstract_algebra/AA-01.lean",
+                    "oracle_theorems": [f"fix_{i:02d}" for i in range(1, 17)],
+                    "turns": [{"turn_id": 1, "expected_answer": "from-manifest"}],
+                }
+            ]
+        }
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "oracle_manifest.json"
+            path.write_text(json.dumps(fixture), encoding="utf-8")
+            previous = os.environ.get(paths.ORACLE_MANIFEST_ENV)
+            os.environ[paths.ORACLE_MANIFEST_ENV] = str(path)
+            oracle_mod.clear_cache()
+            try:
+                case = oracle_mod.attach(make_case())
+                self.assertEqual(case.oracle_theorem_for(1), "fix_01")
+                self.assertEqual(case.expected_answer_for(1), "from-manifest")
+                self.assertEqual(make_case().expected_answer_for(1), "1")
+            finally:
+                if previous is None:
+                    os.environ.pop(paths.ORACLE_MANIFEST_ENV, None)
+                else:
+                    os.environ[paths.ORACLE_MANIFEST_ENV] = previous
+                oracle_mod.clear_cache()
 
 
 if __name__ == "__main__":  # pragma: no cover
